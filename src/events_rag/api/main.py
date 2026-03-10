@@ -37,7 +37,10 @@ async def metadata():
     settings = get_settings()
 
     return {
-        "geography": settings.city,
+        "location_field": settings.location_field,
+        "location_value": settings.location_value,
         "language": settings.lang,
+        "date_window_mode": settings.date_window_mode,
+        "date_window_days": settings.date_window_days,
         "retrieval_k": settings.retrieval_k,
     }

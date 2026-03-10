@@ -16,23 +16,49 @@ BASE_URL = (
 class OpenAgendaClient:
     def __init__(self) -> None:
         self.settings = get_settings()
-        self.city = self.settings.city
+        self.location_field = self.settings.location_field
+        self.location_value = self.settings.location_value
         self.lang = self.settings.lang
         self.timezone = self.settings.timezone
+        self.date_window_mode = self.settings.date_window_mode
+        self.date_window_days = self.settings.date_window_days
 
-    @staticmethod
-    def _date_range() -> tuple[str, str]:
-        start = datetime.now()
-        end = start + timedelta(days=365)
-        return start.isoformat(timespec="seconds"), end.isoformat(timespec="seconds")
+    def _date_range(self) -> tuple[str, str]:
+        today = datetime.now().date()
+
+        if self.date_window_mode == "past":
+            start = today - timedelta(days=self.date_window_days)
+            end = today
+        else:
+            start = today
+            end = today + timedelta(days=self.date_window_days)
+
+        return start.isoformat(), end.isoformat()
+
+    def _build_location_clause(self) -> str:
+        value = self.location_value.replace("'", "\\'")
+
+        field_map = {
+            "city": "location_city",
+            "region": "location_region",
+            "department": "location_department",
+        }
+
+        if self.location_field not in field_map:
+            raise ValueError(
+                "location_field must be one of: city, region, department"
+            )
+
+        return f"{field_map[self.location_field]} = '{value}'"
 
     def _build_where_clause(self) -> str:
         start, end = self._date_range()
-        city = self.city.replace("'", "\\'")
+        location_clause = self._build_location_clause()
+
         return (
-            f"location_city = '{city}' "
-            f"AND firstdate_begin >= date'{start[:10]}' "
-            f"AND firstdate_begin <= date'{end[:10]}'"
+            f"{location_clause} "
+            f"AND firstdate_begin >= date'{start}' "
+            f"AND firstdate_begin <= date'{end}'"
         )
 
     async def fetch_events(self, limit: int = 100, offset: int = 0) -> list[dict]:
@@ -56,7 +82,11 @@ class OpenAgendaClient:
         logger.info("opendatasoft.events_fetched", count=len(events))
         return events
 
-    async def fetch_all_events(self, batch_size: int = 100, max_records: int = 1000) -> list[dict]:
+    async def fetch_all_events(
+        self,
+        batch_size: int = 100,
+        max_records: int = 5000,
+    ) -> list[dict]:
         all_events: list[dict] = []
         offset = 0
 

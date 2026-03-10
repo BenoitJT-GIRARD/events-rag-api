@@ -1,6 +1,7 @@
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -19,9 +20,13 @@ class Settings(BaseSettings):
     env: str = "dev"
     log_level: str = "INFO"
 
-    city: str = "Montpellier"
+    location_field: str = "region"   # "city" ou "region"
+    location_value: str = "Occitanie"
     lang: str = "fr"
     timezone: str = "Europe/Paris"
+
+    date_window_mode: str = "past"   # "past" ou "future"
+    date_window_days: int = Field(default=365, ge=1, le=3650)
 
     mistral_api_key: str = ""
     embedding_model: str = "mistral-embed"
@@ -33,6 +38,8 @@ class Settings(BaseSettings):
     index_dir: Path = data_dir / "faiss"
 
     retrieval_k: int = 5
+    chunk_size: int = 800
+    chunk_overlap: int = 120
 
 
 @lru_cache
