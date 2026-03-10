@@ -20,6 +20,9 @@ class AskResponse(BaseModel):
 
 
 class MetadataResponse(BaseModel):
-    geography: str
+    location_field: str
+    location_value: str
     language: str
+    date_window_mode: str
+    date_window_days: int
     retrieval_k: int

@@ -20,13 +20,16 @@ class Settings(BaseSettings):
     env: str = "dev"
     log_level: str = "INFO"
 
-    location_field: str = "region"   # "city" ou "region"
+    location_field: str = "region"
     location_value: str = "Occitanie"
     lang: str = "fr"
     timezone: str = "Europe/Paris"
 
-    date_window_mode: str = "past"   # "past" ou "future"
+    date_window_mode: str = "past"
     date_window_days: int = Field(default=365, ge=1, le=3650)
+
+    ingestion_batch_size: int = Field(default=100, ge=1, le=100)
+    ingestion_max_records: int = Field(default=1000, ge=1, le=10000)
 
     mistral_api_key: str = ""
     embedding_model: str = "mistral-embed"
@@ -40,6 +43,8 @@ class Settings(BaseSettings):
     retrieval_k: int = 5
     chunk_size: int = 800
     chunk_overlap: int = 120
+
+    faiss_index_name: str = "events_index"
 
 
 @lru_cache
