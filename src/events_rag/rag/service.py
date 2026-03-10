@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from langchain_core.documents import Document
 from langchain_mistralai import ChatMistralAI
 
@@ -9,6 +11,7 @@ from events_rag.rag.retriever import retrieve_documents
 logger = get_logger(__name__)
 
 
+@lru_cache(maxsize=1)
 def build_chat_model() -> ChatMistralAI:
     settings = get_settings()
 
@@ -46,10 +49,21 @@ Contenu:
 
 
 def build_sources(documents: list[Document]) -> list[dict]:
+    seen: set[tuple[str, str, str | None]] = set()
     sources: list[dict] = []
 
     for doc in documents:
         metadata = doc.metadata or {}
+        key = (
+            str(metadata.get("uid", "")),
+            str(metadata.get("title", "")),
+            metadata.get("date"),
+        )
+
+        if key in seen:
+            continue
+        seen.add(key)
+
         sources.append(
             {
                 "uid": str(metadata.get("uid", "")),

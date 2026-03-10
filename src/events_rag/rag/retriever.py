@@ -1,3 +1,4 @@
+from functools import lru_cache
 from pathlib import Path
 
 from langchain_community.vectorstores import FAISS
@@ -10,6 +11,7 @@ from events_rag.logger import get_logger
 logger = get_logger(__name__)
 
 
+@lru_cache(maxsize=1)
 def build_embeddings() -> MistralAIEmbeddings:
     settings = get_settings()
 
@@ -24,10 +26,11 @@ def build_embeddings() -> MistralAIEmbeddings:
     )
 
 
-def load_vectorstore(index_dir: Path | None = None, index_name: str | None = None) -> FAISS:
+@lru_cache(maxsize=1)
+def load_vectorstore(index_dir: str | None = None, index_name: str | None = None) -> FAISS:
     settings = get_settings()
 
-    base_dir = index_dir or settings.index_dir
+    base_dir = Path(index_dir) if index_dir else settings.index_dir
     final_index_name = index_name or settings.faiss_index_name
     input_dir = base_dir / final_index_name
 

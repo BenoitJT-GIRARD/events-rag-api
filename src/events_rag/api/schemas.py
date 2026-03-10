@@ -26,3 +26,14 @@ class MetadataResponse(BaseModel):
     date_window_mode: str
     date_window_days: int
     retrieval_k: int
+
+
+class RebuildRequest(BaseModel):
+    token: str = Field(min_length=1)
+
+
+class RebuildResponse(BaseModel):
+    status: str
+    indexed_documents: int
+    indexed_chunks: int
+    index_path: str

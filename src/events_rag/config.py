@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     data_dir: Path = BASE_DIR / "data"
     raw_data_dir: Path = data_dir / "raw"
     processed_data_dir: Path = data_dir / "processed"
+    eval_data_dir: Path = data_dir / "eval"
     index_dir: Path = data_dir / "faiss"
 
     retrieval_k: int = 5
@@ -45,6 +46,7 @@ class Settings(BaseSettings):
     chunk_overlap: int = 120
 
     faiss_index_name: str = "events_index"
+    rebuild_token: str = ""
 
 
 @lru_cache

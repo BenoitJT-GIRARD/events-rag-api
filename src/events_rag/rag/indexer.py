@@ -125,14 +125,20 @@ def save_faiss_index(
     return output_dir
 
 
-def build_and_save_index() -> Path:
+def build_and_save_index() -> dict:
     raw_items = load_raw_documents()
     documents = to_langchain_documents(raw_items)
     chunks = split_documents(documents)
     vectorstore = build_faiss_index(chunks)
-
-    return save_faiss_index(
+    output_path = save_faiss_index(
         vectorstore=vectorstore,
         source_document_count=len(documents),
         chunk_count=len(chunks),
     )
+
+    return {
+        "status": "success",
+        "indexed_documents": len(documents),
+        "indexed_chunks": len(chunks),
+        "index_path": str(output_path),
+    }

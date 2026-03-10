@@ -2,9 +2,16 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 
-from events_rag.api.schemas import AskRequest, AskResponse, MetadataResponse
+from events_rag.api.schemas import (
+    AskRequest,
+    AskResponse,
+    MetadataResponse,
+    RebuildRequest,
+    RebuildResponse,
+)
 from events_rag.config import get_settings
 from events_rag.logger import configure_logging, get_logger
+from events_rag.rag.indexer import build_and_save_index
 from events_rag.rag.service import answer_question
 
 
@@ -64,4 +71,31 @@ async def ask(payload: AskRequest) -> AskResponse:
         raise HTTPException(
             status_code=500,
             detail=f"Unexpected error while answering question: {exc}",
+        ) from exc
+
+
+@app.post("/rebuild", response_model=RebuildResponse)
+async def rebuild(payload: RebuildRequest) -> RebuildResponse:
+    settings = get_settings()
+
+    if not settings.rebuild_token:
+        raise HTTPException(
+            status_code=500,
+            detail="Rebuild token is not configured on the server.",
+        )
+
+    if payload.token != settings.rebuild_token:
+        raise HTTPException(status_code=403, detail="Invalid rebuild token.")
+
+    try:
+        result = build_and_save_index()
+        return RebuildResponse(**result)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unexpected error while rebuilding index: {exc}",
         ) from exc

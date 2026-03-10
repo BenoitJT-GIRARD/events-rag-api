@@ -1,0 +1,264 @@
+{
+  "summary": {
+    "total": 5,
+    "correct": 5,
+    "partially_correct": 0,
+    "incorrect": 0,
+    "avg_keyword_coverage": 1.0
+  },
+  "results": [
+    {
+      "id": "q1",
+      "question": "Quels événements musicaux ont lieu à Montpellier ?",
+      "answer": "D'après le contexte fourni, voici les événements musicaux qui ont lieu à Montpellier :\n\n1. **L'Orchestre Symphonique et l'Ensemble Instrumental de l'Université de Montpellier**\n   - **Date** : 21 juin 2025 à 19h30\n   - **Lieu** : Cour d'honneur de l'ancienne faculté de médecine, 2 Rue de l'École de Médecine, 34090 Montpellier\n   - **Description** : Fête de la musique 2025 avec des classiques de la musique classique, des ouvertures d'opéra et d'autres surprises.\n   - **Conditions** : Le lieu peut accueillir maximum une centaine de spectateurs, il y a donc parfois la queue pour entrer.\n\n2. **Concert « Nocturnàlia »**\n   - **Date** : 20 septembre 2025 à 19h00\n   - **Lieu** : Place Max Rouquette, 34000 Montpellier\n   - **Description** : Hommage à Max Rouquette avec des danses et musiques populaires. Le groupe Raffut présente ses nouvelles créations en occitan, catalan, français et portugais.\n   - **Conditions** : Gratuit, sans réservation.\n\nCes deux événements sont les seuls mentionnés dans le contexte fourni.",
+      "reference_answer": "La réponse doit citer un ou plusieurs événements musicaux présents dans le corpus à Montpellier, avec si possible le titre, la date, le lieu et les conditions.",
+      "expected_keywords": [
+        "musique",
+        "concert",
+        "Montpellier"
+      ],
+      "keyword_coverage": 1.0,
+      "city_match": true,
+      "label": "correct",
+      "sources": [
+        {
+          "uid": "67409272",
+          "title": "Conférence alimentation & écologie suivie d'un apéro-buffet (repas partagé) vegan",
+          "city": "Montpellier",
+          "date": "2025-06-06T19:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "27860196",
+          "title": "L'Orchestre Symphonique et l'Ensemble Instrumental de l'Université de Montpellier",
+          "city": "Montpellier",
+          "date": "2025-06-21T19:30:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "94319571",
+          "title": "Conférences, expositions et dédicaces de livres au Cercle Culturel Languedocien !",
+          "city": "Montpellier",
+          "date": "2025-09-20T10:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "91920468",
+          "title": "",
+          "city": "Montpellier",
+          "date": "2025-05-30T19:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "71913720",
+          "title": "Concert « Nocturnàlia »",
+          "city": "Montpellier",
+          "date": "2025-09-20T19:00:00+02:00",
+          "score": null
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "question": "Y a-t-il des événements gratuits à Montpellier ?",
+      "answer": "Oui, il y a plusieurs événements gratuits à Montpellier. Voici une synthèse des événements pertinents :\n\n1. **Conférences, expositions et dédicaces de livres au Cercle Culturel Languedocien**\n   - **Date** : 20 septembre 2025 à 10h00\n   - **Lieu** : Cercle Culturel Languedocien, 2546 avenue de Maurin, 34000 Montpellier\n   - **Conditions** : Événement gratuit.\n\n2. **Conférence alimentation & écologie suivie d'un apéro-buffet (repas partagé) vegan**\n   - **Date** : 6 juin 2025 à 19h00\n   - **Lieu** : Maison pour tous Frédéric Chopin, 1 rue du Marché aux Bestiaux, 34000 Montpellier\n   - **Conditions** : Entrée libre.\n\n3. **Exposition « HOME/LAND » du Begat Theatre proposé par l'Atelline**\n   - **Date** : 3 octobre 2025 à 18h00\n   - **Lieu** : Promenade du Peyrou, Rue la Blottière, 34000 Montpellier\n   - **Conditions** : Gratuit - à partir de 14 ans. Sur réservation.\n\n4. **Performance Chorégraphique**\n   - **Date** : 20 septembre 2025 à 15h30\n   - **Lieu** : MO.CO., 13 rue de la République, 34000 Montpellier\n   - **Conditions** : Gratuit, sur inscription à l'accueil dans la limite des places disponibles.\n\nCes événements offrent des activités variées et gratuites à Montpellier.",
+      "reference_answer": "La réponse doit mentionner des événements dont les conditions indiquent la gratuité, s'ils existent dans le corpus.",
+      "expected_keywords": [
+        "gratuit",
+        "Montpellier"
+      ],
+      "keyword_coverage": 1.0,
+      "city_match": true,
+      "label": "correct",
+      "sources": [
+        {
+          "uid": "94319571",
+          "title": "Conférences, expositions et dédicaces de livres au Cercle Culturel Languedocien !",
+          "city": "Montpellier",
+          "date": "2025-09-20T10:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "10514848",
+          "title": "Visite guidée des salons, exposition d'art contemporain et partage du savoir-faire des artisans d'art au château de la Piscine",
+          "city": "Montpellier",
+          "date": "2025-09-20T10:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "67409272",
+          "title": "Conférence alimentation & écologie suivie d'un apéro-buffet (repas partagé) vegan",
+          "city": "Montpellier",
+          "date": "2025-06-06T19:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "18001666",
+          "title": "Exposition « HOME/LAND » du Begat Theatre proposé par l'Atelline",
+          "city": "Montpellier",
+          "date": "2025-10-03T18:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "50075415",
+          "title": "Performance Chorégraphique",
+          "city": "Montpellier",
+          "date": "2025-09-20T15:30:00+02:00",
+          "score": null
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "question": "Quels événements parlent d'exposition ou d'art à Montpellier ?",
+      "answer": "Voici les événements à Montpellier qui parlent d'exposition ou d'art :\n\n1. **Visites de l'exposition « Miss.tic : dame de pique, reine de coeur » et de la collection permanente du musée**\n   - **Ville** : Montpellier\n   - **Date** : 2025-09-19 à 11h00\n   - **Lieu** : Musée Parcelle473\n   - **Adresse** : 425 avenue des Frères Buhler, 34080 Montpellier\n   - **Conditions** : Tarifs réduits à -50% (4,5 €, 2,5 € pour certaines catégories)\n   - **Contenu** : Exposition permanente sur l'histoire du street art, avec des artistes montpelliérains.\n\n2. **Exposition \"Montpellier, regarder la ville autrement. Archives et architecture\"**\n   - **Ville** : Montpellier\n   - **Date** : 2025-09-20 à 10h00\n   - **Lieu** : Archives de Montpellier\n   - **Adresse** : 218 boulevard de l'Aéroport, 34064 Montpellier\n   - **Conditions** : Gratuit, sans réservation\n   - **Contenu** : Présentation de documents sur l'architecture de Montpellier à travers cinq monuments emblématiques.\n\n3. **Sortie de résidence - La grande traversée**\n   - **Ville** : Montpellier\n   - **Date** : 2025-10-04 à 16h00\n   - **Lieu** : Echelles de la ville\n   - **Adresse** : 1 place Paul Bec, 34000 Montpellier\n   - **Conditions** : Gratuit, entrée libre\n   - **Contenu** : Événement lié à une résidence artistique, avec des éléments d'exposition, de paysage et de design.\n\nCes événements sont les seuls mentionnés dans le contexte qui correspondent à des expositions ou à des événements liés à l'art à Montpellier.",
+      "reference_answer": "La réponse doit mentionner des événements liés à l'exposition, à l'art ou à la culture visuelle présents dans le corpus.",
+      "expected_keywords": [
+        "exposition",
+        "art",
+        "Montpellier"
+      ],
+      "keyword_coverage": 1.0,
+      "city_match": true,
+      "label": "correct",
+      "sources": [
+        {
+          "uid": "66944571",
+          "title": "Visite commentée de l'Agora, Cité Internationale de la Danse, couvent des Ursulines",
+          "city": "Montpellier",
+          "date": "2025-09-20T10:30:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "62861814",
+          "title": "Visites de l'exposition « Miss.tic : dame de pique, reine de coeur » et de la collection permanente du musée",
+          "city": "Montpellier",
+          "date": "2025-09-19T11:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "18991640",
+          "title": "Opéra Orchestre national de Montpellier",
+          "city": "Montpellier",
+          "date": "2025-05-10T09:30:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "83934936",
+          "title": "Exposition \"Montpellier, regarder la ville autrement. Archives et architecture\"",
+          "city": "Montpellier",
+          "date": "2025-09-20T10:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "11406944",
+          "title": "Sortie de résidence - La grande traversée",
+          "city": "Montpellier",
+          "date": "2025-10-04T16:00:00+02:00",
+          "score": null
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "question": "Quels événements sont prévus pour les enfants à Montpellier ?",
+      "answer": "Voici les événements prévus pour les enfants à Montpellier :\n\n1. **Visite découverte pour enfants : « Le centre historique avec Perette la mouette »**\n   - **Date** : 20 septembre 2025 à 10h00\n   - **Lieu** : Centre historique de Montpellier, Rue de la Fontaine, 34000 Montpellier\n   - **Conditions** : Gratuit, réservation obligatoire, 1 livret-jeu inclus par enfant participant.\n\n2. **Vélorution des enfants**\n   - **Date** : 4 mai 2025 à 10h00\n   - **Lieu** : Place de la Comédie, Montpellier\n   - **Conditions** : Organisé par l'association Vélocité Grand Montpellier.\n\n3. **Spectacle « Corps Sonores Juniors » – Massimo Fusco**\n   - **Date** : 20 septembre 2025 à 11h30\n   - **Lieu** : Agora, Cité Internationale de la Danse, 2 boulevard Louis Blanc, 34000 Montpellier\n   - **Conditions** : Adapté aux enfants entre 5 et 13 ans. Tarif : de 5 à 13 €. Réservations en ligne à partir du 8 septembre sur montpellierdanse.com.\n\n4. **Visite guidée des salons, exposition d'art contemporain et partage du savoir-faire des artisans d'art au château de la Piscine**\n   - **Date** : 20 septembre 2025 à 10h00\n   - **Lieu** : Château de la Piscine, 129 avenue de Lodève, 34070 Montpellier\n   - **Conditions** : Gratuit pour les enfants de moins de 12 ans. Réservation obligatoire.\n\n5. **Petites bêtes, visite famille pour les 2 à 5 ans**\n   - **Date** : 20 septembre 2025 à 11h15\n   - **Lieu** : Musée Fabre, 39 Boulevard de Bonnes Nouvelles, 34000 Montpellier\n   - **Conditions** : Gratuit, sans réservation, pour les enfants de 2 à 5 ans accompagnés d’un adulte. Durée : 30 minutes. Rendez-vous dans le hall du musée.",
+      "reference_answer": "La réponse doit mentionner des événements adaptés aux enfants ou aux familles s'ils sont présents dans le corpus.",
+      "expected_keywords": [
+        "enfant",
+        "famille",
+        "Montpellier"
+      ],
+      "keyword_coverage": 1.0,
+      "city_match": true,
+      "label": "correct",
+      "sources": [
+        {
+          "uid": "50938485",
+          "title": "Visite découverte pour enfants : « Le centre historique avec Perette la mouette »",
+          "city": "Montpellier",
+          "date": "2025-09-20T10:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "83029734",
+          "title": "Vélorution des enfants",
+          "city": "Montpellier",
+          "date": "2025-05-04T10:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "20841619",
+          "title": "Spectacle « Corps Sonores Juniors » – Massimo Fusco",
+          "city": "Montpellier",
+          "date": "2025-09-20T11:30:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "10514848",
+          "title": "Visite guidée des salons, exposition d'art contemporain et partage du savoir-faire des artisans d'art au château de la Piscine",
+          "city": "Montpellier",
+          "date": "2025-09-20T10:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "66967169",
+          "title": "Petites bêtes, visite famille pour les 2 à 5 ans",
+          "city": "Montpellier",
+          "date": "2025-09-20T11:15:00+02:00",
+          "score": null
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "question": "Y a-t-il des événements de théâtre à Montpellier ?",
+      "answer": "Oui, il y a des événements de théâtre à Montpellier. Voici les événements pertinents :\n\n1. **Improvisation théâtrale par la Compagnie des Mille et Une**\n   - **Date** : 4 octobre 2025 à 15h30\n   - **Lieu** : Médiathèque Victor Hugo, 207 rue Guillaume Janvier, 34070 Montpellier\n   - **Conditions** : Entrée libre dans la limite des places disponibles\n   - **Description** : Spectacle improvisé avec participation du public. Tout public.\n\n2. **Saynètes de théâtre contemporain par la troupe de théâtre Ideolasso**\n   - **Date** : 21 septembre 2025 à 10h00\n   - **Lieu** : Hôtel de Grave - Direction régionale des affaires culturelles (DRAC) Occitanie, 5 rue de la Salle l’Évêque, 34000 Montpellier\n   - **Conditions** : Gratuit, sans réservation\n   - **Description** : Courtes saynètes contemporaines inspirées d’extraits de films connus, ponctuant la découverte du patrimoine.\n\nCes événements offrent des expériences théâtrales variées à Montpellier.",
+      "reference_answer": "La réponse doit mentionner un ou plusieurs événements liés au théâtre s'ils existent dans le corpus.",
+      "expected_keywords": [
+        "théâtre",
+        "Montpellier"
+      ],
+      "keyword_coverage": 1.0,
+      "city_match": true,
+      "label": "correct",
+      "sources": [
+        {
+          "uid": "41097064",
+          "title": "Improvisation théâtrale par la Compagnie des Mille et Une",
+          "city": "Montpellier",
+          "date": "2025-10-04T15:30:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "66944571",
+          "title": "Visite commentée de l'Agora, Cité Internationale de la Danse, couvent des Ursulines",
+          "city": "Montpellier",
+          "date": "2025-09-20T10:30:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "91920468",
+          "title": "",
+          "city": "Montpellier",
+          "date": "2025-05-30T19:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "16746395",
+          "title": "Saynètes de théâtre contemporain par la troupe de théâtre Ideolasso",
+          "city": "Montpellier",
+          "date": "2025-09-21T10:00:00+02:00",
+          "score": null
+        },
+        {
+          "uid": "72749152",
+          "title": "Radio Fuoco invite Euphoria - Futur Immoral & La Bulle bleue",
+          "city": "Montpellier",
+          "date": "2025-09-19T20:00:00+02:00",
+          "score": null
+        }
+      ]
+    }
+  ]
+}

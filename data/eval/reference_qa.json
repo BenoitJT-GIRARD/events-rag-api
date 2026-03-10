@@ -1,0 +1,37 @@
+[
+  {
+    "id": "q1",
+    "question": "Quels événements musicaux ont lieu à Montpellier ?",
+    "reference_answer": "La réponse doit citer un ou plusieurs événements musicaux présents dans le corpus à Montpellier, avec si possible le titre, la date, le lieu et les conditions.",
+    "expected_keywords": ["musique", "concert", "Montpellier"],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q2",
+    "question": "Y a-t-il des événements gratuits à Montpellier ?",
+    "reference_answer": "La réponse doit mentionner des événements dont les conditions indiquent la gratuité, s'ils existent dans le corpus.",
+    "expected_keywords": ["gratuit", "Montpellier"],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q3",
+    "question": "Quels événements parlent d'exposition ou d'art à Montpellier ?",
+    "reference_answer": "La réponse doit mentionner des événements liés à l'exposition, à l'art ou à la culture visuelle présents dans le corpus.",
+    "expected_keywords": ["exposition", "art", "Montpellier"],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q4",
+    "question": "Quels événements sont prévus pour les enfants à Montpellier ?",
+    "reference_answer": "La réponse doit mentionner des événements adaptés aux enfants ou aux familles s'ils sont présents dans le corpus.",
+    "expected_keywords": ["enfant", "famille", "Montpellier"],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q5",
+    "question": "Y a-t-il des événements de théâtre à Montpellier ?",
+    "reference_answer": "La réponse doit mentionner un ou plusieurs événements liés au théâtre s'ils existent dans le corpus.",
+    "expected_keywords": ["théâtre", "Montpellier"],
+    "expected_city": "Montpellier"
+  }
+]
