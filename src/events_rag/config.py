@@ -19,10 +19,9 @@ class Settings(BaseSettings):
     env: str = "dev"
     log_level: str = "INFO"
 
-    openagenda_key: str = ""
-    openagenda_agenda_uid: str = ""
-    openagenda_city: str = "Montpellier"
-    openagenda_lang: str = "fr"
+    city: str = "Montpellier"
+    lang: str = "fr"
+    timezone: str = "Europe/Paris"
 
     mistral_api_key: str = ""
     embedding_model: str = "mistral-embed"

@@ -37,7 +37,7 @@ async def metadata():
     settings = get_settings()
 
     return {
-        "geography": settings.openagenda_city,
-        "language": settings.openagenda_lang,
+        "geography": settings.city,
+        "language": settings.lang,
         "retrieval_k": settings.retrieval_k,
     }

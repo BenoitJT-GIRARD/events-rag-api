@@ -1,0 +1,25 @@
+import json
+
+from events_rag.config import get_settings
+from events_rag.ingestion.openagenda_client import OpenAgendaClient
+from events_rag.ingestion.preprocess import event_to_document
+from events_rag.logger import get_logger
+
+logger = get_logger(__name__)
+
+
+async def build_dataset() -> list[dict]:
+    settings = get_settings()
+    settings.raw_data_dir.mkdir(parents=True, exist_ok=True)
+
+    client = OpenAgendaClient()
+    events = await client.fetch_all_events()
+
+    documents = [event_to_document(event) for event in events]
+
+    output_path = settings.raw_data_dir / "events.json"
+    with output_path.open("w", encoding="utf-8") as file:
+        json.dump(documents, file, ensure_ascii=False, indent=2)
+
+    logger.info("dataset.saved", path=str(output_path), count=len(documents))
+    return documents
