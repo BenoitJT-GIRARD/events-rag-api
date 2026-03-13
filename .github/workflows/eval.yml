@@ -1,0 +1,37 @@
+name: Eval
+
+on:
+  workflow_dispatch:
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    env:
+      EVENTS_MISTRAL_API_KEY: ${{ secrets.EVENTS_MISTRAL_API_KEY }}
+      EVENTS_LOCATION_FIELD: city
+      EVENTS_LOCATION_VALUE: Montpellier
+      EVENTS_DATE_WINDOW_MODE: past
+      EVENTS_DATE_WINDOW_DAYS: 365
+      EVENTS_INGESTION_BATCH_SIZE: 100
+      EVENTS_INGESTION_MAX_RECORDS: 700
+      EVENTS_REBUILD_TOKEN: dummy-token
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - run: uv python install 3.12
+      - run: uv sync --all-groups
+
+      - name: Build dataset
+        run: uv run python scripts/build_dataset.py
+
+      - name: Build index
+        run: uv run python scripts/build_index.py
+
+      - name: Heuristic evaluation
+        run: uv run python scripts/evaluate_rag.py
+
+      - name: Ragas evaluation
+        run: uv run python scripts/evaluate_ragas.py

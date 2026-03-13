@@ -1,0 +1,13 @@
+.git
+.gitignore
+.venv
+__pycache__
+.pytest_cache
+.ruff_cache
+.mypy_cache
+docs
+tests
+.env
+*.pyc
+data/eval/evaluation_results.json
+data/eval/ragas_results.json
