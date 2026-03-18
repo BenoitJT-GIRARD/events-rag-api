@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     lang: str = "fr"
     timezone: str = "Europe/Paris"
 
-    date_window_mode: str = "past"
+    date_window_mode: str = "rolling"
     date_window_days: int = Field(default=365, ge=1, le=3650)
 
     ingestion_batch_size: int = Field(default=100, ge=1, le=100)

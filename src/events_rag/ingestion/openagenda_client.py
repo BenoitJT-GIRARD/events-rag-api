@@ -23,17 +23,24 @@ class OpenAgendaClient:
         self.date_window_mode = self.settings.date_window_mode
         self.date_window_days = self.settings.date_window_days
 
-    def _date_range(self) -> tuple[str, str]:
+    def _date_range(self) -> tuple[str, str | None]:
         today = datetime.now().date()
 
         if self.date_window_mode == "past":
             start = today - timedelta(days=self.date_window_days)
             end = today
-        else:
+        elif self.date_window_mode == "future":
             start = today
             end = today + timedelta(days=self.date_window_days)
+        elif self.date_window_mode == "rolling":
+            start = today - timedelta(days=self.date_window_days)
+            end = None
+        else:
+            raise ValueError(
+                "date_window_mode must be one of: past, future, rolling"
+            )
 
-        return start.isoformat(), end.isoformat()
+        return start.isoformat(), end.isoformat() if end else None
 
     def _build_location_clause(self) -> str:
         value = self.location_value.replace("'", "\\'")
@@ -55,11 +62,11 @@ class OpenAgendaClient:
         start, end = self._date_range()
         location_clause = self._build_location_clause()
 
-        return (
-            f"{location_clause} "
-            f"AND firstdate_begin >= date'{start}' "
-            f"AND firstdate_begin <= date'{end}'"
-        )
+        date_clause = f"firstdate_begin >= date'{start}'"
+        if end is not None:
+            date_clause += f" AND firstdate_begin <= date'{end}'"
+
+        return f"{location_clause} AND {date_clause}"
 
     async def fetch_events(self, limit: int = 100, offset: int = 0) -> list[dict]:
         params = {
