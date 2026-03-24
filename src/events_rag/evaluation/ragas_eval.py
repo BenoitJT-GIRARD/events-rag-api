@@ -4,16 +4,24 @@ import time
 from pathlib import Path
 
 from ragas import EvaluationDataset, SingleTurnSample, evaluate
-from ragas.run_config import RunConfig
 from ragas.embeddings import LangchainEmbeddingsWrapper
 from ragas.llms import LangchainLLMWrapper
 from ragas.metrics import (
     _AnswerRelevancy as AnswerRelevancy,
+)
+from ragas.metrics import (
     _ContextPrecision as ContextPrecision,
+)
+from ragas.metrics import (
     _ContextRecall as ContextRecall,
+)
+from ragas.metrics import (
     _ContextRelevance as ContextRelevancy,
+)
+from ragas.metrics import (
     _Faithfulness as Faithfulness,
 )
+from ragas.run_config import RunConfig
 
 from events_rag.config import get_settings
 from events_rag.rag.prompts import SYSTEM_PROMPT, build_user_prompt
@@ -22,9 +30,7 @@ from events_rag.rag.service import build_chat_model, format_context
 
 
 def safe_mean(values: list) -> float | None:
-    valid = [
-        v for v in values if v is not None and not (isinstance(v, float) and math.isnan(v))
-    ]
+    valid = [v for v in values if v is not None and not (isinstance(v, float) and math.isnan(v))]
     if not valid:
         return None
     return round(sum(valid) / len(valid), 3)
@@ -49,7 +55,7 @@ def build_case_type_summary(cases: list[dict]) -> dict:
     for case in cases:
         ct = case.get("case_type", "positive")
         type_counts[ct] = type_counts.get(ct, 0) + 1
-    return {ct: count for ct, count in type_counts.items()}
+    return dict(type_counts)
 
 
 def load_reference_dataset(path: Path) -> list[dict]:

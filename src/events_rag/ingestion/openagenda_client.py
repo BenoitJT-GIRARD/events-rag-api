@@ -36,9 +36,7 @@ class OpenAgendaClient:
             start = today - timedelta(days=self.date_window_days)
             end = None
         else:
-            raise ValueError(
-                "date_window_mode must be one of: past, future, rolling"
-            )
+            raise ValueError("date_window_mode must be one of: past, future, rolling")
 
         return start.isoformat(), end.isoformat() if end else None
 
@@ -52,9 +50,7 @@ class OpenAgendaClient:
         }
 
         if self.location_field not in field_map:
-            raise ValueError(
-                "location_field must be one of: city, region, department"
-            )
+            raise ValueError("location_field must be one of: city, region, department")
 
         return f"{field_map[self.location_field]} = '{value}'"
 

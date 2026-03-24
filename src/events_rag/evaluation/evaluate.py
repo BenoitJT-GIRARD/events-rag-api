@@ -15,7 +15,11 @@ def load_reference_dataset(path: Path) -> list[dict]:
     return payload
 
 
-def keyword_coverage(answer: str, expected_keywords: list[str], case_type: str = "positive") -> float:
+def keyword_coverage(
+    answer: str,
+    expected_keywords: list[str],
+    case_type: str = "positive",
+) -> float:
     if not expected_keywords:
         return 1.0 if case_type != "positive" else 0.0
 
@@ -29,10 +33,7 @@ def city_match(sources: list[dict], expected_city: str | None) -> bool:
         return True
 
     expected_city_lower = expected_city.lower()
-    return any(
-        (source.get("city") or "").lower() == expected_city_lower
-        for source in sources
-    )
+    return any((source.get("city") or "").lower() == expected_city_lower for source in sources)
 
 
 REFUSAL_SIGNALS = [

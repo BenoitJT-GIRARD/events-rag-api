@@ -170,7 +170,7 @@ cd events-rag
 uv sync --all-groups
 ```
 
-Le projet utilise `pyproject.toml` et `uv.lock` comme source principale de vérité.  
+Le projet utilise `pyproject.toml` et `uv.lock` comme source principale de vérité.
 Un `requirements.txt` exporté est également fourni pour faciliter certaines reproductions.
 
 ### 7.3. Variables d'environnement
@@ -506,7 +506,7 @@ Les métriques `answer_relevancy` et `context_relevancy` (NV) n'ont pas produit 
 
 ### Pourquoi pas de reranker ?
 
-Le reranking n était pas requis par le cahier des charges.  
+Le reranking n était pas requis par le cahier des charges.
 Pour ce POC, le pipeline retrieval + génération couvre correctement les attentes. Le reranking constitue une **piste d'amélioration**, pas une condition de réussite.
 
 ### Pourquoi uv plutôt qu'un simple requirements.txt ?
@@ -544,7 +544,7 @@ docker compose up --build
 
 ### Remarque importante
 
-Le conteneur permet d'exécuter localement l'API, mais la génération et les embeddings restent dépendants de l'API Mistral.  
+Le conteneur permet d'exécuter localement l'API, mais la génération et les embeddings restent dépendants de l'API Mistral.
 Le système est donc **conteneurisé**, mais pas entièrement autonome hors ligne.
 
 ---

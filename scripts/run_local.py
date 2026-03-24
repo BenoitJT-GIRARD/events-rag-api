@@ -1,13 +1,21 @@
 import subprocess
 import sys
 
-
 COMMANDS = [
     ["uv", "run", "python", "scripts/build_dataset.py"],
     ["uv", "run", "python", "scripts/build_index.py"],
     ["uv", "run", "python", "scripts/evaluate_rag.py"],
     ["uv", "run", "python", "scripts/evaluate_ragas.py"],
-    ["uv", "run", "uvicorn", "events_rag.api.main:app", "--host", "127.0.0.1", "--port", "8000"],
+    [
+        "uv",
+        "run",
+        "uvicorn",
+        "events_rag.api.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+    ],
 ]
 
 

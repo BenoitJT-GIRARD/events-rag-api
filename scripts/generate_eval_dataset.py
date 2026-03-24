@@ -49,6 +49,7 @@ MAX_EVENTS_PER_CATEGORY = 2
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def load_events(events_path: Path) -> list[dict]:
     with events_path.open(encoding="utf-8") as f:
         return json.load(f)
@@ -92,6 +93,7 @@ def parse_json_from_llm(text: str) -> list[dict]:
 # LLM call with retry
 # ---------------------------------------------------------------------------
 
+
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=10))
 def call_llm(model: ChatMistralAI, prompt: str) -> str:
     response = model.invoke([("human", prompt)])
@@ -102,11 +104,12 @@ def call_llm(model: ChatMistralAI, prompt: str) -> str:
 # Prompt builders
 # ---------------------------------------------------------------------------
 
+
 def build_positive_prompt(category: str, events_text: str) -> str:
     return (
         "Tu es un générateur de dataset d'évaluation pour un système RAG d'événements culturels.\n"
         f"À partir des événements suivants (catégorie : {category}), "
-        "génère 2 questions-réponses de type \"positif\".\n\n"
+        'génère 2 questions-réponses de type "positif".\n\n'
         f"Événements:\n{events_text}\n\n"
         "Format JSON attendu (tableau de 2 objets):\n"
         "[\n"
@@ -128,7 +131,7 @@ def build_negative_prompt() -> str:
     return (
         "Tu es un générateur de dataset d'évaluation pour un système RAG "
         "d'événements culturels à Montpellier.\n"
-        "Génère 5 questions-réponses de type \"négatif\" — ces questions portent "
+        'Génère 5 questions-réponses de type "négatif" — ces questions portent '
         "sur des événements qui N'EXISTENT PAS dans le corpus "
         "(autre ville comme Paris/Lyon, catégorie absente comme opéra/cirque).\n\n"
         "Format JSON attendu (tableau de 5 objets):\n"
@@ -150,7 +153,7 @@ def build_ambiguous_prompt() -> str:
     return (
         "Tu es un générateur de dataset d'évaluation pour un système RAG "
         "d'événements culturels à Montpellier.\n"
-        "Génère 5 questions-réponses de type \"ambigu\" — questions vagues ou "
+        'Génère 5 questions-réponses de type "ambigu" — questions vagues ou '
         "dépendantes d'une date spécifique non précisée.\n\n"
         "Format JSON attendu (tableau de 5 objets):\n"
         "[\n"
@@ -170,6 +173,7 @@ def build_ambiguous_prompt() -> str:
 # ---------------------------------------------------------------------------
 # Main generation function
 # ---------------------------------------------------------------------------
+
 
 def generate_eval_dataset() -> list[dict]:
     settings = get_settings()
