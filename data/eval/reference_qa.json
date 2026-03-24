@@ -1,0 +1,378 @@
+[
+  {
+    "id": "q01",
+    "case_type": "positive",
+    "question": "Quel événement célèbre les 20 ans d'un atelier vélo à Montpellier en mai 2025 ?",
+    "ground_truth": "Les 20 ans du Vieux Biclou auront lieu le 18 mai 2025 à 15h au Vieux Biclou à Montpellier, avec des jeux et une tombola pour une après-midi festive.",
+    "expected_keywords": [
+      "Vieux Biclou",
+      "20 ans",
+      "atelier vélo"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q02",
+    "case_type": "positive",
+    "question": "Où et quand se déroule la lecture musicale « Songes capturés » en hommage à Max Rouquette ?",
+    "ground_truth": "La lecture musicale « Songes capturés » aura lieu le 20 septembre 2025 à 11h au Domaine de Bonnier de la Mosson à Montpellier, gratuitement et sans réservation.",
+    "expected_keywords": [
+      "Songes capturés",
+      "Max Rouquette",
+      "lecture musicale"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q03",
+    "case_type": "positive",
+    "question": "Quel spectacle adapté aux enfants est programmé à l'Agora de la Cité Internationale de la Danse à Montpellier le 20 septembre 2025 ?",
+    "ground_truth": "Le spectacle « Corps Sonores Juniors » de Massimo Fusco est programmé à l'Agora, Cité Internationale de la Danse, Montpellier, le 20 septembre 2025. Il est adapté aux enfants de 5 à 13 ans avec des tarifs allant de 5 à 13 €.",
+    "expected_keywords": [
+      "Corps Sonores Juniors",
+      "Massimo Fusco",
+      "Agora",
+      "Cité Internationale de la Danse",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q04",
+    "case_type": "positive",
+    "question": "Où et quand a lieu la visite guidée gratuite sur la comédie à Montpellier en septembre 2025 ?",
+    "ground_truth": "La visite guidée « La comédie d'hier et d'aujourd'hui » a lieu Place de la Comédie à Montpellier le 21 septembre 2025. Elle est gratuite mais nécessite une réservation obligatoire.",
+    "expected_keywords": [
+      "La comédie d'hier et d'aujourd'hui",
+      "Place de la Comédie",
+      "Montpellier",
+      "visite guidée"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q05",
+    "case_type": "positive",
+    "question": "Quel spectacle de danse adapté aux enfants est programmé à l'Agora de la Cité Internationale de la Danse à Montpellier le 20 septembre 2025 ?",
+    "ground_truth": "Le spectacle « Corps Sonores Juniors » de Massimo Fusco est programmé à l'Agora, Cité Internationale de la Danse, Montpellier, le 20 septembre 2025. Il est adapté aux enfants de 5 à 13 ans avec des tarifs allant de 5 à 13 €.",
+    "expected_keywords": [
+      "Corps Sonores Juniors",
+      "Massimo Fusco",
+      "Agora",
+      "Cité Internationale de la Danse",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q06",
+    "case_type": "positive",
+    "question": "Quel atelier de danse flamenco est organisé à Montpellier le 24 juillet 2025 et quel en est le thème principal ?",
+    "ground_truth": "L'atelier Flamenco « La Grammaire des mains » avec Olga Magaña est organisé à la boutique d'écriture & CO, Montpellier, le 24 juillet 2025. Le thème principal est l'exploration des mouvements des mains pour créer une chorégraphie.",
+    "expected_keywords": [
+      "Atelier Flamenco",
+      "La Grammaire des mains",
+      "Olga Magaña",
+      "boutique d'écriture & CO",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q07",
+    "case_type": "positive",
+    "question": "Quel événement gratuit et sans réservation permet de participer à un atelier de création en famille ou entre amis à Montpellier le 20 septembre 2025 ?",
+    "ground_truth": "L'Open atelier, organisé au MO.CO. Panacée à Montpellier le 20 septembre 2025, est un atelier de création gratuit et sans réservation, inspiré des œuvres de Jean-Marie Appriou.",
+    "expected_keywords": [
+      "Open atelier",
+      "MO.CO. Panacée",
+      "gratuit",
+      "sans réservation"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q08",
+    "case_type": "positive",
+    "question": "Où et quand se déroule le jeu de piste gratuit dans l'ancien quartier épiscopal de Montpellier en 2025 ?",
+    "ground_truth": "Le jeu de piste dans l'ancien quartier épiscopal a lieu à Montpellier le 20 septembre 2025, en autonomie avec un parcours d'environ 1h et sans réservation (caution de 5€ pour le plan).",
+    "expected_keywords": [
+      "jeu de piste",
+      "ancien quartier épiscopal",
+      "gratuit",
+      "sans réservation"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q09",
+    "case_type": "positive",
+    "question": "Quel atelier gratuit et sans réservation est proposé à la MO.CO. Panacée le 20 septembre 2025 ?",
+    "ground_truth": "L'Open atelier, un atelier de création à partager en famille ou entre amis en lien avec les œuvres de Jean-Marie Appriou, est proposé gratuitement et sans réservation à la MO.CO. Panacée le 20 septembre 2025.",
+    "expected_keywords": [
+      "Open atelier",
+      "MO.CO. Panacée",
+      "gratuit",
+      "sans réservation"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q10",
+    "case_type": "positive",
+    "question": "Où et quand peut-on participer à un jeu de piste gratuit dans l'ancien quartier épiscopal de Montpellier ?",
+    "ground_truth": "Le jeu de piste dans l'ancien quartier épiscopal a lieu gratuitement à Montpellier le 20 septembre 2025, en autonomie avec un parcours d'environ 1h.",
+    "expected_keywords": [
+      "jeu de piste",
+      "ancien quartier épiscopal",
+      "gratuit",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q11",
+    "case_type": "positive",
+    "question": "Quel atelier gratuit et sans réservation est proposé à Montpellier le 20 septembre 2025 pour créer en famille ou entre amis ?",
+    "ground_truth": "L'Open atelier est un atelier de création gratuit et sans réservation proposé le 20 septembre 2025 au MO.CO. Panacée à Montpellier, en lien avec les œuvres de Jean-Marie Appriou.",
+    "expected_keywords": [
+      "Open atelier",
+      "MO.CO. Panacée",
+      "gratuit",
+      "sans réservation"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q12",
+    "case_type": "positive",
+    "question": "Où et quand peut-on participer à un jeu de piste gratuit dans le quartier épiscopal de Montpellier ?",
+    "ground_truth": "Le jeu de piste dans l'ancien quartier épiscopal a lieu le 20 septembre 2025 à Montpellier, en autonomie avec un plan remis sur place (caution de 5€ ou à photographier avant le départ).",
+    "expected_keywords": [
+      "jeu de piste",
+      "ancien quartier épiscopal",
+      "gratuit",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q13",
+    "case_type": "positive",
+    "question": "Quelle formation est proposée à Montpellier pour devenir animateur socio-sportif et à quelle date ?",
+    "ground_truth": "La formation 'DEVENEZ ANIMATEUR SOCIO-SPORTIF' est proposée à l'Agence MONTPELLIER CEVENNES à Montpellier le 22 septembre 2025.",
+    "expected_keywords": [
+      "animateur socio-sportif",
+      "formation",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q14",
+    "case_type": "positive",
+    "question": "Quel événement sportif à Montpellier permet de parcourir le plus de kilomètres en mai 2025 ?",
+    "ground_truth": "L'événement 'Mai à Vélo 2025' se déroule à Montpellier en mai 2025 et consiste à parcourir le plus de kilomètres possible.",
+    "expected_keywords": [
+      "Mai à Vélo",
+      "kilomètres",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q15",
+    "case_type": "positive",
+    "question": "Quel événement culturel gratuit et sans réservation permet de découvrir l'ancien quartier épiscopal de Montpellier en autonomie ?",
+    "ground_truth": "Le jeu de piste dans l'ancien quartier épiscopal de Montpellier, qui se déroule le 20 septembre 2025 à 10h30. L'événement est gratuit, sans réservation, avec un parcours d'environ 1h en autonomie et une caution de 5€.",
+    "expected_keywords": [
+      "jeu de piste",
+      "ancien quartier épiscopal",
+      "gratuit",
+      "autonomie"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q16",
+    "case_type": "positive",
+    "question": "Quel film est projeté lors des Journées du Patrimoine au cinéma Nestor Burma à Montpellier le 20 septembre 2025 à 17h ?",
+    "ground_truth": "Le film 'Le Peuple migrateur' est projeté le 20 septembre 2025 à 17h au cinéma Nestor Burma dans le cadre des Journées du Patrimoine, avec une séance accompagnée par Ghislaine Lassiaz.",
+    "expected_keywords": [
+      "Le Peuple migrateur",
+      "Journées du Patrimoine",
+      "cinéma Nestor Burma"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q17",
+    "case_type": "positive",
+    "question": "Quels sont les détails de la rencontre avec CitésLab prévue à Montpellier en août 2025 ?",
+    "ground_truth": "Les rencontres de la création avec CitésLab auront lieu le 18 août 2025 à 11h30 à l'Agence MONTPELLIER CEVENNES à Montpellier. Cet événement porte sur la création d'entreprise et la préparation à l'entrepreneuriat.",
+    "expected_keywords": [
+      "CitésLab",
+      "création d'entreprise",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q18",
+    "case_type": "positive",
+    "question": "Où et quand se déroule l'Open atelier à Montpellier en septembre 2025 ?",
+    "ground_truth": "L'Open atelier aura lieu le 20 septembre 2025 à 14h00 au MO.CO. Panacée à Montpellier. Cet atelier de création est gratuit et sans réservation, et il est lié aux œuvres de Jean-Marie Appriou.",
+    "expected_keywords": [
+      "Open atelier",
+      "MO.CO. Panacée",
+      "gratuit"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q19",
+    "case_type": "positive",
+    "question": "Quel événement culturel est organisé au cinéma Nestor Burma à Montpellier le 20 septembre 2025 à 17h dans le cadre des Journées du Patrimoine ?",
+    "ground_truth": "Le festival Play it Again propose la séance du film *Le Peuple migrateur*, accompagnée par Ghislaine Lassiaz.",
+    "expected_keywords": [
+      "Play it Again",
+      "Journées du patrimoine",
+      "Le Peuple migrateur",
+      "Cinéma Nestor Burma"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q20",
+    "case_type": "positive",
+    "question": "Où et quand a lieu la célébration des 20 ans du Vieux Biclou à Montpellier ?",
+    "ground_truth": "Les 20 ans du Vieux Biclou sont célébrés le 18 mai 2025 à 15h au Vieux Biclou, avec des jeux et une tombola.",
+    "expected_keywords": [
+      "Vieux Biclou",
+      "20 ans",
+      "tombola",
+      "jeux"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q21",
+    "case_type": "negative",
+    "question": "Quels sont les prochains opéras à l'Opéra Bastille à Paris ?",
+    "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
+    "expected_keywords": [
+      "opéra",
+      "Opéra Bastille",
+      "Paris"
+    ],
+    "expected_city": "Paris"
+  },
+  {
+    "id": "q22",
+    "case_type": "negative",
+    "question": "Y a-t-il un festival de cirque à Lyon en 2024 ?",
+    "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
+    "expected_keywords": [
+      "cirque",
+      "festival",
+      "Lyon"
+    ],
+    "expected_city": "Lyon"
+  },
+  {
+    "id": "q23",
+    "case_type": "negative",
+    "question": "Quels concerts de rock sont prévus à la Halle Tony Garnier à Lyon ce mois-ci ?",
+    "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
+    "expected_keywords": [
+      "concert",
+      "rock",
+      "Halle Tony Garnier",
+      "Lyon"
+    ],
+    "expected_city": "Lyon"
+  },
+  {
+    "id": "q24",
+    "case_type": "negative",
+    "question": "Quels sont les prochains spectacles de magie à Montpellier en décembre 2024 ?",
+    "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
+    "expected_keywords": [
+      "spectacle",
+      "magie",
+      "Montpellier"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q25",
+    "case_type": "negative",
+    "question": "Y a-t-il une exposition d'art contemporain au Musée des Beaux-Arts de Lyon en novembre ?",
+    "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
+    "expected_keywords": [
+      "exposition",
+      "art contemporain",
+      "Musée des Beaux-Arts",
+      "Lyon"
+    ],
+    "expected_city": "Lyon"
+  },
+  {
+    "id": "q26",
+    "case_type": "ambiguous",
+    "question": "Quels sont les horaires du festival de musique à Montpellier ?",
+    "ground_truth": "La réponse dépend du festival spécifique et de sa date, non précisée dans la question.",
+    "expected_keywords": [
+      "horaires",
+      "festival",
+      "musique"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q27",
+    "case_type": "ambiguous",
+    "question": "Où se déroule l'événement culturel à Montpellier ce week-end ?",
+    "ground_truth": "La réponse dépend de la date exacte du week-end et de l'événement spécifique, non précisés.",
+    "expected_keywords": [
+      "où",
+      "événement culturel",
+      "ce week-end"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q28",
+    "case_type": "ambiguous",
+    "question": "Quel est le programme des expositions à Montpellier en été ?",
+    "ground_truth": "La réponse dépend de la période exacte de l'été et des expositions en cours, non précisées.",
+    "expected_keywords": [
+      "programme",
+      "expositions",
+      "été"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q29",
+    "case_type": "ambiguous",
+    "question": "Quels sont les tarifs pour les spectacles à Montpellier ?",
+    "ground_truth": "La réponse dépend du spectacle spécifique et de sa date, non précisés dans la question.",
+    "expected_keywords": [
+      "tarifs",
+      "spectacles"
+    ],
+    "expected_city": "Montpellier"
+  },
+  {
+    "id": "q30",
+    "case_type": "ambiguous",
+    "question": "Quels événements culturels ont lieu à Montpellier en décembre ?",
+    "ground_truth": "La réponse dépend de la date exacte en décembre et des événements spécifiques, non précisés.",
+    "expected_keywords": [
+      "événements culturels",
+      "décembre"
+    ],
+    "expected_city": "Montpellier"
+  }
+]

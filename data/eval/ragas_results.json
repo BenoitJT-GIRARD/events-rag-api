@@ -1,0 +1,527 @@
+{
+  "summary": {
+    "count": 30,
+    "avg_faithfulness": 0.762,
+    "avg_answer_relevancy": null,
+    "avg_context_precision": 0.575,
+    "avg_context_recall": 0.65,
+    "avg_context_relevancy": null,
+    "by_case_type": {
+      "positive": 20,
+      "negative": 5,
+      "ambiguous": 5
+    }
+  },
+  "results": [
+    {
+      "user_input": "Quel événement célèbre les 20 ans d'un atelier vélo à Montpellier en mai 2025 ?",
+      "retrieved_contexts": [
+        "Titre: 20 ans de passion vélo : le Vieux Biclou souffle ses bougies\n\nDescription courte: Venez célébrer les 20 ans du Vieux Biclou !\n\nDescription longue: 🎉 Le Vieux Biclou fête ses 20 ans ! 🎉 Rejoignez-nous dimanche 18 mai pour un après-midi festif rempli de jeux et d’animations ! 🚴‍♀️✨ Au programme : 🔹 Conseils pour apprendre à vos enfants à faire du vélo 🔹 Lancement du podcast vélo-école pour tout savoir sur la pratique 🔹 Courses endiablées d’adultes sur des mini-vélos 🤪 Un événement ludique à ne pas manquer ! Venez nombreux·ses ! 🚲💛\n\nConditions: \n\nVille: Montpellier\nLieu: Le Vieux Biclou\nAdresse: 5 rue de la poésie\n\nDate de début: 2025-05-25T15:00:00+02:00\n\nMots-clés:",
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: AgroParisTech\nAdresse: 648 Rue Jean-François Breton, 34090 Montpellier\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=126507",
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: LEPSE\nAdresse: Place Pierre Viala, 34967 Montpellier, France\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=114760",
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: AGAP Institut\nAdresse: Montpellier, Hérault, Occitanie\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=113465",
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Le Vieux Biclou\nAdresse: 5 Rue de la Poésie, 34000 Montpellier\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=122119"
+      ],
+      "response": "D'après le contexte fourni, l'événement qui célèbre les 20 ans d'un atelier vélo à Montpellier en mai 2025 est :\n\n**Titre :** 20 ans de passion vélo : le Vieux Biclou souffle ses bougies\n**Ville :** Montpellier\n**Date :** Dimanche 18 mai 2025 (l'après-midi)\n**Lieu :** Le Vieux Biclou\n**Adresse :** 5 rue de la poésie, 34000 Montpellier\n\n**Description :**\nUn événement festif avec des jeux et animations, incluant :\n- Conseils pour apprendre à vos enfants à faire du vélo\n- Lancement du podcast vélo-école\n- Courses endiablées d’adultes sur des mini-vélos\n\n*(Note : La date indiquée dans le contexte initial semble être le 25 mai, mais la description précise le 18 mai. Je retiens la date mentionnée dans la description.)*",
+      "reference": "Les 20 ans du Vieux Biclou auront lieu le 18 mai 2025 à 15h au Vieux Biclou à Montpellier, avec des jeux et une tombola pour une après-midi festive.",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": 0.5,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Où et quand se déroule la lecture musicale « Songes capturés » en hommage à Max Rouquette ?",
+      "retrieved_contexts": [
+        "Titre: Lecture musicale « Songes capturés »\n\nDescription courte: 🎻 Hommage à Max Rouquette – Lecture musicale au salon Bonnier de la Mosson\n\nDescription longue: 🎻 Hommage à Max Rouquette – Lecture musicale au salon Bonnier de la Mosson Dans le bel écrin du salon de musique de Joseph Bonnier de la Mosson, laissez-vous porter par les textes de Max Rouquette lus par Gisèle Pierra et les mélodies de Delphine Chomel au violon. Asseyez-vous… et profitez !\n\nConditions: Gratuit. Sans réservation.\n\nVille: Montpellier\nLieu: Domaine de Bonnier de la Mosson\nAdresse: Route de Lodève, 34070 Montpellier\n\nDate de début: 2025-09-20T11:00:00+02:00\n\nMots-clés:",
+        "Titre: Visite commentée : « Correspondances, Max Rouquette et les artistes du musée Fabre »\n\nDescription courte: 📖 Hommage à Max Rouquette – 20 ans après sa disparition\n\nDescription longue: 📖 Hommage à Max Rouquette – 20 ans après sa disparition Lecture en écho aux œuvres du musée En 2025, nous célébrons les 20 ans de la disparition de Max Rouquette, considéré comme le plus grand écrivain de la langue d’oc. Son œuvre, profondément ancrée dans la culture occitane, constitue un véritable patrimoine littéraire vivant. Lors de cette visite-lecture, des extraits de ses textes seront lus en résonance avec les œuvres de C. Richarme, A. Maillol, C. Decossy et G. Dezeuze. 🕒 Séances à 14h et 16h30 ⏳ Durée : 35 minutes 👥 Limité à 15 personnes par séance 📍 Rendez-vous dans le hall du musée",
+        "Titre: Spectacle poétique en l'honneur de Max Rouquette, poète occitan\n\nDescription courte: 🎶 Spectacle musical et poétique : hommage à Max Rouquette\n\nDescription longue: 🎶 Spectacle musical et poétique : hommage à Max Rouquette En 2025, on célèbre les 20 ans de la disparition du poète occitan Max Rouquette (1908-2005). À cette occasion, Jean-Michel Lhubac et Marie-José Fages proposent un spectacle musical et poétique à destination du jeune public, pour faire découvrir la richesse de son univers.\n\nConditions: Gratuit.\n\nVille: Montpellier\nLieu: Jardin de la Reine\nAdresse: 1bis Rue du Jardin de la Reine, 34000 Montpellier, France\n\nDate de début: 2025-09-20T15:30:00+02:00\n\nMots-clés:",
+        "Description longue: PRÉSENTATION Dans le cadre de la commémoration des vingt ans de la disparition de Max Rouquette, le CIRDOC - Institut occitan de cultura vous propose de découvrir l’exposition “Max Rouquette l’enchanteur” à l’hôtel d’Aurès, en partenariat avec la Ville et la Métropole de Montpellier. Cette exposition présentant la vie et l'œuvre de Max Rouquette sera complétée de photographies de Georges Souche Photographies, issues du projet “Secret de l’èrba”. INFORMATIONS PRATIQUES Vernissage de l’exposition le mardi 24/06 à 18h, à la suite de la pose d’une plaque à l’ancien domicile du poète. Pour plus d’informations : https://agenda.montpellier.fr/tag/652/max-rouquette\n\nConditions: Entrée gratuite",
+        "Titre: Sieste sonore « Brassée de poèmes à l’ombre d’un frêne »\n\nDescription courte: 🎶 Hommage à Max Rouquette – Concert intimiste au pied de l’aqueduc\n\nDescription longue: 🎶 Hommage à Max Rouquette – Concert intimiste au pied de l’aqueduc Chanteuse, altiste et guitariste, Cylsée interprète avec délicatesse des poèmes de Max Rouquette, accompagnée au bouzouki par Goran Juresic. Un moment musical à savourer au calme, confortablement installé dans un transat, sous les arches majestueuses de l’aqueduc.\n\nConditions: Gratuit. Sans réservation.\n\nVille: Montpellier\nLieu: Place Max Rouquette\nAdresse: Place Max Rouquette 34000 Montpellier\n\nDate de début: 2025-09-20T14:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "La lecture musicale **« Songes capturés »** en hommage à Max Rouquette se déroule :\n\n- **Date** : 20 septembre 2025 à 11h00\n- **Lieu** : Domaine de Bonnier de la Mosson\n- **Adresse** : Route de Lodève, 34070 Montpellier\n- **Conditions** : Gratuit, sans réservation.",
+      "reference": "La lecture musicale « Songes capturés » aura lieu le 20 septembre 2025 à 11h au Domaine de Bonnier de la Mosson à Montpellier, gratuitement et sans réservation.",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel spectacle adapté aux enfants est programmé à l'Agora de la Cité Internationale de la Danse à Montpellier le 20 septembre 2025 ?",
+      "retrieved_contexts": [
+        "Conditions: Ce spectacle est adapté aux enfants entre 5 et 13 ans. Tarif : de 5 à 13 € (détail sur montpellierdanse.com). Réservations en ligne à partir du 8 septembre sur montpellierdanse.com. Renseignements : 04 67 60 83 60.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T11:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Sans réservation. Les visites découvertes sont proposées dans la limite des places disponibles.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T10:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Réservation obligatoire.\n\nVille: Montpellier\nLieu: L'Agora, Cité Internationale de la Danse | Montpellier danse + CCN Occitanie\nAdresse: Boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T14:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Sans réservation. Tous les espaces de l’Agora ne sont pas accessibles aux personnes à mobilité réduite. La visite reste possible, mais son parcours peut être restreint.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Description longue: Découverte de l’Agora, Cité Internationale de la Danse 💃 Entrez dans l’univers de l’Agora, Cité Internationale de la Danse, un lieu emblématique dédié à la danse contemporaine. Installée dans l’ancien couvent des Ursulines, datant du XVe siècle et restauré dans les années 1990 par les architectes Lipsky et Rollet, l’Agora allie patrimoine architectural et création contemporaine. Ce lieu ouvert au public propose : des spectacles tout au long de la saison, une programmation riche durant le festival Montpellier Danse, des rencontres avec les artistes en résidence, des ateliers de pratique, et des projets de formation et de sensibilisation à la culture chorégraphique. Une immersion unique dans l’art du mouvement, au cœur d’un site chargé d’histoire."
+      ],
+      "response": "D'après le contexte fourni, voici le spectacle adapté aux enfants programmé à l'Agora de la Cité Internationale de la Danse à Montpellier le 20 septembre 2025 :\n\n**Spectacle « Corps Sonores Juniors » – Massimo Fusco**\n- **Date et heure** : 20 septembre 2025 à 11h30\n- **Lieu** : Agora, Cité Internationale de la Danse, 2 boulevard Louis Blanc, 34000 Montpellier\n- **Adaptation** : Spectacle adapté aux enfants de 5 à 13 ans\n- **Tarifs** : Entre 5 € et 13 € (détails disponibles sur montpellierdanse.com)\n- **Réservations** : En ligne à partir du 8 septembre 2025 sur montpellierdanse.com\n- **Renseignements** : 04 67 60 83 60",
+      "reference": "Le spectacle « Corps Sonores Juniors » de Massimo Fusco est programmé à l'Agora, Cité Internationale de la Danse, Montpellier, le 20 septembre 2025. Il est adapté aux enfants de 5 à 13 ans avec des tarifs allant de 5 à 13 €.",
+      "faithfulness": 0.625,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": 0.5,
+      "nv_context_relevance": 0.0
+    },
+    {
+      "user_input": "Où et quand a lieu la visite guidée gratuite sur la comédie à Montpellier en septembre 2025 ?",
+      "retrieved_contexts": [
+        "Conditions: Gratuit sur inscription\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, Montpellier\n\nDate de début: 2025-05-10T10:00:00+02:00\n\nMots-clés: visites, coulisses, patrimoine",
+        "Conditions: Tarif unique : 15 €. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, 34000 Montpellier\n\nDate de début: 2025-09-20T17:00:00+02:00\n\nMots-clés:",
+        "Conditions: Tarif unique : 10 €. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, 34000 Montpellier\n\nDate de début: 2025-09-19T20:00:00+02:00\n\nMots-clés:",
+        "Titre: Visites guidées de l'Opéra Comédie\n\nDescription courte: 🎭 Visite guidée de l’Opéra Comédie\n\nDescription longue: 🎭 Visite guidée de l’Opéra Comédie En compagnie d’un médiateur ou d'une médiatrice, les visiteurs bénéficient d’une visite privilégiée de l’Opéra Comédie. Le parcours commenté vous emmènera à la découverte : de la grande salle, illuminée par son lustre chatoyant, du grand foyer, avec sa superbe vue sur la place de la Comédie, et d’autres espaces d’apparat habituellement peu accessibles\n\nConditions: Gratuit. Réservation obligatoire. Dans la limite des places disponibles.\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, 34000 Montpellier\n\nDate de début: 2025-09-20T12:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Réservation obligatoire pour les visites guidées du samedi via le lien indiqué.\n\nVille: Montpellier\nLieu: Université de Montpellier Paul-Valéry\nAdresse: Route de Mende, 34199 Montpellier\n\nDate de début: 2025-09-19T08:30:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, voici l'information concernant une visite guidée gratuite sur la comédie à Montpellier en septembre 2025 :\n\n**Titre** : Visites guidées de l'Opéra Comédie\n**Date** : 20 septembre 2025\n**Lieu** : Opéra Comédie\n**Adresse** : Place de la Comédie, 34000 Montpellier\n**Conditions** : Gratuit, réservation obligatoire (dans la limite des places disponibles).",
+      "reference": "La visite guidée « La comédie d'hier et d'aujourd'hui » a lieu Place de la Comédie à Montpellier le 21 septembre 2025. Elle est gratuite mais nécessite une réservation obligatoire.",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": null,
+      "context_recall": 0.5,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel spectacle de danse adapté aux enfants est programmé à l'Agora de la Cité Internationale de la Danse à Montpellier le 20 septembre 2025 ?",
+      "retrieved_contexts": [
+        "Conditions: Ce spectacle est adapté aux enfants entre 5 et 13 ans. Tarif : de 5 à 13 € (détail sur montpellierdanse.com). Réservations en ligne à partir du 8 septembre sur montpellierdanse.com. Renseignements : 04 67 60 83 60.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T11:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Sans réservation. Les visites découvertes sont proposées dans la limite des places disponibles.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T10:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Réservation obligatoire.\n\nVille: Montpellier\nLieu: L'Agora, Cité Internationale de la Danse | Montpellier danse + CCN Occitanie\nAdresse: Boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T14:00:00+02:00\n\nMots-clés:",
+        "Description longue: Découverte de l’Agora, Cité Internationale de la Danse 💃 Entrez dans l’univers de l’Agora, Cité Internationale de la Danse, un lieu emblématique dédié à la danse contemporaine. Installée dans l’ancien couvent des Ursulines, datant du XVe siècle et restauré dans les années 1990 par les architectes Lipsky et Rollet, l’Agora allie patrimoine architectural et création contemporaine. Ce lieu ouvert au public propose : des spectacles tout au long de la saison, une programmation riche durant le festival Montpellier Danse, des rencontres avec les artistes en résidence, des ateliers de pratique, et des projets de formation et de sensibilisation à la culture chorégraphique. Une immersion unique dans l’art du mouvement, au cœur d’un site chargé d’histoire.",
+        "Description longue: Visite découverte de l’Agora, Cité Internationale de la Danse 💃 Accompagné d’un membre de l’équipe, partez à la découverte de l’Agora, Cité Internationale de la Danse, un lieu unique dédié à la création chorégraphique contemporaine. Installée dans l’ancien couvent des Ursulines, datant du XVe siècle et restauré dans les années 1990 par les architectes Lipsky et Rollet, l’Agora est à la fois lieu patrimonial et centre vivant de création artistique. Elle propose tout au long de l’année : une programmation de spectacles, des rencontres avec les artistes en résidence, des ateliers de pratique, ainsi que des actions de formation et de sensibilisation à la culture chorégraphique, notamment pendant le festival Montpellier Danse"
+      ],
+      "response": "D'après le contexte fourni, voici le spectacle de danse adapté aux enfants programmé à l'Agora de la Cité Internationale de la Danse à Montpellier le 20 septembre 2025 :\n\n**Titre** : *Corps Sonores Juniors* – Massimo Fusco\n**Date et heure** : 20 septembre 2025 à 11h30\n**Lieu** : Agora, Cité Internationale de la Danse\n**Adresse** : 2 boulevard Louis Blanc, 34000 Montpellier\n**Public cible** : Enfants de 5 à 13 ans\n**Tarifs** : Entre 5 € et 13 € (détails disponibles sur [montpellierdanse.com](http://montpellierdanse.com))\n**Réservations** : En ligne à partir du 8 septembre sur [montpellierdanse.com](http://montpellierdanse.com)\n**Renseignements** : 04 67 60 83 60",
+      "reference": "Le spectacle « Corps Sonores Juniors » de Massimo Fusco est programmé à l'Agora, Cité Internationale de la Danse, Montpellier, le 20 septembre 2025. Il est adapté aux enfants de 5 à 13 ans avec des tarifs allant de 5 à 13 €.",
+      "faithfulness": 0.7777777777777778,
+      "answer_relevancy": null,
+      "context_precision": 0.699999999965,
+      "context_recall": 0.5,
+      "nv_context_relevance": 0.0
+    },
+    {
+      "user_input": "Quel atelier de danse flamenco est organisé à Montpellier le 24 juillet 2025 et quel en est le thème principal ?",
+      "retrieved_contexts": [
+        "Titre: Atelier Flamenco \"Flamenco aux pieds nus\"\n\nDescription courte: Initiation à la danse flamenco en passant par les rythmes de rumbas et tangos\n\nDescription longue: Initiation à la danse flamenco en passant par les rythmes de rumbas et tangos (adultes et enfants à partir de 10 ans)\n\nConditions: Adhésion annuelle à l'association : 5€\n\nVille: Montpellier\nLieu: Maison pour tous Joseph Ricôme, 7 rue Pages, 34070 Montpellier\nAdresse: 7 rue Pages, 34070 Montpellier\n\nDate de début: 2025-07-11T10:00:00+02:00\n\nMots-clés:",
+        "Titre: Atelier Flamenco \"La Grammaire des mains\"\n\nDescription courte: Avec Olga Magaña nous explorerons les mouvements de nos mains pour créer une chorégraphie, une grammaire commune.\n\nDescription longue: Avec Olga Magaña nous explorerons les mouvements de nos mains pour créer une chorégraphie, une grammaire commune. (adultes et enfants à partir de 4 ans )\n\nConditions: Adhésion annuelle à l'association: 5€\n\nVille: Montpellier\nLieu: la boutique d'écriture & CO\nAdresse: 76 rue du faubourg figuerolles \t34070\tmontpellier\n\nDate de début: 2025-07-24T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Sans réservation. Les visites découvertes sont proposées dans la limite des places disponibles.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T10:30:00+02:00\n\nMots-clés:",
+        "Conditions: Ce spectacle est adapté aux enfants entre 5 et 13 ans. Tarif : de 5 à 13 € (détail sur montpellierdanse.com). Réservations en ligne à partir du 8 septembre sur montpellierdanse.com. Renseignements : 04 67 60 83 60.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T11:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Réservation obligatoire.\n\nVille: Montpellier\nLieu: L'Agora, Cité Internationale de la Danse | Montpellier danse + CCN Occitanie\nAdresse: Boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T14:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, voici l'atelier de danse flamenco organisé à Montpellier le **24 juillet 2025** :\n\n**Titre** : Atelier Flamenco *\"La Grammaire des mains\"*\n**Thème principal** : Exploration des mouvements des mains pour créer une chorégraphie commune, avec Olga Magaña.\n**Date et heure** : 24 juillet 2025 à 10h00\n**Lieu** : La boutique d'écriture & CO, 76 rue du faubourg Figuerolles, 34070 Montpellier\n**Conditions** : Adhésion annuelle à l'association : 5€ (accessible aux adultes et enfants à partir de 4 ans).",
+      "reference": "L'atelier Flamenco « La Grammaire des mains » avec Olga Magaña est organisé à la boutique d'écriture & CO, Montpellier, le 24 juillet 2025. Le thème principal est l'exploration des mouvements des mains pour créer une chorégraphie.",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": 0.49999999995,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel événement gratuit et sans réservation permet de participer à un atelier de création en famille ou entre amis à Montpellier le 20 septembre 2025 ?",
+      "retrieved_contexts": [
+        "Conditions: Gratuit. Réservation obligatoire. 1 livret-jeu inclus par enfant participant.\n\nVille: Montpellier\nLieu: Centre historique de Montpellier\nAdresse: Rue de la Fontaine, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Événement gratuit.\n\nVille: Montpellier\nLieu: Cercle Culturel Languedocien\nAdresse: 2546 avenue de Maurin  34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Sans réservation. Inscription à l'accueil le jour même.\n\nVille: Montpellier\nLieu: Pierresvives - Domaine départemental\nAdresse: 907 avenue du professeur Blayac, 34086 Montpellier\n\nDate de début: 2025-09-20T11:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit, sur inscription à l'accueil dans la limite des places disponibles.\n\nVille: Montpellier\nLieu: MO.CO.\nAdresse: 13 rue de la République, 34000 Montpellier\n\nDate de début: 2025-09-20T15:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit, sur réservation. Groupes de 20 personnes maximum. Séances spéciales enfants à la demande.\n\nVille: Montpellier\nLieu: Atelier de fabrication de clavecins Martine Argellies\nAdresse: 11 bis rue des Soldats, 34000 Montpellier\n\nDate de début: 2025-09-20T11:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, **aucun événement gratuit et sans réservation proposant un atelier de création en famille ou entre amis à Montpellier le 20 septembre 2025** n'est mentionné.\n\nLes événements gratuits sans réservation ce jour-là à Montpellier sont :\n- **Visite guidée architecturale** (Pierresvives - Domaine départemental, 11h) : gratuit et sans réservation, mais il s'agit d'une visite guidée, pas d'un atelier de création.\n- **Conférences, expositions et dédicaces de livres** (Cercle Culturel Languedocien, 10h) : gratuit, mais sans mention d'atelier de création.\n\nLes autres événements gratuits nécessitent une réservation ou ne correspondent pas à la demande.",
+      "reference": "L'Open atelier, organisé au MO.CO. Panacée à Montpellier le 20 septembre 2025, est un atelier de création gratuit et sans réservation, inspiré des œuvres de Jean-Marie Appriou.",
+      "faithfulness": 0.2727272727272727,
+      "answer_relevancy": null,
+      "context_precision": 0.0,
+      "context_recall": 0.0,
+      "nv_context_relevance": 0.5
+    },
+    {
+      "user_input": "Où et quand se déroule le jeu de piste gratuit dans l'ancien quartier épiscopal de Montpellier en 2025 ?",
+      "retrieved_contexts": [
+        "Titre: Jeu de piste dans l'ancien quartier épiscopal\n\nDescription courte: 🔍 Jeu de piste dans l’ancien quartier épiscopal\n\nDescription longue: 🔍 Jeu de piste dans l’ancien quartier épiscopal Partez en autonomie à la découverte des traces du passé religieux de ce quartier emblématique grâce à un jeu de piste ludique, à faire en famille ou entre amis. Munis d’un plan plastifié, explorez ruelles et monuments en repérant des indices visuels et en répondant à des questions tout au long du parcours.\n\nConditions: Gratuit. Sans réservation. Parcours d'environ 1h en autonomie avec le plan remis à chaque groupe de participants (caution 5€) ou à photographier avant le départ.\n\nVille: Montpellier\nLieu: Ancien quartier épiscopal de Montpellier\nAdresse: 19 rue Lallemand 34000 Montpellier",
+        "Ville: Montpellier\nLieu: Ancien quartier épiscopal de Montpellier\nAdresse: 19 rue Lallemand 34000 Montpellier\n\nDate de début: 2025-09-20T10:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Réservation obligatoire. 1 livret-jeu inclus par enfant participant.\n\nVille: Montpellier\nLieu: Centre historique de Montpellier\nAdresse: Rue de la Fontaine, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit.\n\nVille: Montpellier\nLieu: Cathédrale Saint-Pierre\nAdresse: Place Saint-Pierre, 34000 Montpellier, France\n\nDate de début: 2025-09-20T16:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit.\n\nVille: Montpellier\nLieu: Chapelle des Pénitents blancs\nAdresse: 14 rue Jacques Cœur, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, voici les informations concernant le jeu de piste gratuit dans l'ancien quartier épiscopal de Montpellier en 2025 :\n\n**Titre** : Jeu de piste dans l'ancien quartier épiscopal\n**Ville** : Montpellier\n**Date** : 20 septembre 2025\n**Heure** : 10h30\n**Lieu** : Ancien quartier épiscopal de Montpellier\n**Adresse** : 19 rue Lallemand, 34000 Montpellier\n**Conditions** :\n- Gratuit\n- Sans réservation\n- Parcours d'environ 1h en autonomie\n- Plan remis à chaque groupe de participants (caution de 5€) ou à photographier avant le départ",
+      "reference": "Le jeu de piste dans l'ancien quartier épiscopal a lieu à Montpellier le 20 septembre 2025, en autonomie avec un parcours d'environ 1h et sans réservation (caution de 5€ pour le plan).",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": 0.6791666666496875,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel atelier gratuit et sans réservation est proposé à la MO.CO. Panacée le 20 septembre 2025 ?",
+      "retrieved_contexts": [
+        "Conditions: Gratuit, sur inscription à l'accueil dans la limite des places disponibles.\n\nVille: Montpellier\nLieu: MO.CO.\nAdresse: 13 rue de la République, 34000 Montpellier\n\nDate de début: 2025-09-20T15:30:00+02:00\n\nMots-clés:",
+        "Titre: Open atelier\n\nDescription courte: Un atelier de création à partager en famille ou entre amis en lien avec les œuvres de Jean-Marie Appriou.\n\nDescription longue: Un atelier de création à partager en famille ou entre amis en lien avec les œuvres de Jean-Marie Appriou.\n\nConditions: Gratuit. Sans réservation.\n\nVille: Montpellier\nLieu: MO.CO. Panacée\nAdresse: 14 rue de l’école de pharmacie, 34000 Montpellier\n\nDate de début: 2025-09-20T14:00:00+02:00\n\nMots-clés:",
+        "Titre: Visite historique \"Le grand tour\"\n\nDescription courte: Une balade patrimoine pour découvrir La Panacée et le MO.CO. à travers l’Histoire, du moyen âge à aujourd'hui.\n\nDescription longue: Une balade patrimoine pour découvrir La Panacée et le MO.CO. à travers l’Histoire, du moyen âge à aujourd'hui.\n\nConditions: Gratuit. Réservation obligatoire.\n\nVille: Montpellier\nLieu: MO.CO. Panacée\nAdresse: 14 rue de l’école de pharmacie, 34000 Montpellier\n\nDate de début: 2025-09-21T11:00:00+02:00\n\nMots-clés:",
+        "Titre: Visite par Pierre Unal-Brunet\n\nDescription courte: Découvrez l’exposition à travers le regard de l’artiste.\n\nDescription longue: Découvrez l’exposition à travers le regard de l’artiste. Durée 1h30 – Sur inscription à mocoreservation@moco.art\n\nConditions: \n\nVille: Montpellier\nLieu: MO.CO. Panacée\nAdresse: 14 rue de l'Ecole de Pharmacie, Montpellier\n\nDate de début: 2025-05-17T19:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Le nombre de places est limité. Pour vous inscrire, merci d'envoyer un mail contenant l'identité des participants, l'horaire souhaité (9 ou 10 h) et un numéro de téléphone. Vous serez recontactés pour finaliser l'inscription.\n\nVille: Montpellier\nLieu: Chambre régionale des comptes Occitanie\nAdresse: 500 avenue des Etats du Languedoc 34064 Montpellier\n\nDate de début: 2025-09-20T09:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, voici l'atelier gratuit et sans réservation proposé à la MO.CO. Panacée le 20 septembre 2025 :\n\n**Titre** : Open atelier\n**Date** : 20 septembre 2025 à 14h00\n**Lieu** : MO.CO. Panacée\n**Adresse** : 14 rue de l’école de pharmacie, 34000 Montpellier\n**Conditions** : Gratuit, sans réservation\n**Description** : Un atelier de création à partager en famille ou entre amis en lien avec les œuvres de Jean-Marie Appriou.",
+      "reference": "L'Open atelier, un atelier de création à partager en famille ou entre amis en lien avec les œuvres de Jean-Marie Appriou, est proposé gratuitement et sans réservation à la MO.CO. Panacée le 20 septembre 2025.",
+      "faithfulness": 0.8571428571428571,
+      "answer_relevancy": null,
+      "context_precision": 0.49999999995,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Où et quand peut-on participer à un jeu de piste gratuit dans l'ancien quartier épiscopal de Montpellier ?",
+      "retrieved_contexts": [
+        "Titre: Jeu de piste dans l'ancien quartier épiscopal\n\nDescription courte: 🔍 Jeu de piste dans l’ancien quartier épiscopal\n\nDescription longue: 🔍 Jeu de piste dans l’ancien quartier épiscopal Partez en autonomie à la découverte des traces du passé religieux de ce quartier emblématique grâce à un jeu de piste ludique, à faire en famille ou entre amis. Munis d’un plan plastifié, explorez ruelles et monuments en repérant des indices visuels et en répondant à des questions tout au long du parcours.\n\nConditions: Gratuit. Sans réservation. Parcours d'environ 1h en autonomie avec le plan remis à chaque groupe de participants (caution 5€) ou à photographier avant le départ.\n\nVille: Montpellier\nLieu: Ancien quartier épiscopal de Montpellier\nAdresse: 19 rue Lallemand 34000 Montpellier",
+        "Conditions: Gratuit. Réservation obligatoire. 1 livret-jeu inclus par enfant participant.\n\nVille: Montpellier\nLieu: Centre historique de Montpellier\nAdresse: Rue de la Fontaine, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Ville: Montpellier\nLieu: Ancien quartier épiscopal de Montpellier\nAdresse: 19 rue Lallemand 34000 Montpellier\n\nDate de début: 2025-09-20T10:30:00+02:00\n\nMots-clés:",
+        "Conditions: Tarif normal : 9,50 €  - Tarif réduit (étudiant, demandeur d’emploi, 12-18 ans) : 5 €  - Gratuit pour les enfants de moins de 12 ans. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Château de la Piscine\nAdresse: 129 avenue de Lodève, 34070 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit.\n\nVille: Montpellier\nLieu: Chapelle des Pénitents blancs\nAdresse: 14 rue Jacques Cœur, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, voici l'événement correspondant à votre demande :\n\n**Jeu de piste dans l'ancien quartier épiscopal**\n- **Ville** : Montpellier\n- **Date et heure** : 20 septembre 2025 à 10h30\n- **Lieu** : Ancien quartier épiscopal de Montpellier\n- **Adresse** : 19 rue Lallemand, 34000 Montpellier\n- **Conditions** :\n  - Gratuit\n  - Sans réservation\n  - Parcours d'environ 1h en autonomie\n  - Plan remis à chaque groupe (caution de 5€ ou à photographier avant le départ)",
+      "reference": "Le jeu de piste dans l'ancien quartier épiscopal a lieu gratuitement à Montpellier le 20 septembre 2025, en autonomie avec un parcours d'environ 1h.",
+      "faithfulness": 0.8,
+      "answer_relevancy": null,
+      "context_precision": 0.5888888888692593,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel atelier gratuit et sans réservation est proposé à Montpellier le 20 septembre 2025 pour créer en famille ou entre amis ?",
+      "retrieved_contexts": [
+        "Conditions: Gratuit. Réservation obligatoire. 1 livret-jeu inclus par enfant participant.\n\nVille: Montpellier\nLieu: Centre historique de Montpellier\nAdresse: Rue de la Fontaine, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit, sur réservation. Groupes de 20 personnes maximum. Séances spéciales enfants à la demande.\n\nVille: Montpellier\nLieu: Atelier de fabrication de clavecins Martine Argellies\nAdresse: 11 bis rue des Soldats, 34000 Montpellier\n\nDate de début: 2025-09-20T11:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Sans réservation.\n\nVille: Montpellier\nLieu: Musée Fabre\nAdresse: 39 Boulevard de Bonnes Nouvelles, 34000 Montpellier, France\n\nDate de début: 2025-09-20T11:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit, sur inscription à l'accueil dans la limite des places disponibles.\n\nVille: Montpellier\nLieu: MO.CO.\nAdresse: 13 rue de la République, 34000 Montpellier\n\nDate de début: 2025-09-20T15:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Sans réservation. Inscription à l'accueil le jour même.\n\nVille: Montpellier\nLieu: Pierresvives - Domaine départemental\nAdresse: 907 avenue du professeur Blayac, 34086 Montpellier\n\nDate de début: 2025-09-20T11:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, **aucun atelier gratuit et sans réservation** n'est proposé à Montpellier le 20 septembre 2025 pour créer en famille ou entre amis.\n\nLes événements gratuits et sans réservation ce jour-là sont :\n1. **Exposition : « Pierre Soulages, la Rencontre »**\n   - **Lieu** : Musée Fabre (39 Boulevard de Bonnes Nouvelles, 34000 Montpellier)\n   - **Horaires** : À partir de 11h00\n   - **Conditions** : Gratuit, sans réservation.\n\n2. **Visite guidée architecturale**\n   - **Lieu** : Pierresvives - Domaine départemental (907 avenue du professeur Blayac, 34086 Montpellier)\n   - **Horaires** : À partir de 11h00\n   - **Conditions** : Gratuit, sans réservation (inscription à l'accueil le jour même).\n\nAucun de ces événements ne correspond à un atelier de création en famille ou entre amis.",
+      "reference": "L'Open atelier est un atelier de création gratuit et sans réservation proposé le 20 septembre 2025 au MO.CO. Panacée à Montpellier, en lien avec les œuvres de Jean-Marie Appriou.",
+      "faithfulness": 0.0,
+      "answer_relevancy": null,
+      "context_precision": 0.0,
+      "context_recall": 0.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Où et quand peut-on participer à un jeu de piste gratuit dans le quartier épiscopal de Montpellier ?",
+      "retrieved_contexts": [
+        "Titre: Jeu de piste dans l'ancien quartier épiscopal\n\nDescription courte: 🔍 Jeu de piste dans l’ancien quartier épiscopal\n\nDescription longue: 🔍 Jeu de piste dans l’ancien quartier épiscopal Partez en autonomie à la découverte des traces du passé religieux de ce quartier emblématique grâce à un jeu de piste ludique, à faire en famille ou entre amis. Munis d’un plan plastifié, explorez ruelles et monuments en repérant des indices visuels et en répondant à des questions tout au long du parcours.\n\nConditions: Gratuit. Sans réservation. Parcours d'environ 1h en autonomie avec le plan remis à chaque groupe de participants (caution 5€) ou à photographier avant le départ.\n\nVille: Montpellier\nLieu: Ancien quartier épiscopal de Montpellier\nAdresse: 19 rue Lallemand 34000 Montpellier",
+        "Conditions: Gratuit. Réservation obligatoire. 1 livret-jeu inclus par enfant participant.\n\nVille: Montpellier\nLieu: Centre historique de Montpellier\nAdresse: Rue de la Fontaine, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Tarif normal : 9,50 €  - Tarif réduit (étudiant, demandeur d’emploi, 12-18 ans) : 5 €  - Gratuit pour les enfants de moins de 12 ans. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Château de la Piscine\nAdresse: 129 avenue de Lodève, 34070 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Ville: Montpellier\nLieu: Ancien quartier épiscopal de Montpellier\nAdresse: 19 rue Lallemand 34000 Montpellier\n\nDate de début: 2025-09-20T10:30:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Nombre de places limité. Pour vous inscrire, merci d'envoyer un mail contenant le nombre de personnes et leur identité, l'horaire de passage souhaité et un numéro de téléphone. Vous serez recontactés pour finaliser l'inscription.\n\nVille: Montpellier\nLieu: Chambre régionale des comptes Occitanie\nAdresse: 500 avenue des Etats du Languedoc 34064 Montpellier\n\nDate de début: 2025-09-20T09:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, voici l'événement correspondant à votre demande :\n\n**Jeu de piste dans l'ancien quartier épiscopal**\n- **Ville** : Montpellier\n- **Date et heure** : 20 septembre 2025 à 10h30\n- **Lieu** : Ancien quartier épiscopal de Montpellier\n- **Adresse** : 19 rue Lallemand, 34000 Montpellier\n- **Conditions** :\n  - Gratuit\n  - Sans réservation\n  - Parcours d'environ 1h en autonomie\n  - Un plan est remis à chaque groupe (caution de 5€) ou peut être photographié avant le départ",
+      "reference": "Le jeu de piste dans l'ancien quartier épiscopal a lieu le 20 septembre 2025 à Montpellier, en autonomie avec un plan remis sur place (caution de 5€ ou à photographier avant le départ).",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": 0.499999999975,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quelle formation est proposée à Montpellier pour devenir animateur socio-sportif et à quelle date ?",
+      "retrieved_contexts": [
+        "Conditions: \n\nVille: Montpellier\nLieu: Agence MONTPELLIER CEVENNES\nAdresse: 34080 Montpellier\n\nDate de début: 2025-09-08T14:00:00+02:00\n\nMots-clés: 1 jour, 1 formation, 1 jeune  1 solution, Travail avenir formation, Découverte formation, Se préparer, Découverte secteur / métier, Sport et insertion",
+        "Conditions: \n\nVille: Montpellier\nLieu: Agence MONTPELLIER CEVENNES\nAdresse: 34080 Montpellier\n\nDate de début: 2025-09-22T14:00:00+02:00\n\nMots-clés: 1 jour, 1 formation, Travail avenir formation, 1 jeune  1 solution, Sport et insertion, Découverte secteur / métier, Découverte formation, Se préparer",
+        "Titre: DEVENEZ ANIMATEUR SOCIO-SPORTIF\n\nDescription courte: Intéressé(e) par une carrière dans l'animation socio-sportive ?  La Prépa Animatrice/Animateur Socio-Sportif est l'opportunité idéale pour vous !Rejoignez la POEC Animateur socio-sportif, une formati\n\nDescription longue: Intéressé(e) par une carrière dans l'animation socio-sportive ? La Prépa Animatrice/Animateur Socio-Sportif est l'opportunité idéale pour vous !Rejoignez la POEC Animateur socio-sportif, une formation intensive de 3 mois, et donnez un coup d'accélérateur à votre parcours professionnel. Au programme : Acquérir les compétences nécessaires pour réussir le test d'exigence préalable du BPJEPS APT Obtenir deux diplômes essentiels : le BAFA pour l'animation et le PSC pour le secourisme. Devenir un\n\nConditions:",
+        "Titre: DEVENEZ ANIMATEUR SOCIO-SPORTIF\n\nDescription courte: Intéressé(e) par une carrière dans l'animation socio-sportive ?  La Prépa Animatrice/Animateur Socio-Sportif est l'opportunité idéale pour vous !Rejoignez la POEC Animateur socio-sportif, une formati\n\nDescription longue: Intéressé(e) par une carrière dans l'animation socio-sportive ? La Prépa Animatrice/Animateur Socio-Sportif est l'opportunité idéale pour vous !Rejoignez la POEC Animateur socio-sportif, une formation intensive de 3 mois, et donnez un coup d'accélérateur à votre parcours professionnel. Au programme : Acquérir les compétences nécessaires pour réussir le test d'exigence préalable du BPJEPS APT Obtenir deux diplômes essentiels : le BAFA pour l'animation et le PSC pour le secourisme. Devenir un\n\nConditions:",
+        "Titre: DEVENEZ ANIMATEUR SOCIO-SPORTIF\n\nDescription courte: Intéressé(e) par une carrière dans l'animation socio-sportive ?  La Prépa Animatrice/Animateur Socio-Sportif est l'opportunité idéale pour vous !Rejoignez la POEC Animateur socio-sportif, une formati\n\nDescription longue: Intéressé(e) par une carrière dans l'animation socio-sportive ? La Prépa Animatrice/Animateur Socio-Sportif est l'opportunité idéale pour vous !Rejoignez la POEC Animateur socio-sportif, une formation intensive de 3 mois, et donnez un coup d'accélérateur à votre parcours professionnel. Au programme : Acquérir les compétences nécessaires pour réussir le test d'exigence préalable du BPJEPS APT Obtenir deux diplômes essentiels : le BAFA pour l'animation et le PSC pour le secourisme. Devenir un\n\nConditions:"
+      ],
+      "response": "Voici les formations proposées à Montpellier pour devenir animateur socio-sportif, selon le contexte fourni :\n\n### **1. POEC Animateur Socio-Sportif (Prépa Animatrice/Animateur Socio-Sportif)**\n- **Type de formation** : Formation intensive de **3 mois** (POEC - Préparation Opérationnelle à l'Emploi Collective).\n- **Objectifs** :\n  - Acquérir les compétences pour réussir le **test d'exigence préalable du BPJEPS APT** (Brevet Professionnel de la Jeunesse, de l'Éducation Populaire et du Sport, option Activités Physiques pour Tous).\n  - Obtenir **deux diplômes** :\n    - **BAFA** (Brevet d'Aptitude aux Fonctions d'Animateur).\n    - **PSC** (Premiers Secours Civiques).\n- **Lieu** : Agence MONTPELLIER CEVENNES, 34080 Montpellier.\n- **Dates proposées** :\n  - **8 septembre 2025** (à 14h00).\n  - **15 septembre 2025** (à 14h00).\n  - **22 septembre 2025** (à 14h00).\n\n### **Résumé**\nLa formation **POEC Animateur Socio-Sportif** est une opportunité pour se préparer en **3 mois** à devenir animateur socio-sportif, avec l'obtention du BAFA et du PSC. Plusieurs sessions sont proposées à Montpellier en septembre 2025, toutes au même lieu (Agence MONTPELLIER CEVENNES). Aucune condition spécifique n'est mentionnée dans le contexte.",
+      "reference": "La formation 'DEVENEZ ANIMATEUR SOCIO-SPORTIF' est proposée à l'Agence MONTPELLIER CEVENNES à Montpellier le 22 septembre 2025.",
+      "faithfulness": 0.7058823529411765,
+      "answer_relevancy": null,
+      "context_precision": 0.49999999995,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel événement sportif à Montpellier permet de parcourir le plus de kilomètres en mai 2025 ?",
+      "retrieved_contexts": [
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Vélocité Grand Montpellier\nAdresse: 23 Rue de la Condamine, 34080 Montpellier\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=113349",
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Agropolis International\nAdresse: 1000 Avenue Agropolis, 34090 Montpellier, France\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=115732",
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: IGMM\nAdresse: 1919 Route de Mende, 34090 Montpellier France\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=114604",
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Chu montpellier\nAdresse: 371 Avenue du Doyen Gaston Giraud, 34095 Montpellier, France\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=122284",
+        "Titre: Mai à Vélo 2025\n\nDescription courte: Faites parcourir à votre communauté le plus de kilomètres au mois de mai ! Retrouvez tous les classements sur https://challenge-maiavelo.geovelo.fr/\n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Les vélos d'EDF Med\nAdresse: Avenue Nina Simone, Montpellier France\n\nDate de début: 2025-05-01T00:00:00+02:00\n\nMots-clés: challenge-id=114779"
+      ],
+      "response": "D'après le contexte fourni, l'événement sportif à Montpellier en mai 2025 qui permet de parcourir le plus de kilomètres est :\n\n**Mai à Vélo 2025**\n- **Ville** : Montpellier\n- **Date** : Du 1er mai 2025\n- **Lieux** (plusieurs sites participants) :\n  - Vélocité Grand Montpellier (23 Rue de la Condamine, 34080 Montpellier)\n  - Agropolis International (1000 Avenue Agropolis, 34090 Montpellier)\n  - IGMM (1919 Route de Mende, 34090 Montpellier)\n  - CHU Montpellier (371 Avenue du Doyen Gaston Giraud, 34095 Montpellier)\n  - Les vélos d'EDF Med (Avenue Nina Simone, Montpellier)\n\n**Description** : Il s'agit d'un challenge où les participants sont invités à parcourir un maximum de kilomètres à vélo pendant le mois de mai. Les classements sont disponibles sur [https://challenge-maiavelo.geovelo.fr/](https://challenge-maiavelo.geovelo.fr/).\n\n*Aucune information supplémentaire sur les distances maximales ou les modalités de participation n'est disponible dans le contexte.*",
+      "reference": "L'événement 'Mai à Vélo 2025' se déroule à Montpellier en mai 2025 et consiste à parcourir le plus de kilomètres possible.",
+      "faithfulness": 0.9090909090909091,
+      "answer_relevancy": null,
+      "context_precision": 0.99999999998,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel événement culturel gratuit et sans réservation permet de découvrir l'ancien quartier épiscopal de Montpellier en autonomie ?",
+      "retrieved_contexts": [
+        "Titre: Jeu de piste dans l'ancien quartier épiscopal\n\nDescription courte: 🔍 Jeu de piste dans l’ancien quartier épiscopal\n\nDescription longue: 🔍 Jeu de piste dans l’ancien quartier épiscopal Partez en autonomie à la découverte des traces du passé religieux de ce quartier emblématique grâce à un jeu de piste ludique, à faire en famille ou entre amis. Munis d’un plan plastifié, explorez ruelles et monuments en repérant des indices visuels et en répondant à des questions tout au long du parcours.\n\nConditions: Gratuit. Sans réservation. Parcours d'environ 1h en autonomie avec le plan remis à chaque groupe de participants (caution 5€) ou à photographier avant le départ.\n\nVille: Montpellier\nLieu: Ancien quartier épiscopal de Montpellier\nAdresse: 19 rue Lallemand 34000 Montpellier",
+        ". Une occasion privilégiée de découvrir les coulisses de ce lieu emblématique du paysage culturel montpelliérain.",
+        "Titre: Visite commentée : à la découverte de l'ancien évêché\n\nDescription courte: ⛪ Visite de l’ancien évêché\n\nDescription longue: ⛪ Visite de l’ancien évêché Au cœur du quartier épiscopal, découvrez l’ancien évêché, édifié à l’aube du 20e siècle. Parcourez son jardin, ses salons et sa chapelle.\n\nConditions: Gratuit. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Ancien évêché\nAdresse: 22 rue Lallemand, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Réservation obligatoire. 1 livret-jeu inclus par enfant participant.\n\nVille: Montpellier\nLieu: Centre historique de Montpellier\nAdresse: Rue de la Fontaine, 34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Événement gratuit.\n\nVille: Montpellier\nLieu: Cercle Culturel Languedocien\nAdresse: 2546 avenue de Maurin  34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, l'événement qui correspond à votre demande est :\n\n**Titre** : *Jeu de piste dans l'ancien quartier épiscopal*\n**Ville** : Montpellier\n**Date** : 20 septembre 2025 (à partir de 10h30)\n**Lieu** : Ancien quartier épiscopal de Montpellier (départ à l'adresse : 19 rue Lallemand, 34000 Montpellier)\n**Conditions** :\n- Gratuit\n- Sans réservation\n- Parcours en autonomie d'environ 1h\n- Plan remis à chaque groupe (caution de 5€) ou à photographier avant le départ\n\nCet événement permet de découvrir le quartier épiscopal en autonomie, sans réservation et gratuitement.",
+      "reference": "Le jeu de piste dans l'ancien quartier épiscopal de Montpellier, qui se déroule le 20 septembre 2025 à 10h30. L'événement est gratuit, sans réservation, avec un parcours d'environ 1h en autonomie et une caution de 5€.",
+      "faithfulness": 0.9166666666666666,
+      "answer_relevancy": null,
+      "context_precision": 0.9999999999,
+      "context_recall": 0.5,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel film est projeté lors des Journées du Patrimoine au cinéma Nestor Burma à Montpellier le 20 septembre 2025 à 17h ?",
+      "retrieved_contexts": [
+        "Conditions: Tarifs habituels\n\nVille: Montpellier\nLieu: Cinéma Nestor Burma\nAdresse: 2, rue Marcellin Albert, Montpellier\n\nDate de début: 2025-09-20T17:00:00+02:00\n\nMots-clés: Festival Play It Again, Journées du patrimoine, le peuple migrateur, Cinema nestor Burma, jacques Perrin",
+        "Conditions: \n\nVille: Montpellier\nLieu: Cinéma Nestor Burma\nAdresse: 2, rue Marcellin Albert, Montpellier\n\nDate de début: 2025-07-08T20:30:00+02:00\n\nMots-clés: Nestor Burma, Montpellier, Gem, Autisme",
+        "Conditions: \n\nVille: Montpellier\nLieu: Cinéma Nestor Burma\nAdresse: 2, rue Marcellin Albert\n\nDate de début: 2025-11-23T17:15:00+01:00\n\nMots-clés: cinema Nestor Burma, un poete, Simón Mesa Soto, 10e JOURNÉE ART ET ESSAI DU CINÉMA EUROPÉEN, CICAE, AFCAE",
+        "Description longue: Parce que le cinéma, et plus globalement la culture, doit être accessible à toutes et tous, le cinéma Nestor Burma en partenariat avec Sésame Autisme Occitanie Est - Codep 34 continue de vous proposer une fois par mois ces séances chaleureuses et bienveillantes. Séance adaptée ouverte à tous, organisée à Montpellier au Cinéma Nestor Burma accompagnée par les bénévoles de Ciné Relax",
+        "Conditions: 5 euros\n\nVille: Montpellier\nLieu: Cinéma Nestor Burma\nAdresse: 2, rue Marcellin Albert, Montpellier\n\nDate de début: 2025-09-21T10:00:00+02:00\n\nMots-clés: Journée du Matrimoine, Jeanne Dielman 23 Quai Du Commerce, Chantal Akerman, HF34, Cinéma Nestor Burma"
+      ],
+      "response": "D'après le contexte fourni, le film projeté lors des **Journées du Patrimoine** au **Cinéma Nestor Burma** à Montpellier le **20 septembre 2025 à 17h** est :\n\n**\"Le Peuple migrateur\"** (Festival *Play It Again*).\n\n**Informations complémentaires :**\n- **Lieu** : Cinéma Nestor Burma, 2 rue Marcellin Albert, Montpellier.\n- **Conditions** : Tarifs habituels.",
+      "reference": "Le film 'Le Peuple migrateur' est projeté le 20 septembre 2025 à 17h au cinéma Nestor Burma dans le cadre des Journées du Patrimoine, avec une séance accompagnée par Ghislaine Lassiaz.",
+      "faithfulness": 0.75,
+      "answer_relevancy": null,
+      "context_precision": 0.9999999999,
+      "context_recall": 0.5,
+      "nv_context_relevance": 0.5
+    },
+    {
+      "user_input": "Quels sont les détails de la rencontre avec CitésLab prévue à Montpellier en août 2025 ?",
+      "retrieved_contexts": [
+        "Titre: Les rencontres de la création avec CitésLab\n\nDescription courte: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les\n\nDescription longue: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les entrepreneurs afin de les orienter vers les solutions locales d’accompagnement.\n\nConditions: \n\nVille: Montpellier\nLieu: Agence MONTPELLIER CEVENNES\nAdresse: 34080 Montpellier\n\nDate de début: 2025-08-25T11:00:00+02:00\n\nMots-clés: Création d'entreprise, Se préparer",
+        "Titre: Les rencontres de la création avec CitésLab\n\nDescription courte: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les\n\nDescription longue: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les entrepreneurs afin de les orienter vers les solutions locales d’accompagnement.\n\nConditions: \n\nVille: Montpellier\nLieu: Agence MONTPELLIER CEVENNES\nAdresse: 34080 Montpellier\n\nDate de début: 2025-08-25T10:00:00+02:00\n\nMots-clés: Création d'entreprise, Se préparer",
+        "Titre: Les rencontres de la création avec CitésLab\n\nDescription courte: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les\n\nDescription longue: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les entrepreneurs afin de les orienter vers les solutions locales d’accompagnement.\n\nConditions: \n\nVille: Montpellier\nLieu: Agence MONTPELLIER CEVENNES\nAdresse: 34080 Montpellier\n\nDate de début: 2025-08-25T09:30:00+02:00\n\nMots-clés: Création d'entreprise, Se préparer",
+        "Titre: Les rencontres de la création avec CitésLab\n\nDescription courte: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les\n\nDescription longue: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les entrepreneurs afin de les orienter vers les solutions locales d’accompagnement.\n\nConditions: \n\nVille: Montpellier\nLieu: Agence MONTPELLIER CEVENNES\nAdresse: 34080 Montpellier\n\nDate de début: 2025-08-25T11:30:00+02:00\n\nMots-clés: Se préparer, Création d'entreprise",
+        "Titre: Les rencontres de la création avec CitésLab\n\nDescription courte: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les\n\nDescription longue: Rencontre avec CitésLab CitésLab – Révélateurs de Talents, ce sont d’abord des hommes et des femmes de terrain – les chefs de projets CitésLab.Les chefs de projets CitésLab rencontrent et révèlent les entrepreneurs afin de les orienter vers les solutions locales d’accompagnement.\n\nConditions: \n\nVille: Montpellier\nLieu: Agence MONTPELLIER CEVENNES\nAdresse: 34080 Montpellier\n\nDate de début: 2025-08-25T10:30:00+02:00\n\nMots-clés: Se préparer, Création d'entreprise"
+      ],
+      "response": "Voici les détails de la rencontre avec CitésLab prévue à Montpellier en août 2025, synthétisés à partir des informations disponibles :\n\n### **Événement : Les rencontres de la création avec CitésLab**\n**Ville** : Montpellier\n**Date** : Lundi 25 août 2025\n**Lieu** : Agence MONTPELLIER CEVENNES\n**Adresse** : 34080 Montpellier\n\n#### **Horaires proposés** (plusieurs créneaux disponibles) :\n- **09h30**\n- **10h00**\n- **10h30**\n- **11h00**\n- **11h30**\n\n#### **Description** :\nRencontre avec **CitésLab – Révélateurs de Talents**, animée par des **chefs de projets CitésLab** (hommes et femmes de terrain). L'objectif est de **rencontrer et révéler les entrepreneurs** pour les orienter vers des **solutions locales d'accompagnement** en matière de création d'entreprise.\n\n#### **Mots-clés** :\nCréation d'entreprise, Se préparer\n\n---\n*Note* : Les horaires indiqués proviennent de sources différentes et pourraient correspondre à des sessions distinctes ou à des créneaux de réservation. Aucune information supplémentaire sur les conditions d'accès ou le programme détaillé n'est disponible dans le contexte fourni.",
+      "reference": "Les rencontres de la création avec CitésLab auront lieu le 18 août 2025 à 11h30 à l'Agence MONTPELLIER CEVENNES à Montpellier. Cet événement porte sur la création d'entreprise et la préparation à l'entrepreneuriat.",
+      "faithfulness": 0.75,
+      "answer_relevancy": null,
+      "context_precision": 0.99999999998,
+      "context_recall": 0.5,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Où et quand se déroule l'Open atelier à Montpellier en septembre 2025 ?",
+      "retrieved_contexts": [
+        "Conditions: Sur inscription\n\nVille: Montpellier\nLieu: Halle de l'Innovation, Montpellier (34)\nAdresse: 10 place Françoise Héritier, 34000 Montpellier\n\nDate de début: 2025-10-02T09:00:00+02:00\n\nMots-clés:",
+        "Ville: Montpellier\nLieu: Domaine de la Tour Montpellier\nAdresse: 5 Rue du Pas du Loup, 34070 Montpellier\n\nDate de début: 2025-09-21T14:00:00+02:00\n\nMots-clés:",
+        "Conditions: \n\nVille: Montpellier\nLieu: DR OCCITANIE\nAdresse: 34000 Montpellier\n\nDate de début: 2025-09-25T10:00:00+02:00\n\nMots-clés: Conférence, #TousMobilisés, S'informer, Marché du travail, Les outils du numérique, Tout public, à distance",
+        "Titre: Open atelier\n\nDescription courte: Un atelier de création à partager en famille ou entre amis en lien avec les œuvres de Jean-Marie Appriou.\n\nDescription longue: Un atelier de création à partager en famille ou entre amis en lien avec les œuvres de Jean-Marie Appriou.\n\nConditions: Gratuit. Sans réservation.\n\nVille: Montpellier\nLieu: MO.CO. Panacée\nAdresse: 14 rue de l’école de pharmacie, 34000 Montpellier\n\nDate de début: 2025-09-20T14:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit. Inscription obligatoire.\n\nVille: Montpellier\nLieu: France 3 Montpellier\nAdresse: 10 allée John Napier, 34063 Montpellier Cedex 2\n\nDate de début: 2025-09-20T09:30:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, voici les informations concernant l'**Open atelier** à Montpellier en septembre 2025 :\n\n- **Date** : 20 septembre 2025\n- **Heure** : 14h00\n- **Lieu** : MO.CO. Panacée\n- **Adresse** : 14 rue de l’école de pharmacie, 34000 Montpellier\n- **Conditions** : Gratuit, sans réservation.\n\n*Description* : Un atelier de création à partager en famille ou entre amis, en lien avec les œuvres de Jean-Marie Appriou.",
+      "reference": "L'Open atelier aura lieu le 20 septembre 2025 à 14h00 au MO.CO. Panacée à Montpellier. Cet atelier de création est gratuit et sans réservation, et il est lié aux œuvres de Jean-Marie Appriou.",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": 0.249999999975,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quel événement culturel est organisé au cinéma Nestor Burma à Montpellier le 20 septembre 2025 à 17h dans le cadre des Journées du Patrimoine ?",
+      "retrieved_contexts": [
+        "Conditions: Tarifs habituels\n\nVille: Montpellier\nLieu: Cinéma Nestor Burma\nAdresse: 2, rue Marcellin Albert, Montpellier\n\nDate de début: 2025-09-20T17:00:00+02:00\n\nMots-clés: Festival Play It Again, Journées du patrimoine, le peuple migrateur, Cinema nestor Burma, jacques Perrin",
+        "Description longue: Parce que le cinéma, et plus globalement la culture, doit être accessible à toutes et tous, le cinéma Nestor Burma en partenariat avec Sésame Autisme Occitanie Est - Codep 34 continue de vous proposer une fois par mois ces séances chaleureuses et bienveillantes. Séance adaptée ouverte à tous, organisée à Montpellier au Cinéma Nestor Burma accompagnée par les bénévoles de Ciné Relax",
+        "Conditions: \n\nVille: Montpellier\nLieu: Cinéma Nestor Burma\nAdresse: 2, rue Marcellin Albert, Montpellier\n\nDate de début: 2025-07-08T20:30:00+02:00\n\nMots-clés: Nestor Burma, Montpellier, Gem, Autisme",
+        "Conditions: \n\nVille: Montpellier\nLieu: Cinéma Nestor Burma\nAdresse: 2, rue Marcellin Albert\n\nDate de début: 2025-11-23T17:15:00+01:00\n\nMots-clés: cinema Nestor Burma, un poete, Simón Mesa Soto, 10e JOURNÉE ART ET ESSAI DU CINÉMA EUROPÉEN, CICAE, AFCAE",
+        "Conditions: \n\nVille: Montpellier\nLieu: Cinéma Nestor Burma\nAdresse: 2, rue Marcellin Albert, Montpellier\n\nDate de début: 2025-05-06T20:30:00+02:00\n\nMots-clés: CINEMA NESTOR BURMA, Coup de coeur afcae, avant-première, AFCAE"
+      ],
+      "response": "D'après le contexte fourni, voici l'événement culturel organisé au cinéma Nestor Burma à Montpellier le 20 septembre 2025 à 17h dans le cadre des Journées du Patrimoine :\n\n**Titre** : *Play it Again - Journées du Patrimoine / LE PEUPLE MIGRATEUR*\n**Ville** : Montpellier\n**Date et heure** : 20 septembre 2025 à 17h\n**Lieu** : Cinéma Nestor Burma\n**Adresse** : 2, rue Marcellin Albert, Montpellier\n**Conditions** : Tarifs habituels\n\n*Le Peuple migrateur* est un film documentaire de Jacques Perrin, souvent associé à la série *Les Oiseaux migrateurs*. Cet événement s'inscrit dans le cadre du festival *Play It Again*.",
+      "reference": "Le festival Play it Again propose la séance du film *Le Peuple migrateur*, accompagnée par Ghislaine Lassiaz.",
+      "faithfulness": 0.7777777777777778,
+      "answer_relevancy": null,
+      "context_precision": 0.9999999999,
+      "context_recall": 0.0,
+      "nv_context_relevance": 0.75
+    },
+    {
+      "user_input": "Où et quand a lieu la célébration des 20 ans du Vieux Biclou à Montpellier ?",
+      "retrieved_contexts": [
+        "Titre: 20 ans du Vieux Biclou\n\nDescription courte: Venez célébrer avec nous les 20 ans de l'atelier vélo du Vieux Biclou ! Participez à des jeux inédits et à notre tombola pour une après-midi festive. Idéal pour un dimanche en famille et ami.es.",
+        "Titre: 20 ans de passion vélo : le Vieux Biclou souffle ses bougies\n\nDescription courte: Venez célébrer les 20 ans du Vieux Biclou !\n\nDescription longue: 🎉 Le Vieux Biclou fête ses 20 ans ! 🎉 Rejoignez-nous dimanche 18 mai pour un après-midi festif rempli de jeux et d’animations ! 🚴‍♀️✨ Au programme : 🔹 Conseils pour apprendre à vos enfants à faire du vélo 🔹 Lancement du podcast vélo-école pour tout savoir sur la pratique 🔹 Courses endiablées d’adultes sur des mini-vélos 🤪 Un événement ludique à ne pas manquer ! Venez nombreux·ses ! 🚲💛\n\nConditions: \n\nVille: Montpellier\nLieu: Le Vieux Biclou\nAdresse: 5 rue de la poésie\n\nDate de début: 2025-05-25T15:00:00+02:00\n\nMots-clés:",
+        "Conditions: \n\nVille: Montpellier\nLieu: Le Vieux Biclou\nAdresse: 5 rue de la poésie\n\nDate de début: 2025-05-18T15:00:00+02:00\n\nMots-clés:",
+        "Conditions: Événement gratuit.\n\nVille: Montpellier\nLieu: Cercle Culturel Languedocien\nAdresse: 2546 avenue de Maurin  34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        ". Une occasion privilégiée de découvrir les coulisses de ce lieu emblématique du paysage culturel montpelliérain."
+      ],
+      "response": "D'après le contexte fourni, la célébration des 20 ans du Vieux Biclou à Montpellier a lieu **le dimanche 18 mai 2025 à 15h00** au **Vieux Biclou**, situé **5 rue de la poésie** à Montpellier.\n\nL'événement est décrit comme une après-midi festive avec des jeux, une tombola et des animations autour du vélo, idéal pour un public familial et amical.",
+      "reference": "Les 20 ans du Vieux Biclou sont célébrés le 18 mai 2025 à 15h au Vieux Biclou, avec des jeux et une tombola.",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": 0.9999999999666667,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quels sont les prochains opéras à l'Opéra Bastille à Paris ?",
+      "retrieved_contexts": [
+        "Conditions: Tarif unique : 10 €. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, 34000 Montpellier\n\nDate de début: 2025-09-19T20:00:00+02:00\n\nMots-clés:",
+        "Titre: Opéra Orchestre national de Montpellier\n\nDescription courte: Exposition « Regards sur l’opéra » - Dessins des étudiants de LISAA Architecture Montpellier\n\nDescription longue: Réunissant une cinquantaine de dessins aux techniques variées, l'exposition « Regards sur l’opéra » a été conçue par une quinzaine d’étudiants de l’école LISAA Architecture Montpellier, encadrés par l'illustratrice Fiona Meynier. Les œuvres présentées dans le Grand Foyer ont été croquées sur le vif lors de plusieurs sessions à l'Opéra Comédie, fin 2024, puis retravaillées en cours par les étudiants. Réalistes, inventives, au feutre coloré ou au stylo... ces créations inédites invitent à porter un nouveau regard sur l'architecture de l'Opéra Comédie, à en saisir l'harmonie des espaces et la richesse des détails.",
+        "Titre: Opéra Orchestre national de Montpellier\n\nDescription courte: Visites libres de l’Opéra Comédie - Journée portes ouvertes\n\nDescription longue: Visites libres des espaces publics de l'Opéra Comédie : de la grande salle avec son lustre somptueux, au grand foyer et sa vue imprenable sur la place de la Comédie. Des médiateurs et médiatrices seront à disposition pour répondre aux questions et un livret d’aide à la visite sera proposé gratuitement sur place.\n\nConditions: Entrée libre\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, Montpellier\n\nDate de début: 2025-05-10T09:30:00+02:00\n\nMots-clés: visitelibre, patrimoine",
+        "Conditions: Tarif unique : 15 €. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, 34000 Montpellier\n\nDate de début: 2025-09-20T17:00:00+02:00\n\nMots-clés:",
+        "Titre: Visites libres de l'Opéra Comédie\n\nDescription courte: 🎭 Portes ouvertes à l’Opéra Comédie !\n\nDescription longue: 🎭 Portes ouvertes à l’Opéra Comédie ! Partez à la découverte des espaces publics de l’Opéra Comédie : La grande salle, avec son lustre somptueux Le grand foyer, offrant une vue imprenable sur la place de la Comédie Des médiateurs et médiatrices seront à votre disposition pour répondre à vos questions, et un livret d’aide à la visite sera remis gratuitement sur place.\n\nConditions: Gratuit. Sans réservation.\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, 34000 Montpellier\n\nDate de début: 2025-09-20T11:30:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, **aucune information** concernant des opéras à l'**Opéra Bastille à Paris** n'est disponible.\n\nLes documents mentionnent uniquement des événements à l'**Opéra Comédie de Montpellier**.",
+      "reference": "Il n'y a pas d'événements de ce type dans le corpus.",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": 0.0,
+      "context_recall": 1.0,
+      "nv_context_relevance": 0.0
+    },
+    {
+      "user_input": "Y a-t-il un festival de cirque à Lyon en 2024 ?",
+      "retrieved_contexts": [
+        ". Au programme de cette huitième édition, encore plus de jeux, une chasse au trésor digne des plus grands aventuriers avec de nombreuses surprises à gagner ! Un laser game dans un labyrinthe ainsi que des ateliers cirques. Une de nos nombreuses nouveautés de l’année, un espace spécialement pensé pour les tout petits ! Venez passer un véritable week-end festif et inoubliable en famille à bord de nos jeux gonflables et manèges, lors de nos ateliers créatifs et ludiques ou à nos activités sportives",
+        "Titre: Une musique de cirque ?\n\nDescription courte: Soirée d'inauguration AUDITORIUM de l'ATRIUM\n\nDescription longue: Présentation de l’exposition par les responsables du Fonds et visite en présence de l’artiste Véronique Champollion. Interventions musicales duThéâtre de la Palabre : \"Une musique de cirque ?\" avec Pierre Diaz ou Alain Laurier, Élisabeth Gavalda, Vincent Granger et Daniel Malavergne. https://www.univ-montp3.fr/fr/evenements/exposition-fonds-arts-du-cirque\n\nConditions: Entrée libre\n\nVille: Montpellier\nLieu: Galerie ATRIUM\nAdresse: 199 Rte de Mende, 34090 Montpellier\n\nDate de début: 2026-01-27T17:30:00+01:00\n\nMots-clés: alain laurier, vincent granger, élisabeth gavalda, pierre diaz, theatre de la palabre",
+        "Titre: FESTIVAL L’ILLUMINÉ / CINÉ-ATELIER / ARCO\n\nDescription courte: Dimanche 30 novembre à 14h15",
+        "Titre: \n\nDescription courte: \n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Place de la Comédie\nAdresse: Place de la comédie, Montpellier\n\nDate de début: 2025-05-30T19:00:00+02:00\n\nMots-clés:",
+        "Conditions: Entrée payante\n\nVille: Montpellier\nLieu: Montpellier\nAdresse: 982 Avenue des Moulins\n\nDate de début: 2025-07-05T10:00:00+02:00\n\nMots-clés: Festival, Enfant, Montpellier, Été, Activité enfants, Sortie enfant, Jeux gonflables, Food Truck, Yoga, Laser game"
+      ],
+      "response": "D'après le contexte fourni, **aucun festival de cirque à Lyon en 2024** n'est mentionné.\n\nLes événements répertoriés concernent uniquement **Montpellier** (ex. : Festival Abracadabra en 2025, expositions ou soirées musicales liées au cirque). Aucune information sur Lyon ou l'année 2024 n'est disponible dans les documents.",
+      "reference": "Il n'y a pas d'événements de ce type dans le corpus.",
+      "faithfulness": 0.8571428571428571,
+      "answer_relevancy": null,
+      "context_precision": 0.9999999999,
+      "context_recall": 1.0,
+      "nv_context_relevance": 0.0
+    },
+    {
+      "user_input": "Quels concerts de rock sont prévus à la Halle Tony Garnier à Lyon ce mois-ci ?",
+      "retrieved_contexts": [
+        "Description longue: 15h - Groupe RockAdo dirigé par Pierrik. Répertoire rock par les élèves ado et Pierrik au chant et à la basse. 15h30 - Prélude Orchestre Cadence (POC) - orchestre de chambre cordes et flûtes dirigé par Frédéric Sabatier. Répertoire classique et ballades jazz. 16h15 - Orchestre AD LIBITUM - orchestre à cordes dirigé par Frédéric Sabatier. Répertoire classique du 18ème au 20ème siècle (Scarlatti, Vivaldi, Mozart, Rossini, Wolf-Ferrari) 17h30 - Ca Va Jazzer (CVJ) - Octet de jazz (vocal, violons, saxophone, guitare, piano, basse et batterie). Répertoire de standards blues, ballades, bossas, gospel 18h30 : MH5 - Michel Hauser Quintet Poésies françaises d'Alain Rodriguez mises en musique avec des compositions originales aux ambiances subtiles soul, blues, funk..",
+        "Description courte: Fête de la musique 2025\n\nDescription longue: Le 21 juin, loin du bruit et de l’agitation du centre ville, retrouvez les groupes vocaux de Voix à tous les étages pour un concert convivial et pluriel qui célèbre la Fête de la musique. Rendez-vous à la Maison pour tous L’Escoutaïre à :  - 20h : Concert de Mélodic - Chansons françaises actuelles ou anciennes, légères ou à textes, musiques du monde etc. - 20h45: Concert de Pop Pop Pop - Ensemble vocal mixte de 20 à 40 ans qui reprend les plus grand tubes de la Pop Music des années 80 à aujourd’hui. - 21h30 : Concert des Sweeties  Chœur de femmes spécialisé dans un répertoire de jazz swing, latino et de chansons françaises sauce jazzy.  Entrée dans la limite des places disponibles\n\nConditions:",
+        "Titre: Concert Mind Erasers • Rock and Blues • The Black Keys\n\nDescription courte: Fête de la musique 2025\n\nDescription longue: Groupe de 4 artistes qui reprennent les titres de THE BLACK KEYS groupe de rock et de blues américain.\n\nConditions: \n\nVille: Montpellier\nLieu: Drapeau Rouge\nAdresse: place Henri Krasucki 34090\n\nDate de début: 2025-06-21T20:30:00+02:00\n\nMots-clés:",
+        ". Vous pouvez également venir découvrir leur travail tout au long de L'événement 25 - Les chemins du vivant, l'exposition sera en accès libre aux Echelles de la Ville ! Et pour suivre leur grande traversée rendez-vous sur leur instagram : @grandetraversee INFOS Horaires d'ouverture : Samedi 27 septembre de 14h à 18h Lundi 29 et mardi 30 septembre de 13h à 15h Mercredi 1er octobre de 13h à 17h Jeudi 2 octobre de 13h à 15h Vendredi 3 octobre de 13h à 15h puis de 19h à 21h Samedi 4 octobre à partir de 14h Sortie de résidence samedi 4 octobre à 16h Lieu : Les Echelles de la Ville, Place Paul Bec, Montpellier : entrée sur les escaliers à droite.",
+        "Titre: THE RAILWAY\n\nDescription courte: Fête de la musique 2025\n\nDescription longue: GROUPE DE ROCK\n\nConditions: ILLIMITEE\n\nVille: Montpellier\nLieu: Montpellier\nAdresse: 22 rue de Verdun Montpellier\n\nDate de début: 2025-06-21T19:30:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, **aucun concert de rock n'est prévu à la Halle Tony Garnier à Lyon ce mois-ci**.\n\nLes événements listés concernent uniquement la ville de **Montpellier** et ne mentionnent pas Lyon ni la Halle Tony Garnier.",
+      "reference": "Il n'y a pas d'événements de ce type dans le corpus.",
+      "faithfulness": 0.75,
+      "answer_relevancy": null,
+      "context_precision": 0.9166666666361111,
+      "context_recall": 1.0,
+      "nv_context_relevance": 0.0
+    },
+    {
+      "user_input": "Quels sont les prochains spectacles de magie à Montpellier en décembre 2024 ?",
+      "retrieved_contexts": [
+        "Conditions: Ce spectacle est adapté aux enfants entre 5 et 13 ans. Tarif : de 5 à 13 € (détail sur montpellierdanse.com). Réservations en ligne à partir du 8 septembre sur montpellierdanse.com. Renseignements : 04 67 60 83 60.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T11:30:00+02:00\n\nMots-clés:",
+        "Titre: \n\nDescription courte: \n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Place de la Comédie\nAdresse: Place de la comédie, Montpellier\n\nDate de début: 2025-05-30T19:00:00+02:00\n\nMots-clés:",
+        "Ville: Montpellier\nLieu: Place de la Comédie\nAdresse: place de la Comédie, 34062 Montpellier\n\nDate de début: 2025-09-21T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: \n\nVille: Montpellier\nLieu: Place de la Comédie\nAdresse: Place de la comédie, Montpellier\n\nDate de début: 2025-05-04T10:00:00+02:00\n\nMots-clés:",
+        "Ville: Montpellier\nLieu: Domaine de la Tour Montpellier\nAdresse: 5 Rue du Pas du Loup, 34070 Montpellier\n\nDate de début: 2025-09-21T14:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, **aucun spectacle de magie à Montpellier en décembre 2024** n'est mentionné.\n\nLes événements listés concernent d'autres dates (2025) ou d'autres types d'activités (danse, visite guidée, etc.).",
+      "reference": "Il n'y a pas d'événements de ce type dans le corpus.",
+      "faithfulness": 1.0,
+      "answer_relevancy": null,
+      "context_precision": 0.99999999995,
+      "context_recall": 1.0,
+      "nv_context_relevance": 0.0
+    },
+    {
+      "user_input": "Y a-t-il une exposition d'art contemporain au Musée des Beaux-Arts de Lyon en novembre ?",
+      "retrieved_contexts": [
+        "Titre: Exposition : « Pierre Soulages, la Rencontre »\n\nDescription courte: Pierre Soulages",
+        ". Un événement exceptionnel pour redécouvrir l’intensité d’un artiste qui a fait de la lumière son plus fidèle allié — en noir.",
+        "Description longue: Plongez dans l'univers passionnant du street art a travers deux expositions ! C'est dans un ancien chai viticole qui date de 1850 et souvenir de l'architecture vigneronne montpelliéraine que nous vous proposons : L'Exposition temporaire : Miss. Tic Dame de pique, Reine de coeur, une exposition qui rentre dans l'intime de l’artiste, au travers d’une exposition hommage et retraçant le parcours de cette pionnière du street art. Une cinquantaine d’œuvres sont présentées. Elles sont issues de la collection personnelle de la galeriste historique et amie de l’artiste Lélia Mordoch, des collections privées d’Eric Brugier et de Laurent Rigail, fondateurs du musée et de prêts de collectionneurs",
+        "Titre: Exposition « Terre de Bâtisseuses »\n\nDescription courte: Pour ce début d'été, la MAOM vous invite à venir explorer  « Terre de Bâtisseuses », une exposition signée Alizée Cugney et Claire Dycha, co-gérantes de l’association éponyme.",
+        "Titre: FESTIVAL L’ILLUMINÉ / CINÉ-ATELIER / ARCO\n\nDescription courte: Dimanche 30 novembre à 14h15"
+      ],
+      "response": "D'après le contexte fourni, **aucune exposition d'art contemporain au Musée des Beaux-Arts de Lyon en novembre n'est mentionnée**.\n\nLes documents disponibles concernent uniquement des événements à Montpellier (Musée Fabre, Musée Parcelle473, CAUE de l'Hérault, Cinéma Nestor Burma) et ne font pas référence au Musée des Beaux-Arts de Lyon.",
+      "reference": "Il n'y a pas d'événements de ce type dans le corpus.",
+      "faithfulness": 0.75,
+      "answer_relevancy": null,
+      "context_precision": 0.0,
+      "context_recall": 0.0,
+      "nv_context_relevance": 0.0
+    },
+    {
+      "user_input": "Quels sont les horaires du festival de musique à Montpellier ?",
+      "retrieved_contexts": [
+        "Titre: L'Orchestre Symphonique et l'Ensemble Instrumental de l'Université de Montpellier\n\nDescription courte: Fête de la musique 2025\n\nDescription longue: Venez écouter l'OSUM et l'EIUM jouer dans un cadre magnifique. Nous interpréterons des « classiques » de la musique classiques, des ouvertures d'opéra et autres surprises ! N'hésitez pas à venir nous écouter le temps de quelques morceaux avant de continuer votre chemin musical.\n\nConditions: Le lieu peut accueillir maximum une centaine de spectateurs, il y a donc parfois la queue pour entrer en attendant que des personnes sortent. Merci de votre compréhension.\n\nVille: Montpellier\nLieu: Cour d'honneur de l'ancienne faculté de médecine\nAdresse: 2 Rue de l'École de Médecine, 34090 Montpellier\n\nDate de début: 2025-06-21T19:30:00+02:00",
+        ". Vous pouvez également venir découvrir leur travail tout au long de L'événement 25 - Les chemins du vivant, l'exposition sera en accès libre aux Echelles de la Ville ! Et pour suivre leur grande traversée rendez-vous sur leur instagram : @grandetraversee INFOS Horaires d'ouverture : Samedi 27 septembre de 14h à 18h Lundi 29 et mardi 30 septembre de 13h à 15h Mercredi 1er octobre de 13h à 17h Jeudi 2 octobre de 13h à 15h Vendredi 3 octobre de 13h à 15h puis de 19h à 21h Samedi 4 octobre à partir de 14h Sortie de résidence samedi 4 octobre à 16h Lieu : Les Echelles de la Ville, Place Paul Bec, Montpellier : entrée sur les escaliers à droite.",
+        "Conditions: Ce spectacle est adapté aux enfants entre 5 et 13 ans. Tarif : de 5 à 13 € (détail sur montpellierdanse.com). Réservations en ligne à partir du 8 septembre sur montpellierdanse.com. Renseignements : 04 67 60 83 60.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T11:30:00+02:00\n\nMots-clés:",
+        "Conditions: Tarif normal : 9,50 €  - Tarif réduit (étudiant, demandeur d’emploi, 12-18 ans) : 5 €  - Gratuit pour les enfants de moins de 12 ans. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Château de la Piscine\nAdresse: 129 avenue de Lodève, 34070 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Titre: THE RAILWAY\n\nDescription courte: Fête de la musique 2025\n\nDescription longue: GROUPE DE ROCK\n\nConditions: ILLIMITEE\n\nVille: Montpellier\nLieu: Montpellier\nAdresse: 22 rue de Verdun Montpellier\n\nDate de début: 2025-06-21T19:30:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, voici les horaires des événements musicaux à Montpellier liés à la **Fête de la musique 2025** :\n\n1. **L'Orchestre Symphonique et l'Ensemble Instrumental de l'Université de Montpellier**\n   - **Date et heure** : 21 juin 2025 à 19h30\n   - **Lieu** : Cour d'honneur de l'ancienne faculté de médecine (2 Rue de l'École de Médecine, 34090 Montpellier)\n   - **Conditions** : Accès limité à une centaine de spectateurs (possible attente).\n\n2. **THE RAILWAY** (groupe de rock)\n   - **Date et heure** : 21 juin 2025 à 19h30\n   - **Lieu** : 22 rue de Verdun, Montpellier\n   - **Conditions** : Entrée illimitée.\n\n*Aucun autre événement musical avec des horaires précis n'est mentionné dans le contexte.*",
+      "reference": "La réponse dépend du festival spécifique et de sa date, non précisée dans la question.",
+      "faithfulness": 0.875,
+      "answer_relevancy": null,
+      "context_precision": 0.699999999965,
+      "context_recall": 0.0,
+      "nv_context_relevance": 0.5
+    },
+    {
+      "user_input": "Où se déroule l'événement culturel à Montpellier ce week-end ?",
+      "retrieved_contexts": [
+        ". Une occasion privilégiée de découvrir les coulisses de ce lieu emblématique du paysage culturel montpelliérain.",
+        "Conditions: Événement gratuit.\n\nVille: Montpellier\nLieu: Cercle Culturel Languedocien\nAdresse: 2546 avenue de Maurin  34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Titre: \n\nDescription courte: \n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Place de la Comédie\nAdresse: Place de la comédie, Montpellier\n\nDate de début: 2025-05-30T19:00:00+02:00\n\nMots-clés:",
+        "Conditions: Gratuit - à partir de 14 ans. Sur réservation.\n\nVille: Montpellier\nLieu: Promenade du Peyrou\nAdresse: Rue la Blottière, 34000 Montpellier\n\nDate de début: 2025-10-03T18:00:00+02:00\n\nMots-clés:",
+        "Titre: Cycle Où je vais dormir ? : Ciné-débat \"Rénovations urbaines\"\n\nDescription courte: Deuxième ciné-débat du cycle qui s'intéressera aux rénovations urbaines de Montpellier"
+      ],
+      "response": "Voici les événements culturels à Montpellier **ce week-end (20-21 septembre 2025)** selon le contexte fourni :\n\n### 1. **Visite commentée de l'Agora, Cité Internationale de la Danse**\n- **Date** : Samedi 20 septembre 2025 à 10h30\n- **Lieu** : Agora, Cité Internationale de la Danse\n- **Adresse** : 2 boulevard Louis Blanc, 34000 Montpellier\n- **Conditions** : Gratuit, sans réservation (dans la limite des places disponibles).\n\n### 2. **Conférences, expositions et dédicaces au Cercle Culturel Languedocien**\n- **Date** : Samedi 20 septembre 2025 à partir de 10h\n- **Lieu** : Cercle Culturel Languedocien\n- **Adresse** : 2546 avenue de Maurin, 34000 Montpellier\n- **Conditions** : Gratuit.\n\n*Aucun autre événement culturel n'est mentionné pour ce week-end à Montpellier dans le contexte fourni.*",
+      "reference": "La réponse dépend de la date exacte du week-end et de l'événement spécifique, non précisés.",
+      "faithfulness": 0.09090909090909091,
+      "answer_relevancy": null,
+      "context_precision": 0.4499999999775,
+      "context_recall": 1.0,
+      "nv_context_relevance": 0.5
+    },
+    {
+      "user_input": "Quel est le programme des expositions à Montpellier en été ?",
+      "retrieved_contexts": [
+        "Conditions: Entrée libre\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, Montpellier\n\nDate de début: 2025-05-10T09:30:00+02:00\n\nMots-clés: exposition, dessins, architecture",
+        ". Une occasion privilégiée de découvrir les coulisses de ce lieu emblématique du paysage culturel montpelliérain.",
+        "Conditions: Entrée gratuite\n\nVille: Montpellier\nLieu: Hôtel d'Aurès\nAdresse: 14 Rue Eugène Lisbonne, 34000 Montpellier\n\nDate de début: 2025-06-24T14:00:00+02:00\n\nMots-clés: Max Rouquette, Littérature, exposition, photographies",
+        "Description longue: PRÉSENTATION Dans le cadre de la commémoration des vingt ans de la disparition de Max Rouquette, le CIRDOC - Institut occitan de cultura vous propose de découvrir l’exposition “Max Rouquette l’enchanteur” à l’hôtel d’Aurès, en partenariat avec la Ville et la Métropole de Montpellier. Cette exposition présentant la vie et l'œuvre de Max Rouquette sera complétée de photographies de Georges Souche Photographies, issues du projet “Secret de l’èrba”. INFORMATIONS PRATIQUES Vernissage de l’exposition le mardi 24/06 à 18h, à la suite de la pose d’une plaque à l’ancien domicile du poète. Pour plus d’informations : https://agenda.montpellier.fr/tag/652/max-rouquette\n\nConditions: Entrée gratuite",
+        "Conditions: Gratuit. Entrée libre.\n\nVille: Montpellier\nLieu: Echelles de la ville\nAdresse: 1 place Paul Bec 34000 Montpellier\n\nDate de début: 2025-10-04T16:00:00+02:00\n\nMots-clés: résidence, sortie de résidence, visite, art, paysage, design, exposition"
+      ],
+      "response": "Voici les expositions à Montpellier en été 2025 (juin à août) identifiées dans le contexte fourni :\n\n### **1. Max Rouquette, l'enchanteur - Exposition**\n- **Ville** : Montpellier\n- **Dates** : À partir du **24 juin 2025** (vernissage le 24/06 à 18h)\n- **Lieu** : Hôtel d'Aurès, 14 Rue Eugène Lisbonne, 34000 Montpellier\n- **Conditions** : Entrée gratuite\n- **Description** : Exposition sur la vie et l'œuvre de Max Rouquette, avec des photographies de Georges Souche (projet *\"Secret de l’èrba\"*).\n- **Partenaires** : CIRDOC - Institut occitan de cultura, Ville et Métropole de Montpellier.\n\n*Aucune autre exposition n'est mentionnée dans le contexte pour la période estivale.*",
+      "reference": "La réponse dépend de la période exacte de l'été et des expositions en cours, non précisées.",
+      "faithfulness": 0.7777777777777778,
+      "answer_relevancy": null,
+      "context_precision": 0.4166666666458333,
+      "context_recall": 1.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quels sont les tarifs pour les spectacles à Montpellier ?",
+      "retrieved_contexts": [
+        "Conditions: Tarif normal : 9,50 €  - Tarif réduit (étudiant, demandeur d’emploi, 12-18 ans) : 5 €  - Gratuit pour les enfants de moins de 12 ans. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Château de la Piscine\nAdresse: 129 avenue de Lodève, 34070 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Conditions: Ce spectacle est adapté aux enfants entre 5 et 13 ans. Tarif : de 5 à 13 € (détail sur montpellierdanse.com). Réservations en ligne à partir du 8 septembre sur montpellierdanse.com. Renseignements : 04 67 60 83 60.\n\nVille: Montpellier\nLieu: Agora, Cité Internationale de la Danse\nAdresse: 2 boulevard Louis Blanc, 34000 Montpellier\n\nDate de début: 2025-09-20T11:30:00+02:00\n\nMots-clés:",
+        "Conditions: Tarif unique : 10 €. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, 34000 Montpellier\n\nDate de début: 2025-09-19T20:00:00+02:00\n\nMots-clés:",
+        "Conditions: Tarif unique : 15 €. Réservation obligatoire.\n\nVille: Montpellier\nLieu: Opéra Comédie\nAdresse: Place de la Comédie, 34000 Montpellier\n\nDate de début: 2025-09-20T17:00:00+02:00\n\nMots-clés:",
+        "Conditions: Sur réservation: Tarif:15€ - Tarif réduit:12€ - PassCulture:12€ - jauge limitée\n\nVille: Montpellier\nLieu: Musée fabre\nAdresse: 39 boulevard Bonne Nouvelle, Montpellier, 34000, Occitanie\n\nDate de début: 2025-11-22T18:30:00+01:00\n\nMots-clés:"
+      ],
+      "response": "Voici les tarifs pour les spectacles à Montpellier mentionnés dans le contexte :\n\n1. **Spectacle « Corps Sonores Juniors » – Massimo Fusco**\n   - **Date** : 20 septembre 2025 à 11h30\n   - **Lieu** : Agora, Cité Internationale de la Danse (2 boulevard Louis Blanc)\n   - **Tarifs** : entre 5 € et 13 € (selon la catégorie, détails sur [montpellierdanse.com](http://montpellierdanse.com))\n   - **Réservation** : en ligne à partir du 8 septembre sur [montpellierdanse.com](http://montpellierdanse.com) ou par téléphone au 04 67 60 83 60.\n\n2. **Radio Fuoco invite Euphoria - Futur Immoral & La Bulle bleue**\n   - **Date** : 19 septembre 2025 à 20h00\n   - **Lieu** : Opéra Comédie (Place de la Comédie)\n   - **Tarif** : 10 € (tarif unique)\n   - **Réservation** : obligatoire.\n\n3. **Mozart #41 : concert du patrimoine**\n   - **Date** : 20 septembre 2025 à 17h00\n   - **Lieu** : Opéra Comédie (Place de la Comédie)\n   - **Tarif** : 15 € (tarif unique)\n   - **Réservation** : obligatoire.\n\n4. **Murmures d'Outrenoir** (chorégraphie pour la Nuit Noire au musée Fabre)\n   - **Date** : 22 novembre 2025 à 18h30\n   - **Lieu** : Musée Fabre (39 boulevard Bonne Nouvelle)\n   - **Tarifs** :\n     - Plein tarif : 15 €\n     - Tarif réduit : 12 €\n     - PassCulture : 12 €\n   - **Réservation** : sur réservation (jauge limitée).\n\nSi vous cherchez des tarifs pour d'autres types d'événements (théâtre, expositions, etc.), précisez votre demande.",
+      "reference": "La réponse dépend du spectacle spécifique et de sa date, non précisés dans la question.",
+      "faithfulness": 0.1,
+      "answer_relevancy": null,
+      "context_precision": 0.249999999975,
+      "context_recall": 0.0,
+      "nv_context_relevance": 1.0
+    },
+    {
+      "user_input": "Quels événements culturels ont lieu à Montpellier en décembre ?",
+      "retrieved_contexts": [
+        ". Une occasion privilégiée de découvrir les coulisses de ce lieu emblématique du paysage culturel montpelliérain.",
+        "Conditions: Événement gratuit.\n\nVille: Montpellier\nLieu: Cercle Culturel Languedocien\nAdresse: 2546 avenue de Maurin  34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:",
+        "Titre: \n\nDescription courte: \n\nDescription longue: \n\nConditions: \n\nVille: Montpellier\nLieu: Place de la Comédie\nAdresse: Place de la comédie, Montpellier\n\nDate de début: 2025-05-30T19:00:00+02:00\n\nMots-clés:",
+        ": 1er septembre 2025 à 12h Un projet de la Maison de l’Architecture Occitanie Méditerranée en partenariat avec Montpellier 2028 - Terres de culture et avec le soutien de la DRAC Occitanie, du Conseil Régional de l’Ordre Occitanie, de la Ville de Montpellier et de Montpellier Méditerranée Métropole.",
+        "Conditions: Gratuit. Sans réservation.\n\nVille: Montpellier\nLieu: Maison de l'Europe de Montpellier (Maison des relations internationales)\nAdresse: Hôtel de Sully, 14 Descente en Barrat,  34000 Montpellier\n\nDate de début: 2025-09-20T10:00:00+02:00\n\nMots-clés:"
+      ],
+      "response": "D'après le contexte fourni, **aucun événement culturel à Montpellier en décembre n'est mentionné**. Les événements listés concernent principalement septembre 2025, et aucun ne précise une date en décembre.\n\nSi vous souhaitez des informations sur des événements en **septembre 2025** à Montpellier, voici ceux disponibles :\n\n1. **Visite commentée de l'Agora, Cité Internationale de la Danse, couvent des Ursulines**\n   - **Date** : 20 septembre 2025 à 10h30\n   - **Lieu** : Agora, Cité Internationale de la Danse (2 boulevard Louis Blanc, 34000 Montpellier)\n   - **Conditions** : Gratuit, sans réservation (dans la limite des places disponibles).\n\n2. **Conférences, expositions et dédicaces de livres au Cercle Culturel Languedocien**\n   - **Date** : À partir du 20 septembre 2025 à 10h\n   - **Lieu** : Cercle Culturel Languedocien (2546 avenue de Maurin, 34000 Montpellier)\n   - **Conditions** : Gratuit.\n\n3. **Exposition « L'Europe et son patrimoine »**\n   - **Date** : À partir du 20 septembre 2025 à 10h\n   - **Lieu** : Maison de l'Europe de Montpellier (Hôtel de Sully, 14 Descente en Barrat, 34000 Montpellier)\n   - **Conditions** : Gratuit, sans réservation.\n\nPour des événements en **décembre 2025**, aucune information n'est disponible dans le contexte fourni.",
+      "reference": "La réponse dépend de la date exacte en décembre et des événements spécifiques, non précisés.",
+      "faithfulness": 0.5294117647058824,
+      "answer_relevancy": null,
+      "context_precision": 0.0,
+      "context_recall": 0.0,
+      "nv_context_relevance": 0.0
+    }
+  ]
+}
