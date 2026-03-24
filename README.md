@@ -114,6 +114,7 @@ events-rag/
 │   ├── build_index.py
 │   ├── evaluate_rag.py
 │   ├── evaluate_ragas.py
+│   ├── generate_eval_dataset.py
 │   └── run_local.py
 ├── src/
 │   └── events_rag/
@@ -450,11 +451,7 @@ Cette méthode est :
 
 ### 13.2. Évaluation Ragas
 
-Le script `scripts/evaluate_ragas.py` produit des métriques plus avancées :
-
-- `faithfulness`
-- `answer_relevancy`
-- `context_precision`
+Le script `scripts/evaluate_ragas.py` produit des métriques RAG avancées via RAGAS 0.4.x.
 
 L'évaluation Ragas est exécutée avec :
 
@@ -462,15 +459,34 @@ L'évaluation Ragas est exécutée avec :
 - **MistralAIEmbeddings** pour les embeddings ;
 - **sans dépendance à OpenAI**.
 
-### Limite importante
+#### Métriques retenues
 
-Les scores élevés obtenus sur un petit jeu de test ne doivent pas être interprétés comme une preuve de perfection générale du système.  
-Ils montrent surtout que le pipeline est fonctionnel et cohérent sur le périmètre testé. Une montée en robustesse nécessiterait :
+| Métrique | Description |
+|---|---|
+| `faithfulness` | Fraction des affirmations de la réponse qui sont ancrées dans les documents récupérés (détection d'hallucination) |
+| `context_precision` | Proportion des chunks récupérés réellement utiles à la réponse (qualité du retrieval) |
+| `context_recall` | Fraction des informations nécessaires à la réponse présentes dans les chunks récupérés (complétude du retrieval) |
 
-- un jeu de test plus large ;
-- une annotation humaine plus fine ;
-- des cas négatifs plus variés ;
-- une analyse détaillée des erreurs.
+Les métriques `answer_relevancy` et `context_relevancy` (NV) n'ont pas produit de résultats valides : la première a subi des échecs systématiques liés au rate limiting API lors de l'évaluation, la seconde est une variante NVIDIA incompatible avec les modèles Mistral.
+
+#### Résultats obtenus sur 30 cas
+
+| Métrique | Score |
+|---|---|
+| faithfulness | **0.762** |
+| context_precision | **0.575** |
+| context_recall | **0.650** |
+
+**Interprétation :** Le score de faithfulness (0.76) confirme que le modèle respecte majoritairement les informations du contexte fourni. La context precision (0.575) révèle un bruit dans le retrieval : environ 4 documents sur 10 récupérés ne sont pas utiles à la réponse. Le context recall (0.65) indique que le retriever manque environ 35 % des informations pertinentes — ce qui fait du retrieval le maillon prioritaire à améliorer (reranking, filtrage seuil de distance FAISS).
+
+### Résultats évaluation heuristique (30 cas)
+
+| Indicateur | Valeur |
+|---|---|
+| Correct | 22 / 30 (73 %) |
+| Partiellement correct | 3 / 30 (10 %) |
+| Incorrect | 5 / 30 (17 %) |
+| Avg keyword coverage | 0.908 |
 
 ---
 
@@ -561,7 +577,7 @@ curl -X POST "http://127.0.0.1:8000/rebuild" ^
 
 - corpus limité à une zone géographique et une fenêtre temporelle configurées ;
 - dépendance à Mistral pour les embeddings et la génération ;
-- évaluation encore fondée sur un petit jeu de test ;
+- évaluation fondée sur 30 cas générés automatiquement (sans validation humaine exhaustive) ;
 - absence d'historique conversationnel ;
 - pas de reranking dédié ;
 - pas d'interface front dédiée ;
@@ -571,11 +587,11 @@ curl -X POST "http://127.0.0.1:8000/rebuild" ^
 
 ## 18. Pistes d'amélioration
 
-- enrichir le jeu de test annoté ;
-- intégrer davantage de cas négatifs et ambigus ;
-- ajouter un reranker ou un système de re-scoring ;
-- amiliorer les scores et justifications de sources ;
-- filtrer plus finement par catégories d'événements ;
+- ajouter un reranker pour améliorer la context precision (0.575) ;
+- implémenter un filtre par seuil de distance FAISS (`max_distance_threshold`) pour réduire le bruit dans le retrieval et mieux gérer les requêtes hors corpus ;
+- augmenter `top_k` ou implémenter un retrieval adaptatif pour améliorer le context recall (0.650) ;
+- enrichir le jeu de test annoté avec validation humaine ;
+- améliorer les scores et justifications de sources ;
 - ajouter une interface utilisateur même simple ;
 - industrialiser davantage le monitoring et l'observabilité ;
 - préparer un déploiement cloud plus robuste.

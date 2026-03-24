@@ -30,6 +30,8 @@ data/faiss/*
 # IDE
 .vscode/
 .idea/
+docs/presentation/
+docs/demo.md
 
 # OS
 .DS_Store
