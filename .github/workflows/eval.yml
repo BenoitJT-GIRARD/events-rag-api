@@ -7,14 +7,14 @@ jobs:
   evaluate:
     runs-on: ubuntu-latest
     env:
-      EVENTS_MISTRAL_API_KEY: ${{ secrets.EVENTS_MISTRAL_API_KEY }}
-      EVENTS_LOCATION_FIELD: city
-      EVENTS_LOCATION_VALUE: Montpellier
-      EVENTS_DATE_WINDOW_MODE: past
-      EVENTS_DATE_WINDOW_DAYS: 365
-      EVENTS_INGESTION_BATCH_SIZE: 100
-      EVENTS_INGESTION_MAX_RECORDS: 700
-      EVENTS_REBUILD_TOKEN: dummy-token
+      EVENTS_RAG_MISTRAL_API_KEY: ${{ secrets.EVENTS_RAG_MISTRAL_API_KEY }}
+      EVENTS_RAG_LOCATION_FIELD: city
+      EVENTS_RAG_LOCATION_VALUE: Montpellier
+      EVENTS_RAG_DATE_WINDOW_MODE: past
+      EVENTS_RAG_DATE_WINDOW_DAYS: 365
+      EVENTS_RAG_INGESTION_BATCH_SIZE: 100
+      EVENTS_RAG_INGESTION_MAX_RECORDS: 700
+      EVENTS_RAG_REBUILD_TOKEN: dummy-token
 
     steps:
       - uses: actions/checkout@v4

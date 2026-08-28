@@ -16,7 +16,7 @@ def build_embeddings() -> MistralAIEmbeddings:
     settings = get_settings()
 
     if not settings.mistral_api_key:
-        raise ValueError("EVENTS_MISTRAL_API_KEY is missing. Set it in your .env.")
+        raise ValueError("EVENTS_RAG_MISTRAL_API_KEY is missing. Set it in your .env.")
 
     return MistralAIEmbeddings(
         model=settings.embedding_model,

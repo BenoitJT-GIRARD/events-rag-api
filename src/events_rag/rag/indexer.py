@@ -71,7 +71,7 @@ def build_embeddings() -> MistralAIEmbeddings:
 
     if not settings.mistral_api_key:
         raise ValueError(
-            "EVENTS_MISTRAL_API_KEY is missing. "
+            "EVENTS_RAG_MISTRAL_API_KEY is missing. "
             "Set it in your .env before building the FAISS index."
         )
 
