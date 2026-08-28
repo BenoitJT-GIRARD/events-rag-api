@@ -171,7 +171,7 @@ uv sync --all-groups
 ```
 
 Le projet utilise `pyproject.toml` et `uv.lock` comme source principale de vérité.
-Un `requirements.txt` exporté est également fourni pour faciliter certaines reproductions.
+Un `requirements.txt` exporté est également fourni pour les environnements qui ne disposent pas de `uv`.
 
 ### 7.3. Variables d'environnement
 
@@ -501,8 +501,8 @@ Les métriques `answer_relevancy` et `context_relevancy` (NV) n'ont pas produit 
 
 ### Pourquoi Mistral pour embeddings et génération ?
 
-- homégénéité de la stack ;
-- simplicité d'intégration dans LangChain ;
+- homogénéité de la stack, un seul fournisseur pour l'embedding et la génération ;
+- simplicité d'intégration dans LangChain.
 
 ### Pourquoi pas de reranker ?
 
@@ -518,7 +518,7 @@ Pour ce POC, le pipeline retrieval + génération couvre correctement les attent
 - une gestion claire des groupes de dépendances ;
 - une meilleure ergonomie moderne.
 
-Un `requirements.txt` exporté est toutefois fourni pour faciliter certaines installations.
+Un `requirements.txt` exporté reste toutefois fourni pour les environnements qui ne disposent pas de `uv`.
 
 ---
 
