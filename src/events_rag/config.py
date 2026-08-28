@@ -47,6 +47,10 @@ class Settings(BaseSettings):
     faiss_index_name: str = "events_index"
     rebuild_token: str = ""
 
+    # Fixed seed for evaluation-set sampling. The set must be identical across ablation
+    # runs, otherwise two configurations are compared on different questions.
+    eval_seed: int = 0
+
 
 @lru_cache
 def get_settings() -> Settings:

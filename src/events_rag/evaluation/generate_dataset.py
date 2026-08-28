@@ -7,6 +7,7 @@ Distribution:
 """
 
 import json
+import random
 import re
 import sys
 from pathlib import Path
@@ -45,16 +46,25 @@ def load_events(events_path: Path) -> list[dict]:
         return json.load(f)
 
 
-def select_events_for_category(events: list[dict], keywords: list[str]) -> list[dict]:
-    """Return up to MAX_EVENTS_PER_CATEGORY events whose text contains any keyword."""
-    matched: list[dict] = []
-    for event in events:
-        text_lower = event.get("text", "").lower()
-        if any(kw.lower() in text_lower for kw in keywords):
-            matched.append(event)
-            if len(matched) >= MAX_EVENTS_PER_CATEGORY:
-                break
-    return matched
+def select_events_for_category(
+    events: list[dict],
+    keywords: list[str],
+    rng: random.Random,
+) -> list[dict]:
+    """Sample up to MAX_EVENTS_PER_CATEGORY events matching any keyword.
+
+    Sampling is random under a fixed seed rather than first-match: taking the head of the
+    file biased the evaluation set toward one slice of the corpus, and made the set
+    unstable to compare across ablation runs.
+    """
+    matched = [
+        event
+        for event in events
+        if any(kw.lower() in event.get("text", "").lower() for kw in keywords)
+    ]
+    if len(matched) <= MAX_EVENTS_PER_CATEGORY:
+        return matched
+    return rng.sample(matched, MAX_EVENTS_PER_CATEGORY)
 
 
 def format_events_text(events: list[dict]) -> str:
@@ -95,23 +105,27 @@ def call_llm(model: ChatMistralAI, prompt: str) -> str:
 # ---------------------------------------------------------------------------
 
 
-def build_positive_prompt(category: str, events_text: str) -> str:
+def build_positive_prompt(category: str, event_text: str) -> str:
+    """Ask for one question about one event.
+
+    One event per call is what makes `source_uid` certain: asking for two questions
+    about two events leaves no way to know which event produced which question, and
+    that mapping is the relevance label the whole retrieval benchmark rests on.
+    """
     return (
         "Tu es un générateur de dataset d'évaluation pour un système RAG d'événements culturels.\n"
-        f"À partir des événements suivants (catégorie : {category}), "
-        'génère 2 questions-réponses de type "positif".\n\n'
-        f"Événements:\n{events_text}\n\n"
-        "Format JSON attendu (tableau de 2 objets):\n"
+        f"À partir de l'événement suivant (catégorie : {category}), "
+        'génère UNE question-réponse de type "positif".\n\n'
+        f"Événement:\n{event_text}\n\n"
+        "Format JSON attendu (tableau d'un seul objet):\n"
         "[\n"
-        "  {{\n"
-        '    "id": "q_cat_1",\n'
+        "  {\n"
         '    "case_type": "positive",\n'
         '    "question": "...",\n'
         '    "ground_truth": "Réponse factuelle de 1-3 phrases mentionnant'
         ' titre, lieu, date et/ou conditions.",\n'
-        '    "expected_keywords": ["mot1", "mot2"],\n'
-        '    "expected_city": "Montpellier"\n'
-        "  }}\n"
+        '    "expected_keywords": ["mot1", "mot2"]\n'
+        "  }\n"
         "]\n\n"
         "Retourne UNIQUEMENT le JSON, sans commentaires."
     )
@@ -120,20 +134,19 @@ def build_positive_prompt(category: str, events_text: str) -> str:
 def build_negative_prompt() -> str:
     return (
         "Tu es un générateur de dataset d'évaluation pour un système RAG "
-        "d'événements culturels à Montpellier.\n"
+        "d'événements culturels en Occitanie.\n"
         'Génère 5 questions-réponses de type "négatif" — ces questions portent '
         "sur des événements qui N'EXISTENT PAS dans le corpus "
-        "(autre ville comme Paris/Lyon, catégorie absente comme opéra/cirque).\n\n"
+        "(région extérieure comme Paris/Lyon/Bordeaux, ou catégorie absente).\n\n"
         "Format JSON attendu (tableau de 5 objets):\n"
         "[\n"
-        "  {{\n"
-        '    "id": "q_neg_1",\n'
+        "  {\n"
         '    "case_type": "negative",\n'
         '    "question": "...",\n'
         '    "ground_truth": "Il n\'y a pas d\'événements de ce type dans le corpus.",\n'
         '    "expected_keywords": [],\n'
         '    "expected_city": null\n'
-        "  }}\n"
+        "  }\n"
         "]\n\n"
         "Retourne UNIQUEMENT le JSON, sans commentaires."
     )
@@ -142,19 +155,18 @@ def build_negative_prompt() -> str:
 def build_ambiguous_prompt() -> str:
     return (
         "Tu es un générateur de dataset d'évaluation pour un système RAG "
-        "d'événements culturels à Montpellier.\n"
+        "d'événements culturels en Occitanie.\n"
         'Génère 5 questions-réponses de type "ambigu" — questions vagues ou '
         "dépendantes d'une date spécifique non précisée.\n\n"
         "Format JSON attendu (tableau de 5 objets):\n"
         "[\n"
-        "  {{\n"
-        '    "id": "q_amb_1",\n'
+        "  {\n"
         '    "case_type": "ambiguous",\n'
         '    "question": "...",\n'
         '    "ground_truth": "La réponse dépend de la date ou est trop vague pour être précise.",\n'
         '    "expected_keywords": [],\n'
         '    "expected_city": null\n'
-        "  }}\n"
+        "  }\n"
         "]\n\n"
         "Retourne UNIQUEMENT le JSON, sans commentaires."
     )
@@ -187,30 +199,39 @@ def generate_eval_dataset() -> list[dict]:
         temperature=0,
     )
 
+    rng = random.Random(settings.eval_seed)
     all_cases: list[dict] = []
 
     # ------------------------------------------------------------------
-    # 1. Positive cases — 2 per category × 10 categories = 20
+    # 1. Positive cases — 2 per category x 10 categories = 20
     # ------------------------------------------------------------------
     for category, keywords in CATEGORY_KEYWORDS.items():
         print(f"Generating positive cases for category: {category}...")
-        selected = select_events_for_category(events, keywords)
+        selected = select_events_for_category(events, keywords, rng)
 
         if not selected:
             print(f"  WARNING: no events found for category '{category}', skipping.")
             continue
 
-        events_text = format_events_text(selected[:2])
-        prompt = build_positive_prompt(category, events_text)
+        for event in selected:
+            prompt = build_positive_prompt(category, format_events_text([event]))
 
-        try:
-            raw = call_llm(model, prompt)
-            cases = parse_json_from_llm(raw)
+            try:
+                raw = call_llm(model, prompt)
+                cases = parse_json_from_llm(raw)
+            except Exception as exc:
+                print(f"  ERROR generating a case for '{category}': {exc}", file=sys.stderr)
+                sys.exit(1)
+
+            # Both labels come from the event, never from the model: source_uid is the
+            # relevance label the retrieval metrics rest on, and expected_city was being
+            # copied from a prompt example naming a town holding 18 of 1000 events.
+            for case in cases:
+                case["source_uid"] = event["metadata"]["uid"]
+                case["expected_city"] = event["metadata"].get("city")
             all_cases.extend(cases)
-            print(f"  Generated {len(cases)} case(s).")
-        except Exception as exc:
-            print(f"  ERROR generating positive cases for '{category}': {exc}", file=sys.stderr)
-            sys.exit(1)
+
+        print(f"  Generated {len(selected)} case(s).")
 
     # ------------------------------------------------------------------
     # 2. Negative cases — 5 total
