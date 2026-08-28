@@ -259,6 +259,18 @@ def generate_eval_dataset() -> list[dict]:
         case["id"] = f"q{i:02d}"
 
     # ------------------------------------------------------------------
+    # 4b. Normalise negative cases
+    # ------------------------------------------------------------------
+    # The prompt asks for empty keywords on negative cases and the model ignores it,
+    # returning the terms of the question instead. Keeping them would make keyword
+    # coverage score 1.0 whenever the answer merely echoes the question, and
+    # expected_city would name a city the corpus cannot contain by construction.
+    for case in all_cases:
+        if case.get("case_type") == "negative":
+            case["expected_keywords"] = []
+            case["expected_city"] = None
+
+    # ------------------------------------------------------------------
     # 5. Write output
     # ------------------------------------------------------------------
     output_path = settings.eval_data_dir / "reference_qa.json"
