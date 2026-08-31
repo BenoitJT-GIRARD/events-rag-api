@@ -1,394 +1,262 @@
 [
   {
+    "id": "q01",
     "case_type": "positive",
-    "question": "Quel est le titre du concert de Noël organisé par Goma Espérance et où a-t-il lieu ?",
-    "ground_truth": "Le concert de Noël de Goma Espérance s'intitule 'Concert de Noël de Goma Espérance' et se déroule à la Salle Jacques Brel à Castanet Tolosan.",
-    "expected_keywords": [
-      "Concert de Noël",
-      "Goma Espérance",
-      "Salle Jacques Brel",
-      "Castanet Tolosan"
-    ],
-    "source_uid": "93681933",
+    "question": "Une chorale et un orchestre donnent un concert pour les fêtes de fin d'année à Castanet-Tolosan, est-ce payant pour les jeunes enfants ?",
+    "ground_truth": "Le Concert de Noël de Goma Espérance a lieu le 14 décembre 2025 à la Salle Jacques Brel de Castanet-Tolosan. Tarif 10 €, 5 € de 12 à 18 ans, gratuit pour les moins de 12 ans.",
+    "expected_keywords": ["Castanet-Tolosan", "gratuit", "Jacques Brel"],
     "expected_city": "Castanet-Tolosan",
-    "id": "q01"
+    "source_uid": "93681933"
   },
   {
+    "id": "q02",
     "case_type": "positive",
-    "question": "Quel est le titre du stage d'été pour enfants et ados proposant de l'improvisation théâtrale, de la danse et de la musique à Perpignan en juillet 2026 ?",
-    "ground_truth": "Le stage s'intitule 'STAGE COMPLET ! STAGE D'ÉTÉ ARTS CROISÉS I : IMPROVISATION THÉÂTRALE, DANSE et MUSIQUE [dès 6 ans]' et se déroule au Théâtre Aux Croisements à Perpignan du 6 au 10 juillet 2026.",
-    "expected_keywords": [
-      "stage d'été",
-      "arts croisés",
-      "improvisation théâtrale",
-      "danse",
-      "musique",
-      "Théâtre Aux Croisements",
-      "Perpignan",
-      "juillet 2026"
-    ],
-    "source_uid": "35709051",
+    "question": "Je cherche un stage pluridisciplinaire pour mon fils de huit ans à Perpignan pendant les vacances d'été, il reste des places ?",
+    "ground_truth": "Un stage d'été mêlant improvisation théâtrale, danse et musique se tient au Théâtre Aux Croisements à Perpignan du 6 au 10 juillet 2026, dès 6 ans, sur inscription. Il est annoncé complet.",
+    "expected_keywords": ["Perpignan", "complet", "inscription"],
     "expected_city": "Perpignan",
-    "id": "q02"
+    "source_uid": "35709051"
   },
   {
+    "id": "q03",
     "case_type": "positive",
-    "question": "Où et quand aura lieu le concert du Petit Chœur de Mondelle ?",
-    "ground_truth": "Le concert du Petit Chœur de Mondelle aura lieu à l'église Saint-François à Lavaur le 20 septembre 2025 à 20h30.",
-    "expected_keywords": [
-      "Petit Chœur de Mondelle",
-      "église Saint-François",
-      "Lavaur",
-      "20 septembre 2025"
-    ],
-    "source_uid": "45035708",
+    "question": "Y a-t-il un concert de chant choral dans une église à Lavaur en septembre, et faut-il réserver ?",
+    "ground_truth": "Un concert de chant choral se tient le 20 septembre 2025 à l'église Saint-François de Lavaur. Participation libre, sans réservation.",
+    "expected_keywords": ["Lavaur", "sans réservation", "participation libre"],
     "expected_city": "Lavaur",
-    "id": "q03"
+    "source_uid": "45035708"
   },
   {
+    "id": "q04",
     "case_type": "positive",
-    "question": "Quel événement culturel humoristique a lieu à Alès le 31 octobre 2025 ?",
-    "ground_truth": "La comédie \"Le complexe de la fougère\" se déroule à Pélousse Paradise, Alès, le 31 octobre 2025 à 19h pour 16 €.",
-    "expected_keywords": [
-      "théâtre",
-      "humour",
-      "Alès",
-      "31 octobre 2025"
-    ],
-    "source_uid": "58124548",
+    "question": "Une pièce comique à Alès le soir d'Halloween, ça existe ? Ça coûte combien ?",
+    "ground_truth": "Une comédie est jouée le 31 octobre 2025 au Pélousse Paradise à Alès, au tarif de 16 €.",
+    "expected_keywords": ["Alès", "16", "Pélousse Paradise"],
     "expected_city": "Alès",
-    "id": "q04"
+    "source_uid": "58124548"
   },
   {
+    "id": "q05",
     "case_type": "positive",
-    "question": "Où et quand peut-on assister à la représentation de 'La solitude se peuple à coups de pioche' de la Cie Avalanche ?",
-    "ground_truth": "La représentation a lieu le 16 janvier 2026 à 19h au Tiers-lieu Culturel, Le Moulin à Roques. L'entrée est gratuite sans réservation.",
-    "expected_keywords": [
-      "Cie Avalanche",
-      "Tiers-lieu Culturel",
-      "Roques",
-      "16 janvier 2026"
-    ],
-    "source_uid": "27969134",
+    "question": "Du théâtre gratuit dans un tiers-lieu à Roques en janvier, c'est quel spectacle et faut-il s'inscrire ?",
+    "ground_truth": "Une sortie de résidence de la Cie Avalanche est présentée le 16 janvier 2026 au tiers-lieu culturel Le Moulin à Roques. Gratuit, sans réservation.",
+    "expected_keywords": ["Roques", "gratuit", "Le Moulin"],
     "expected_city": "Roques",
-    "id": "q05"
+    "source_uid": "27969134"
   },
   {
+    "id": "q06",
     "case_type": "positive",
-    "question": "Quel événement de danse gratuit a lieu devant le Quai des Savoirs à Toulouse en novembre 2025 ?",
-    "ground_truth": "L'événement s'intitule 'Sur le Dancefloor' et se déroule devant le Quai des Savoirs à Toulouse les 1er et 2 novembre 2025. Il est gratuit et en accès libre.",
-    "expected_keywords": [
-      "Sur le Dancefloor",
-      "Quai des Savoirs",
-      "Toulouse",
-      "gratuit",
-      "Lumières sur le Quai 2025"
-    ],
-    "source_uid": "53732703",
+    "question": "Des spectacles de danse en extérieur et gratuits à Toulouse le week-end de la Toussaint, il y a quelque chose ?",
+    "ground_truth": "Des spectacles de danse sont proposés devant le Quai des Savoirs à Toulouse les 1er et 2 novembre 2025, en accès libre et gratuit, dans le cadre du festival Lumières sur le Quai.",
+    "expected_keywords": ["Toulouse", "Quai des Savoirs", "gratuit"],
     "expected_city": "Toulouse",
-    "id": "q06"
+    "source_uid": "53732703"
   },
   {
+    "id": "q07",
     "case_type": "positive",
-    "question": "Quelle exposition propose une visite guidée en plein air au Musée d'art moderne de Collioure le 21 septembre 2025 ?",
-    "ground_truth": "La visite guidée en plein air intitulée 'Visite guidée en plein air' se déroule au Musée d'art moderne de Collioure le 21 septembre 2025 à 16h. L'événement est gratuit et sans réservation dans la limite des places disponibles.",
-    "expected_keywords": [
-      "visite guidée",
-      "plein air",
-      "Musée d'art moderne",
-      "Collioure",
-      "21 septembre 2025"
-    ],
-    "source_uid": "73180378",
+    "question": "Une visite guidée gratuite de jardins et d'un cloître à Collioure fin septembre, ça se réserve ?",
+    "ground_truth": "Une visite guidée en plein air de la Villa Pams et du cloître des Dominicains est proposée le 21 septembre 2025 à Collioure. Gratuit, sans réservation, dans la limite des places disponibles.",
+    "expected_keywords": ["Collioure", "gratuit", "sans réservation"],
     "expected_city": "Collioure",
-    "id": "q07"
+    "source_uid": "73180378"
   },
   {
+    "id": "q08",
     "case_type": "positive",
-    "question": "Quel atelier est organisé à Toulouse le 19 mai 2026 pour apprendre les bases de la mécanique vélo ?",
-    "ground_truth": "L'atelier d'initiation à la mécanique vélo est organisé à Toulouse, au DSNA-DTI (1 avenue du docteur Maurice Grynfogel), le 19 mai 2026 à 13h.",
-    "expected_keywords": [
-      "atelier",
-      "mécanique vélo",
-      "Toulouse",
-      "DSNA-DTI",
-      "19 mai 2026"
-    ],
-    "source_uid": "4721721",
+    "question": "J'aimerais apprendre à réparer mon vélo moi-même à Toulouse au printemps, il y a un atelier pour ça ?",
+    "ground_truth": "Un atelier participatif d'initiation à la mécanique vélo se tient le 19 mai 2026 à Toulouse, au DSNA-DTI, avenue du docteur Maurice Grynfogel.",
+    "expected_keywords": ["Toulouse", "vélo", "atelier"],
     "expected_city": "Toulouse",
-    "id": "q08"
+    "source_uid": "4721721"
   },
   {
+    "id": "q09",
     "case_type": "positive",
-    "question": "Où et quand aura lieu la conférence sur les engagements sociaux et sociétaux d'Emma Calvé ?",
-    "ground_truth": "La conférence intitulée 'les engagements sociaux et sociétaux de la cantatrice Emma Calvé' se tiendra au Musée de Millau et des Grands Causses à Millau le 20 septembre 2025 à 15h.",
-    "expected_keywords": [
-      "conférence",
-      "Emma Calvé",
-      "Musée de Millau",
-      "20 septembre 2025"
-    ],
-    "source_uid": "39492384",
+    "question": "Une rencontre gratuite dans un musée à Millau en septembre, autour d'une chanteuse d'opéra et de ses engagements — c'est quand ?",
+    "ground_truth": "Une conférence sur les engagements sociaux et sociétaux de la cantatrice Emma Calvé a lieu le 20 septembre 2025 au Musée de Millau et des Grands Causses. Gratuit.",
+    "expected_keywords": ["Millau", "gratuit", "Emma Calvé"],
     "expected_city": "Millau",
-    "id": "q09"
+    "source_uid": "39492384"
   },
   {
+    "id": "q10",
     "case_type": "positive",
-    "question": "Où et quand peut-on assister gratuitement au spectacle « Pèire Petit » de la Cie TIO La Rampe à Issus ?",
-    "ground_truth": "Le spectacle « Pèire Petit » de la Cie TIO La Rampe aura lieu à la Salle des fêtes d'Issus le 14 décembre 2025 à 17h00. L'événement est gratuit.",
-    "expected_keywords": [
-      "théâtre",
-      "occitan",
-      "gratuit",
-      "Issus"
-    ],
-    "source_uid": "13054823",
+    "question": "Un spectacle bilingue en occitan et en français, gratuit, à Issus en décembre — où exactement ?",
+    "ground_truth": "Le spectacle « Pèire Petit » de la Cie TIO La Rampe est donné le 14 décembre 2025 à la salle des fêtes d'Issus. Gratuit.",
+    "expected_keywords": ["Issus", "gratuit", "salle des fêtes"],
     "expected_city": "Issus",
-    "id": "q10"
+    "source_uid": "13054823"
   },
   {
+    "id": "q11",
     "case_type": "positive",
-    "question": "Où et quand puis-je assister à l'atelier de restauration d'objets à Rieux-Volvestre ?",
-    "ground_truth": "L'atelier de restauration d'objets se déroule à la Bibliothèque de Rieux-Volvestre (5 bis rue d'Auriac, 31310 Rieux-Volvestre) le 20 septembre 2025 à 10h.",
-    "expected_keywords": [
-      "Bibliothèque",
-      "Rieux-Volvestre",
-      "20 septembre 2025",
-      "10h"
-    ],
-    "source_uid": "19913867",
+    "question": "Une restauratrice ouvre son atelier au public à Rieux-Volvestre en septembre, c'est sur inscription ?",
+    "ground_truth": "La découverte d'un atelier de restauration d'objets est proposée le 20 septembre 2025 à Rieux-Volvestre, au 5 bis rue d'Auriac. Gratuit, sans réservation.",
+    "expected_keywords": ["Rieux-Volvestre", "gratuit", "sans réservation"],
     "expected_city": "Rieux-Volvestre",
-    "id": "q11"
+    "source_uid": "19913867"
   },
   {
+    "id": "q12",
     "case_type": "positive",
-    "question": "Où et quand a lieu le prochain Goûter Philo pour les enfants ?",
-    "ground_truth": "Le Goûter Philo se déroule à la Mediathèque Alphonse Daudet - Espace Atelier à Alès le 18 mars 2026 à 15h30.",
-    "expected_keywords": [
-      "Goûter Philo",
-      "Mediathèque Alphonse Daudet",
-      "18 mars 2026"
-    ],
-    "source_uid": "61059351",
+    "question": "Un atelier de discussion pour les huit-onze ans dans une médiathèque à Alès, c'est quel jour et faut-il s'inscrire ?",
+    "ground_truth": "Le Goûter Philo se tient le 18 mars 2026 à la médiathèque Alphonse Daudet d'Alès, pour les 8-11 ans, sans inscription.",
+    "expected_keywords": ["Alès", "sans inscription", "Alphonse Daudet"],
     "expected_city": "Alès",
-    "id": "q12"
+    "source_uid": "61059351"
   },
   {
+    "id": "q13",
     "case_type": "positive",
-    "question": "Quand et où aura lieu la parade à vélo organisée à Souillac ?",
-    "ground_truth": "La parade à vélo aura lieu le 9 mai 2026 à Souillac, en commençant à partir de 10h30.",
-    "expected_keywords": [
-      "parade à vélo",
-      "Souillac",
-      "9 mai 2026",
-      "10h30"
-    ],
-    "source_uid": "6075662",
+    "question": "Un défilé cycliste avec des ateliers de peinture à Souillac au printemps, c'est prévu quand ?",
+    "ground_truth": "Une parade à vélo avec ateliers de peinture est organisée le 9 mai 2026 à Souillac.",
+    "expected_keywords": ["Souillac", "vélo", "2026"],
     "expected_city": "Souillac",
-    "id": "q13"
+    "source_uid": "6075662"
   },
   {
+    "id": "q14",
     "case_type": "positive",
-    "question": "Quel spectacle jeune public est proposé à l'Auditorium de Rousson le 19 avril 2026 ?",
-    "ground_truth": "Le spectacle 'NUAGE' par la Cie Les Demoiselles du Rocher est proposé à l'Auditorium de Rousson le 19 avril 2026 à 16h30. Il est adapté aux enfants à partir de 3 ans.",
-    "expected_keywords": [
-      "NUAGE",
-      "Cie Les Demoiselles du Rocher",
-      "Auditorium de Rousson",
-      "19 avril 2026",
-      "à partir de 3 ans"
-    ],
-    "source_uid": "59770162",
+    "question": "Du théâtre d'objets lumineux pour un enfant de trois ans à Rousson, ça dure combien de temps et ça coûte quoi ?",
+    "ground_truth": "Le spectacle NUAGE de la Cie Les Demoiselles du Rocher est joué le 19 avril 2026 à l'Auditorium de Rousson. Dès 3 ans, durée 40 minutes, plein tarif 5 €.",
+    "expected_keywords": ["Rousson", "40", "5"],
     "expected_city": "Rousson",
-    "id": "q14"
+    "source_uid": "59770162"
   },
   {
+    "id": "q15",
     "case_type": "positive",
-    "question": "Où et quand se déroule le Village de l'archéologie dans le cadre des Journées européennes de l'archéologie ?",
-    "ground_truth": "Le Village de l'archéologie a lieu au Musée Saint-Raymond, musée d'Archéologie de Toulouse, le 13 juin 2026.",
-    "expected_keywords": [
-      "Village de l'archéologie",
-      "Musée Saint-Raymond",
-      "13 juin 2026"
-    ],
-    "source_uid": "30586698",
+    "question": "Pendant les journées consacrées à l'archéologie en juin, qu'est-ce qui est proposé au musée d'archéologie de Toulouse ?",
+    "ground_truth": "Le Village de l'archéologie se tient le 13 juin 2026 au Musée Saint-Raymond à Toulouse, à l'occasion des Journées européennes de l'archéologie. Entrée libre, sans réservation.",
+    "expected_keywords": ["Toulouse", "Saint-Raymond", "entrée libre"],
     "expected_city": "Toulouse",
-    "id": "q15"
+    "source_uid": "30586698"
   },
   {
+    "id": "q16",
     "case_type": "positive",
-    "question": "Quels événements culturels gratuits sont proposés au Château de Saurs lors des Journées européennes du patrimoine 2025 ?",
-    "ground_truth": "Le Château de Saurs organise les 20 et 21 septembre 2025 un événement intitulé 'Patrimoine vivant au château de Saurs : architecture, art et savoirs du terroir', gratuit pour le public.",
-    "expected_keywords": [
-      "Château de Saurs",
-      "Journées européennes du patrimoine 2025",
-      "gratuit"
-    ],
-    "source_uid": "90902118",
+    "question": "Un château ouvre gratuitement son domaine à Lisle-sur-Tarn pour les journées du patrimoine, on peut y découvrir quoi ?",
+    "ground_truth": "Le Château de Saurs à Lisle-sur-Tarn ouvre son domaine les 20 et 21 septembre 2025 pour les Journées européennes du patrimoine, autour de l'architecture, de l'art et des savoirs du terroir. Gratuit.",
+    "expected_keywords": ["Lisle-sur-Tarn", "gratuit", "patrimoine"],
     "expected_city": "Lisle-sur-Tarn",
-    "id": "q16"
+    "source_uid": "90902118"
   },
   {
+    "id": "q17",
     "case_type": "positive",
-    "question": "Où et quand aura lieu la projection du film 'Touchées' avec Alexandra Lamy ?",
-    "ground_truth": "La projection du film 'Touchées' d'Alexandra Lamy aura lieu à La Bambouseraie en Cévennes, à Générargues, le 21 août 2026 à 21h.",
-    "expected_keywords": [
-      "projection",
-      "Touchées",
-      "Alexandra Lamy",
-      "La Bambouseraie en Cévennes",
-      "Générargues",
-      "21 août 2026"
-    ],
-    "source_uid": "2369450",
+    "question": "Une projection de film en plein air et gratuite dans un jardin botanique à Générargues en août, la comédienne sera présente ?",
+    "ground_truth": "Le film Touchées d'Alexandra Lamy est projeté en plein air le 21 août 2026 à La Bambouseraie en Cévennes à Générargues, en sa présence. Gratuit.",
+    "expected_keywords": ["Générargues", "Alexandra Lamy", "gratuit"],
     "expected_city": "Générargues",
-    "id": "q17"
+    "source_uid": "2369450"
   },
   {
+    "id": "q18",
     "case_type": "positive",
-    "question": "Où et quand aura lieu l'atelier d'installation de Linux à la médiathèque Empalot ?",
-    "ground_truth": "L'atelier 'Installation de Linux' se déroulera à la Médiathèque Empalot à Toulouse le 28 mai 2026 à 14h30.",
-    "expected_keywords": [
-      "Linux",
-      "Médiathèque Empalot",
-      "Toulouse",
-      "2026-05-28"
-    ],
-    "source_uid": "36074687",
+    "question": "Je veux remplacer Windows sur mon vieil ordinateur, il y a une permanence d'aide dans une médiathèque toulousaine ?",
+    "ground_truth": "Un atelier d'installation de Linux se tient le 28 mai 2026 à la Médiathèque Empalot à Toulouse. Venir avec son ordinateur.",
+    "expected_keywords": ["Toulouse", "Empalot", "Linux"],
     "expected_city": "Toulouse",
-    "id": "q18"
+    "source_uid": "36074687"
   },
   {
+    "id": "q19",
     "case_type": "positive",
-    "question": "Quel est le nom du festival qui se déroule à Salindres en juillet 2026 et quelles sont ses conditions d'accès ?",
-    "ground_truth": "Le festival s'appelle 'Salindres en Fête' et il est gratuit. Il se déroule à Salindres.",
-    "expected_keywords": [
-      "Salindres en Fête",
-      "gratuit",
-      "Salindres"
-    ],
-    "source_uid": "82150299",
+    "question": "La fête votive de Salindres en juillet, avec pétanque et feu d'artifice, l'entrée est payante ?",
+    "ground_truth": "Salindres en Fête se tient à partir du 10 juillet 2026 à Salindres : animations taurines, attractions foraines, concours de pétanque, apéros bodéga et feu d'artifice le 13 juillet. Gratuit.",
+    "expected_keywords": ["Salindres", "gratuit", "feu d'artifice"],
     "expected_city": "Salindres",
-    "id": "q19"
+    "source_uid": "82150299"
   },
   {
+    "id": "q20",
     "case_type": "positive",
-    "question": "Quel événement culturel lié à l'agriculture biologique se déroule aux Viviers du Comminges en juin 2026 ?",
-    "ground_truth": "Le festival 'Fermes en Fête - Les Viviers du Comminges' aura lieu le 7 juin 2026 à Antignac, mettant en avant l'élevage de truites en agriculture biologique.",
-    "expected_keywords": [
-      "Fermes en Fête",
-      "Les Viviers du Comminges",
-      "Antignac",
-      "2026-06-07",
-      "élevage de truites",
-      "agriculture biologique"
-    ],
-    "source_uid": "51786983",
+    "question": "Une visite de pisciculture biologique ouverte au public à Antignac en juin, ça commence à quelle heure ?",
+    "ground_truth": "Les Viviers du Comminges à Antignac ouvrent au public le 7 juin 2026, avec une visite de la pisciculture à 11 h. Élevage de truites en agriculture biologique.",
+    "expected_keywords": ["Antignac", "truites", "11h"],
     "expected_city": "Antignac",
-    "id": "q20"
+    "source_uid": "51786983"
   },
   {
+    "id": "q21",
     "case_type": "negative",
-    "question": "Quels sont les prochains concerts de jazz à Paris en 2024 ?",
+    "question": "Quels concerts sont programmés à la Philharmonie de Paris cet hiver ?",
     "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
     "expected_keywords": [],
-    "expected_city": null,
-    "id": "q21"
+    "expected_city": null
   },
   {
+    "id": "q22",
     "case_type": "negative",
-    "question": "Y a-t-il des festivals de cinéma à Lyon cette année ?",
+    "question": "Y a-t-il un festival de cinéma à Lyon au mois de mars ?",
     "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
     "expected_keywords": [],
-    "expected_city": null,
-    "id": "q22"
+    "expected_city": null
   },
   {
+    "id": "q23",
     "case_type": "negative",
-    "question": "Quels événements sportifs sont prévus à Bordeaux en juin 2024 ?",
+    "question": "Des expositions d'art contemporain à Bordeaux en ce moment ?",
     "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
     "expected_keywords": [],
-    "expected_city": null,
-    "id": "q23"
+    "expected_city": null
   },
   {
+    "id": "q24",
     "case_type": "negative",
-    "question": "Quels sont les prochains salons du livre à Toulouse ?",
+    "question": "Quels spectacles de cirque sont prévus à Lille cette saison ?",
     "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
     "expected_keywords": [],
-    "expected_city": null,
-    "id": "q24"
+    "expected_city": null
   },
   {
+    "id": "q25",
     "case_type": "negative",
-    "question": "Y a-t-il des expositions d'art contemporain à Montpellier en 2024 ?",
+    "question": "Le marché de Noël de Strasbourg ouvre à quelle heure ?",
     "ground_truth": "Il n'y a pas d'événements de ce type dans le corpus.",
     "expected_keywords": [],
-    "expected_city": null,
-    "id": "q25"
+    "expected_city": null
   },
   {
+    "id": "q26",
     "case_type": "ambiguous",
-    "question": "Quels sont les événements culturels organisés en Occitanie ce week-end ?",
-    "ground_truth": "La réponse dépend de la date exacte du week-end en question.",
-    "expected_keywords": [
-      "week-end",
-      "Occitanie",
-      "événements culturels"
-    ],
-    "expected_city": null,
-    "id": "q26"
+    "question": "Qu'est-ce qu'il y a de prévu ce week-end ?",
+    "ground_truth": "La réponse dépend de la date ou est trop vague pour être précise.",
+    "expected_keywords": [],
+    "expected_city": null
   },
   {
+    "id": "q27",
     "case_type": "ambiguous",
-    "question": "Peux-tu me donner la liste des festivals de musique en Occitanie pour l'été ?",
-    "ground_truth": "La réponse dépend des dates précises de l'été (juin, juillet, août) et des festivals programmés.",
-    "expected_keywords": [
-      "festivals",
-      "musique",
-      "Occitanie",
-      "été"
-    ],
-    "expected_city": null,
-    "id": "q27"
+    "question": "Vous auriez quelque chose de sympa pour ce soir ?",
+    "ground_truth": "La réponse dépend de la date ou est trop vague pour être précise.",
+    "expected_keywords": [],
+    "expected_city": null
   },
   {
+    "id": "q28",
     "case_type": "ambiguous",
-    "question": "Quels musées sont ouverts en Occitanie pendant les vacances scolaires ?",
-    "ground_truth": "La réponse dépend des dates exactes des vacances scolaires (zone A, B ou C) et des horaires d'ouverture des musées.",
-    "expected_keywords": [
-      "musées",
-      "Occitanie",
-      "vacances scolaires",
-      "ouverts"
-    ],
-    "expected_city": null,
-    "id": "q28"
+    "question": "Je cherche une sortie pas chère, vous proposez quoi ?",
+    "ground_truth": "La réponse dépend de la date ou est trop vague pour être précise.",
+    "expected_keywords": [],
+    "expected_city": null
   },
   {
+    "id": "q29",
     "case_type": "ambiguous",
-    "question": "Quels sont les spectacles de théâtre à Toulouse ce mois-ci ?",
-    "ground_truth": "La réponse dépend du mois en cours et des programmations théâtrales spécifiques à Toulouse.",
-    "expected_keywords": [
-      "spectacles",
-      "théâtre",
-      "Toulouse",
-      "ce mois-ci"
-    ],
-    "expected_city": "Toulouse",
-    "id": "q29"
+    "question": "Quel est le meilleur événement de l'année ?",
+    "ground_truth": "La réponse dépend de la date ou est trop vague pour être précise.",
+    "expected_keywords": [],
+    "expected_city": null
   },
   {
+    "id": "q30",
     "case_type": "ambiguous",
-    "question": "Quels événements gratuits ont lieu en Occitanie pour les enfants pendant les fêtes de fin d'année ?",
-    "ground_truth": "La réponse dépend des dates exactes des fêtes de fin d'année (Noël, Nouvel An) et des événements gratuits proposés.",
-    "expected_keywords": [
-      "événements gratuits",
-      "Occitanie",
-      "enfants",
-      "fêtes de fin d'année"
-    ],
-    "expected_city": null,
-    "id": "q30"
+    "question": "Il y a quoi comme animations près de chez moi ?",
+    "ground_truth": "La réponse dépend de la date ou est trop vague pour être précise.",
+    "expected_keywords": [],
+    "expected_city": null
   }
 ]
