@@ -4,6 +4,7 @@ Only chunking variants need a fresh index; everything here happens at query time
 shared one, which is what keeps the ablation cheap to extend.
 """
 
+from collections.abc import Callable
 from typing import Protocol
 
 from langchain_core.documents import Document
@@ -100,3 +101,29 @@ class CityFilter:
             return self._inner.search(query, k)
         candidates = self._inner.search(query, k * OVERFETCH)
         return [uid for uid in candidates if self._city_by_uid.get(uid) == city][:k]
+
+
+class Rerank:
+    """Re-order an inner strategy's candidates with a scoring function.
+
+    The scorer is injected rather than constructed here, so the unit tests need no model
+    and swapping the reranking backend touches one call site.
+    """
+
+    def __init__(
+        self,
+        inner: SearchStrategy,
+        scorer: Callable[[str, list[str]], list[float]],
+        candidates_factor: int = 4,
+    ) -> None:
+        self._inner = inner
+        self._scorer = scorer
+        self._factor = candidates_factor
+
+    def search(self, query: str, k: int) -> list[str]:
+        candidates = self._inner.search(query, k * self._factor)
+        if not candidates:
+            return []
+        scores = self._scorer(query, candidates)
+        order = sorted(range(len(candidates)), key=lambda i: scores[i], reverse=True)
+        return [candidates[i] for i in order][:k]

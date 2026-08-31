@@ -1,6 +1,12 @@
 from langchain_core.documents import Document
 
-from events_rag.evaluation.strategies import BM25Search, CityFilter, DenseSearch, HybridSearch
+from events_rag.evaluation.strategies import (
+    BM25Search,
+    CityFilter,
+    DenseSearch,
+    HybridSearch,
+    Rerank,
+)
 
 
 class FakeVectorstore:
@@ -91,3 +97,18 @@ def test_city_filter_prefers_the_longest_matching_town_name() -> None:
     cities = {"a": "Castelnau", "b": "Castelnaudary"}
 
     assert CityFilter(inner, cities).search("marche a Castelnaudary", k=2) == ["b"]
+
+
+def test_rerank_reorders_candidates_by_score() -> None:
+    inner = FakeStrategy(["a", "b", "c"])
+
+    def scorer(query: str, uids: list[str]) -> list[float]:
+        return [0.1, 0.9, 0.5][: len(uids)]
+
+    assert Rerank(inner, scorer).search("q", k=2) == ["b", "c"]
+
+
+def test_rerank_returns_the_inner_order_when_the_scorer_is_flat() -> None:
+    inner = FakeStrategy(["a", "b"])
+
+    assert Rerank(inner, lambda q, uids: [1.0] * len(uids)).search("q", k=2) == ["a", "b"]

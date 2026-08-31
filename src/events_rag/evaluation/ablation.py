@@ -9,6 +9,7 @@ import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
 
+from events_rag.config import get_settings
 from events_rag.evaluation.indexes import ChunkingVariant, chunks_for, index_for
 from events_rag.evaluation.retrieval import aggregate
 from events_rag.evaluation.strategies import (
@@ -16,6 +17,7 @@ from events_rag.evaluation.strategies import (
     CityFilter,
     DenseSearch,
     HybridSearch,
+    Rerank,
     SearchStrategy,
 )
 from events_rag.logger import get_logger
@@ -78,6 +80,27 @@ def _city_by_uid() -> dict[str, str]:
     }
 
 
+def _flashrank_scorer() -> Callable[[str, list[str]], list[float]]:
+    """Score candidate uids against the query with a small cross-encoder.
+
+    Imported lazily: the reranker lives in an optional dependency group, and the other
+    configurations must run without it installed.
+    """
+    from flashrank import Ranker, RerankRequest
+
+    settings = get_settings()
+    ranker = Ranker(cache_dir=str(settings.data_dir / "flashrank"))
+    texts = {str(doc.metadata.get("uid", "")): doc.page_content for doc in chunks_for(BASELINE)}
+
+    def score(query: str, uids: list[str]) -> list[float]:
+        passages = [{"id": uid, "text": texts.get(uid, "")} for uid in uids]
+        ranked = ranker.rerank(RerankRequest(query=query, passages=passages))
+        by_uid = {item["id"]: float(item["score"]) for item in ranked}
+        return [by_uid.get(uid, 0.0) for uid in uids]
+
+    return score
+
+
 CONFIGS: list[AblationConfig] = [
     AblationConfig(
         "bm25-only",
@@ -118,5 +141,14 @@ CONFIGS: list[AblationConfig] = [
         BASELINE,
         lambda: HybridSearch(DenseSearch(index_for(BASELINE)), BM25Search(chunks_for(BASELINE))),
         note="Reciprocal rank fusion of dense and lexical search.",
+    ),
+    AblationConfig(
+        "hybrid-rrf+rerank",
+        BASELINE,
+        lambda: Rerank(
+            HybridSearch(DenseSearch(index_for(BASELINE)), BM25Search(chunks_for(BASELINE))),
+            _flashrank_scorer(),
+        ),
+        note="Cross-encoder reranking on top of hybrid search. Optional dependency, 41 MB.",
     ),
 ]
