@@ -1,0 +1,110 @@
+{
+  "configurations": 7,
+  "results": [
+    {
+      "name": "bm25-only",
+      "variant": "baseline",
+      "note": "Trivial floor: no embeddings at all.",
+      "metrics": {
+        "n": 20,
+        "recall@1": 0.7,
+        "recall@3": 0.8,
+        "recall@5": 0.9,
+        "recall@10": 0.9,
+        "mrr@10": 0.775
+      },
+      "median_latency_ms": 3.3,
+      "error": null
+    },
+    {
+      "name": "dense-baseline",
+      "variant": "baseline",
+      "note": "The shipped configuration.",
+      "metrics": {
+        "n": 20,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      },
+      "median_latency_ms": 211.9,
+      "error": null
+    },
+    {
+      "name": "dense-one-chunk-per-event",
+      "variant": "one-chunk-per-event",
+      "note": "Index each event whole instead of splitting it.",
+      "metrics": {
+        "n": 20,
+        "recall@1": 0.9,
+        "recall@3": 0.95,
+        "recall@5": 0.95,
+        "recall@10": 0.95,
+        "mrr@10": 0.925
+      },
+      "median_latency_ms": 178.9,
+      "error": null
+    },
+    {
+      "name": "dense-metadata-header",
+      "variant": "metadata-header",
+      "note": "Embed title, venue, city and date with the text so proper nouns match.",
+      "metrics": {
+        "n": 20,
+        "recall@1": 0.9,
+        "recall@3": 0.95,
+        "recall@5": 0.95,
+        "recall@10": 0.95,
+        "mrr@10": 0.925
+      },
+      "median_latency_ms": 177.0,
+      "error": null
+    },
+    {
+      "name": "dense+city-filter",
+      "variant": "baseline",
+      "note": "Narrow to the town named in the question. Part of any gain may be an artefact: questions were generated from an event whose town the prompt showed the model.",
+      "metrics": {
+        "n": 20,
+        "recall@1": 0.95,
+        "recall@3": 0.95,
+        "recall@5": 0.95,
+        "recall@10": 0.95,
+        "mrr@10": 0.95
+      },
+      "median_latency_ms": 163.1,
+      "error": null
+    },
+    {
+      "name": "hybrid-rrf",
+      "variant": "baseline",
+      "note": "Reciprocal rank fusion of dense and lexical search.",
+      "metrics": {
+        "n": 20,
+        "recall@1": 0.85,
+        "recall@3": 0.9,
+        "recall@5": 0.9,
+        "recall@10": 0.95,
+        "mrr@10": 0.881
+      },
+      "median_latency_ms": 168.0,
+      "error": null
+    },
+    {
+      "name": "hybrid-rrf+rerank",
+      "variant": "baseline",
+      "note": "Cross-encoder reranking on top of hybrid search. Optional dependency, 41 MB.",
+      "metrics": {
+        "n": 20,
+        "recall@1": 0.4,
+        "recall@3": 0.6,
+        "recall@5": 0.7,
+        "recall@10": 0.8,
+        "mrr@10": 0.527
+      },
+      "median_latency_ms": 213.4,
+      "error": null
+    }
+  ]
+}
