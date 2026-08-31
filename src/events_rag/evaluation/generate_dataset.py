@@ -10,6 +10,7 @@ import json
 import random
 import re
 import sys
+import time
 from pathlib import Path
 
 from langchain_mistralai import ChatMistralAI
@@ -94,9 +95,20 @@ def parse_json_from_llm(text: str) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 
-@retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=10))
+# Building the set is 22 calls in a row, which the API treats as a burst and rate-limits.
+# Three attempts capped at ten seconds was not enough to ride one out, and a single 429
+# aborted the run and discarded every case generated before it.
+THROTTLE_SECONDS = 1.5
+
+
+@retry(
+    stop=stop_after_attempt(6),
+    wait=wait_exponential(multiplier=2, min=2, max=60),
+    reraise=True,
+)
 def call_llm(model: ChatMistralAI, prompt: str) -> str:
     response = model.invoke([("human", prompt)])
+    time.sleep(THROTTLE_SECONDS)
     return response.content
 
 
