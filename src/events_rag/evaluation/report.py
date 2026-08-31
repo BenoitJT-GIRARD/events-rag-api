@@ -1,0 +1,54 @@
+"""Render the ablation results as the markdown table published in the README."""
+
+import json
+from pathlib import Path
+
+from events_rag.config import get_settings
+from events_rag.evaluation.ablation import CONFIGS, run_all
+from events_rag.evaluation.evaluate import load_reference_dataset
+
+HEADER = "| Configuration | Chunking | recall@1 | recall@5 | MRR@10 | Median latency | Notes |"
+SEPARATOR = "|---|---|---|---|---|---|---|"
+
+
+def render_table(results: list[dict]) -> str:
+    best = max(
+        (
+            r["metrics"]["recall@5"]
+            for r in results
+            if r["metrics"] and r["metrics"]["recall@5"] is not None
+        ),
+        default=None,
+    )
+
+    lines = [HEADER, SEPARATOR]
+    for result in results:
+        if result["error"]:
+            lines.append(
+                f"| `{result['name']}` | {result['variant']} | — | — | — | — | "
+                f"failed: {result['error']} |"
+            )
+            continue
+        metrics = result["metrics"]
+        recall5 = metrics["recall@5"]
+        shown = f"**{recall5}**" if best is not None and recall5 == best else f"{recall5}"
+        lines.append(
+            f"| `{result['name']}` | {result['variant']} | {metrics['recall@1']} | {shown} | "
+            f"{metrics['mrr@10']} | {result['median_latency_ms']} ms | {result['note']} |"
+        )
+    return "\n".join(lines)
+
+
+def run_ablation() -> dict:
+    settings = get_settings()
+    eval_dir = Path(settings.eval_data_dir)
+    cases = load_reference_dataset(eval_dir / "reference_qa.json")
+    results = run_all(CONFIGS, cases)
+
+    payload = {"configurations": len(results), "results": results}
+    eval_dir.mkdir(parents=True, exist_ok=True)
+    (eval_dir / "ablation_results.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    (eval_dir / "ablation_table.md").write_text(render_table(results) + "\n", encoding="utf-8")
+    return payload
