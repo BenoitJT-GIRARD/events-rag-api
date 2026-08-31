@@ -5,11 +5,12 @@ metrics that silently returned null are exactly the failure mode to avoid.
 """
 
 import statistics
+import tempfile
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from pathlib import Path
 
-from events_rag.config import get_settings
 from events_rag.evaluation.indexes import ChunkingVariant, chunks_for, index_for
 from events_rag.evaluation.retrieval import aggregate
 from events_rag.evaluation.strategies import (
@@ -88,8 +89,11 @@ def _flashrank_scorer() -> Callable[[str, list[str]], list[float]]:
     """
     from flashrank import Ranker, RerankRequest
 
-    settings = get_settings()
-    ranker = Ranker(cache_dir=str(settings.data_dir / "flashrank"))
+    # The model cache goes to the OS temp directory, not under data/. It is a downloaded
+    # artefact, not project data, and on a synced folder the download raced its own
+    # extraction: FlashRank opened the archive before the write was visible and failed
+    # with "File is not a zip file" on a file that was in fact a valid zip.
+    ranker = Ranker(cache_dir=str(Path(tempfile.gettempdir()) / "flashrank"))
     texts = {str(doc.metadata.get("uid", "")): doc.page_content for doc in chunks_for(BASELINE)}
 
     def score(query: str, uids: list[str]) -> list[float]:

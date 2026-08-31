@@ -21,7 +21,6 @@ htmlcov/
 data/raw/*
 data/processed/*
 data/faiss/*
-data/flashrank/
 
 # Keep folder structure
 !data/raw/.gitkeep
