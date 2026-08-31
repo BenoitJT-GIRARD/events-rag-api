@@ -4,11 +4,11 @@ from pathlib import Path
 
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
-from langchain_mistralai import MistralAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from events_rag.config import get_settings
 from events_rag.logger import get_logger
+from events_rag.rag.retriever import build_embeddings
 
 logger = get_logger(__name__)
 
@@ -64,22 +64,6 @@ def split_documents(
     chunks = splitter.split_documents(list(documents))
     logger.info("indexer.documents_split", input_count=len(documents), chunk_count=len(chunks))
     return chunks
-
-
-def build_embeddings() -> MistralAIEmbeddings:
-    settings = get_settings()
-
-    if not settings.mistral_api_key:
-        raise ValueError(
-            "EVENTS_RAG_MISTRAL_API_KEY is missing. "
-            "Set it in your .env before building the FAISS index."
-        )
-
-    logger.info("indexer.embeddings_initialized", model=settings.embedding_model)
-    return MistralAIEmbeddings(
-        model=settings.embedding_model,
-        api_key=settings.mistral_api_key,
-    )
 
 
 def build_faiss_index(chunks: Sequence[Document]) -> FAISS:
