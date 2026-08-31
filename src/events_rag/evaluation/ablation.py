@@ -135,9 +135,9 @@ CONFIGS: list[AblationConfig] = [
         BASELINE,
         lambda: CityFilter(DenseSearch(index_for(BASELINE)), _city_by_uid()),
         note=(
-            "Narrow to the town named in the question. Part of any gain may be an "
-            "artefact: questions were generated from an event whose town the prompt "
-            "showed the model."
+            "Narrow to the town named in the question. Read the gain with care: the "
+            "questions are hand-written and name their town, because someone looking "
+            "for an outing says where — but that choice favours this configuration."
         ),
     ),
     AblationConfig(
