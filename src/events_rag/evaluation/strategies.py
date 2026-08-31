@@ -44,3 +44,59 @@ class BM25Search:
         order = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
         ranked = [self._documents[i] for i in order[: k * OVERFETCH]]
         return dedupe_uids(_uids(ranked))[:k]
+
+
+class HybridSearch:
+    """Reciprocal rank fusion of a dense and a lexical strategy.
+
+    RRF needs no score calibration between the two, which is what makes it safe to
+    combine a cosine similarity with a BM25 score.
+    """
+
+    def __init__(
+        self,
+        dense: SearchStrategy,
+        lexical: SearchStrategy,
+        rrf_k: int = 60,
+    ) -> None:
+        self._dense = dense
+        self._lexical = lexical
+        self._rrf_k = rrf_k
+
+    def search(self, query: str, k: int) -> list[str]:
+        pool = k * OVERFETCH
+        scores: dict[str, float] = {}
+        for strategy in (self._dense, self._lexical):
+            for rank, uid in enumerate(strategy.search(query, pool), start=1):
+                scores[uid] = scores.get(uid, 0.0) + 1.0 / (self._rrf_k + rank)
+        ranked = sorted(scores, key=lambda uid: scores[uid], reverse=True)
+        return ranked[:k]
+
+
+class CityFilter:
+    """Keep only events from the town a query names.
+
+    Town names are matched against the set present in the corpus — a lookup, not language
+    understanding. When a query names no known town the filter passes results through
+    untouched, so it never removes what it cannot justify removing.
+    """
+
+    def __init__(self, inner: SearchStrategy, city_by_uid: dict[str, str]) -> None:
+        self._inner = inner
+        self._city_by_uid = city_by_uid
+        # Longest first, so "Castelnaudary" wins over "Castelnau".
+        self._cities = sorted({c for c in city_by_uid.values() if c}, key=len, reverse=True)
+
+    def _named_city(self, query: str) -> str | None:
+        lowered = query.lower()
+        for city in self._cities:
+            if city.lower() in lowered:
+                return city
+        return None
+
+    def search(self, query: str, k: int) -> list[str]:
+        city = self._named_city(query)
+        if city is None:
+            return self._inner.search(query, k)
+        candidates = self._inner.search(query, k * OVERFETCH)
+        return [uid for uid in candidates if self._city_by_uid.get(uid) == city][:k]

@@ -1,6 +1,6 @@
 from langchain_core.documents import Document
 
-from events_rag.evaluation.strategies import BM25Search, DenseSearch
+from events_rag.evaluation.strategies import BM25Search, CityFilter, DenseSearch, HybridSearch
 
 
 class FakeVectorstore:
@@ -41,3 +41,53 @@ def test_bm25_ranks_the_lexically_closest_document_first() -> None:
     ]
 
     assert BM25Search(documents).search("concert jazz", k=1) == ["b"]
+
+
+class FakeStrategy:
+    def __init__(self, uids: list[str]) -> None:
+        self._uids = uids
+
+    def search(self, query: str, k: int) -> list[str]:
+        return self._uids[:k]
+
+
+def test_hybrid_promotes_the_uid_both_lists_found() -> None:
+    dense = FakeStrategy(["x", "b"])
+    lexical = FakeStrategy(["y", "b"])
+
+    # "b" is second in both lists and scores 2/62, while "x" and "y" are first in one
+    # list only and score 1/61 each. Agreement across both sides is what RRF rewards.
+    #
+    # Note it does not reward closeness to the top: 1/61 + 1/63 exceeds 2/62, so being
+    # first and third beats being second twice. Convexity of 1/x, not a bug.
+    assert HybridSearch(dense, lexical).search("q", k=1) == ["b"]
+
+
+def test_hybrid_keeps_a_uid_that_only_one_side_found() -> None:
+    dense = FakeStrategy(["a"])
+    lexical = FakeStrategy(["z"])
+
+    assert set(HybridSearch(dense, lexical).search("q", k=2)) == {"a", "z"}
+
+
+def test_city_filter_keeps_only_the_town_named_in_the_query() -> None:
+    inner = FakeStrategy(["a", "b", "c"])
+    cities = {"a": "Toulouse", "b": "Sete", "c": "Sete"}
+
+    assert CityFilter(inner, cities).search("concerts a Sete ce soir", k=2) == ["b", "c"]
+
+
+def test_city_filter_passes_through_when_no_known_town_is_named() -> None:
+    inner = FakeStrategy(["a", "b"])
+    cities = {"a": "Toulouse", "b": "Sete"}
+
+    assert CityFilter(inner, cities).search("des concerts gratuits", k=2) == ["a", "b"]
+
+
+def test_city_filter_prefers_the_longest_matching_town_name() -> None:
+    # Real names overlap: matching the shortest first would send a query about
+    # Castelnaudary to Castelnau.
+    inner = FakeStrategy(["a", "b"])
+    cities = {"a": "Castelnau", "b": "Castelnaudary"}
+
+    assert CityFilter(inner, cities).search("marche a Castelnaudary", k=2) == ["b"]
