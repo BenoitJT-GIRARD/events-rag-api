@@ -1,3 +1,10 @@
+"""The harness scores every configuration the same way, and hides none of them.
+
+Three things it guards: only positive cases enter the retrieval scores, a configuration
+that raises is reported with its error instead of vanishing from the table, and the
+registry holds the configurations the README claims were tried, under unique names.
+"""
+
 import pytest
 
 from events_rag.evaluation.ablation import CONFIGS, AblationConfig, run_config

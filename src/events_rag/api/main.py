@@ -1,3 +1,9 @@
+"""The four routes, and the lifespan that loads the index before the first question.
+
+`/rebuild` is the one that needs a token: rebuilding the index re-embeds the whole corpus
+through a paid API, so it is not something an anonymous caller should be able to trigger.
+"""
+
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException

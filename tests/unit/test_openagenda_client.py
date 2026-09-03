@@ -1,3 +1,8 @@
+"""The upstream query asks for Occitanie and for the date window the settings name.
+
+Including the rolling mode, which deliberately has no upper bound.
+"""
+
 from events_rag.ingestion.openagenda_client import OpenAgendaClient
 
 

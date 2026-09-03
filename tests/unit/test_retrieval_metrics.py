@@ -1,3 +1,10 @@
+"""recall@k, reciprocal rank, and the deduplication that has to happen before the cut at k.
+
+Several chunks of one event can be retrieved; counting them separately would inflate recall
+at every k. The absent-target cases are here too, because a metric that only ever sees a
+hit is a metric nobody has tested.
+"""
+
 from events_rag.evaluation.retrieval import (
     aggregate,
     dedupe_uids,

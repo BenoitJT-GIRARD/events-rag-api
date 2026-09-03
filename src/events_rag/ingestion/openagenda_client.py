@@ -1,3 +1,10 @@
+"""Paging through the OpenDataSoft API that publishes OpenAgenda's events.
+
+Upstream is a rolling window, so a fetch today and a fetch tomorrow return different
+events. That is why the corpus is committed rather than rebuilt: every figure in the
+README is about the frozen one.
+"""
+
 from datetime import datetime, timedelta
 
 import httpx

@@ -1,3 +1,10 @@
+"""Retrieve, format the context, ask the model, and return the answer with its sources.
+
+`build_sources` is not decoration: it is what lets a reader check the answer against the
+events it came from, and what the evaluation scores when it asks whether the right event
+was retrieved.
+"""
+
 from functools import lru_cache
 
 from langchain_core.documents import Document

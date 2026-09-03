@@ -1,3 +1,10 @@
+"""The system prompt, in French because the corpus and the questions are.
+
+The instruction that carries the weight is the one telling the model to answer only from
+the context and to say so when the context does not contain the answer. The evaluation set
+tests exactly that with questions about events that do not exist.
+"""
+
 SYSTEM_PROMPT = """
 Tu es un assistant spécialisé dans les événements culturels publics en France.
 

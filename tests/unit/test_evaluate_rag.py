@@ -1,3 +1,10 @@
+"""Keyword coverage, city matching, refusal detection, and how the summary averages.
+
+The refusal patterns get the most attention: a question about an event that does not exist
+is answered correctly by refusing, and this matcher is the only thing between that and a
+confident invention scored as a success.
+"""
+
 import pytest
 
 from events_rag.evaluation.evaluate import (

@@ -1,3 +1,10 @@
+"""The chunking variants build the indexes the ablation compares, and are told apart.
+
+Each variant carries a fingerprint. Two variants that produce the same fingerprint would be
+compared as different configurations while sharing one index, and the ablation would be
+measuring nothing — so the fingerprint has to move when the chunking does.
+"""
+
 from langchain_core.documents import Document
 
 from events_rag.evaluation.indexes import (

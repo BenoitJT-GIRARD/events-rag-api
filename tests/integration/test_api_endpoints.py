@@ -1,3 +1,5 @@
+"""The routes answer, and reject a malformed question rather than passing it through."""
+
 from fastapi.testclient import TestClient
 
 from events_rag.api.main import app

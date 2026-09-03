@@ -1,3 +1,9 @@
+"""`/rebuild` refuses without its token.
+
+The route re-embeds the whole corpus through a paid API. An open one is a bill anyone can
+run up.
+"""
+
 from fastapi.testclient import TestClient
 
 from events_rag.api.main import app

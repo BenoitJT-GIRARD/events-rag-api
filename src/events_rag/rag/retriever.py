@@ -1,3 +1,10 @@
+"""Loading the index and answering a query with the top documents.
+
+The embeddings object is built from the same settings the index was written with. An index
+read with a different embedding model returns neighbours that mean nothing, and nothing in
+FAISS notices, so the model name travels with the index rather than with the caller.
+"""
+
 from functools import lru_cache
 from pathlib import Path
 

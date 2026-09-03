@@ -1,3 +1,10 @@
+"""The ablation figure is drawn from the results file and hides nothing.
+
+Well-formed SVG, one bar per configuration, a longer bar for a higher score, and a failed
+configuration drawn as failed rather than omitted — the same guarantee the table gives,
+because a reader looks at the figure first.
+"""
+
 import re
 
 from events_rag.evaluation.chart import render_ablation_svg

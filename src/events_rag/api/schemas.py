@@ -1,3 +1,9 @@
+"""The request and response shapes, which are also the generated OpenAPI documentation.
+
+`AskResponse` carries the sources beside the answer on purpose: an answer whose supporting
+events cannot be checked is the failure mode this whole repository is arranged against.
+"""
+
 from pydantic import BaseModel, Field
 
 

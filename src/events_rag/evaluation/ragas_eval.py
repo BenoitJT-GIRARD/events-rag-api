@@ -1,3 +1,14 @@
+"""The generation-side metrics, which are the weaker half and are reported as such.
+
+Two of the five RAGAS metrics return null on this setup; they are reported as not measured
+rather than shown as zero, because a null that looks like a score is worse than an admitted
+gap. `NaNSafeEncoder` exists so that a missing metric survives serialisation as `null`
+instead of as the string `NaN`, which no JSON reader accepts.
+
+The reference answers are derived from the events themselves, so these numbers are
+optimistic by construction. The README says so.
+"""
+
 import json
 import math
 import time

@@ -1,3 +1,5 @@
+"""`/metadata` reports the corpus and index it is actually serving, not a hard-coded string."""
+
 from fastapi.testclient import TestClient
 
 from events_rag.api.main import app

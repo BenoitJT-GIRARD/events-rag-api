@@ -1,3 +1,9 @@
+"""Turning one API record into one document: text to embed, metadata to filter on.
+
+The HTML strip matters more than it looks. Descriptions arrive with markup, and an
+embedding of a `<p>` tag is an embedding of nothing.
+"""
+
 from html import unescape
 from re import sub
 

@@ -1,3 +1,10 @@
+"""Every path, model name and threshold, in one settings object read from the environment.
+
+`get_settings` is cached: the corpus path and the index directory are read once and the
+same object is handed to the ingestion, the retriever and the API, so the three cannot
+disagree about where the index lives.
+"""
+
 from functools import lru_cache
 from pathlib import Path
 

@@ -1,2 +1,1 @@
-def main() -> None:
-    print("Hello from events-rag!")
+"""Retrieval-augmented question answering over a frozen corpus of public events."""

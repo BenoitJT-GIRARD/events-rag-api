@@ -1,3 +1,12 @@
+"""Each retrieval strategy does what its name says.
+
+Dense deduplicates by event and overfetches so that deduplication does not starve the
+result, BM25 ranks the lexically closest document first, the hybrid fusion promotes what
+both lists found without dropping what only one did, and the city filter keeps the town
+named in the query — preferring the longest matching name, so that a query naming a town
+whose name contains another one is not filtered to the wrong place.
+"""
+
 from langchain_core.documents import Document
 
 from events_rag.evaluation.strategies import (

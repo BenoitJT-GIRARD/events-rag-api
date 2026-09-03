@@ -1,3 +1,5 @@
+"""Structured logging, configured once at import of the API."""
+
 import logging
 import sys
 

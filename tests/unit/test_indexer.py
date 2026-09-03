@@ -1,3 +1,5 @@
+"""Raw records become documents, and a long document is split rather than truncated."""
+
 from langchain_core.documents import Document
 
 from events_rag.rag.indexer import split_documents, to_langchain_documents

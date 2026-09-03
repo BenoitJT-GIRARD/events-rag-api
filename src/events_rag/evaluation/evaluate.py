@@ -1,3 +1,11 @@
+"""Deterministic retrieval scoring: no judge, no second model, no API call to grade.
+
+Each question records the `uid` of the event it was written from, so recall and MRR are
+computed against a hard label. The refusal patterns are the other half: a question about an
+event that does not exist is answered correctly by refusing, and a match on those patterns
+is what counts as a refusal.
+"""
+
 import json
 import re
 from pathlib import Path

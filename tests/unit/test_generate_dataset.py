@@ -1,3 +1,9 @@
+"""The generator draws reproducibly for a seed, from the whole file, and only where the keyword is.
+
+A selector that silently takes the head of the file builds an evaluation set about the
+first few hundred events rather than about the corpus.
+"""
+
 import random
 
 from events_rag.evaluation.generate_dataset import select_events_for_category

@@ -1,3 +1,10 @@
+"""The lexical-overlap measure separates a question that quotes its source from a paraphrase.
+
+It is the instrument that showed the first benchmark was measuring string matching, so an
+instrument blind to that difference would have hidden the defect instead of finding it.
+Accents and case are folded, and short words do not count as content.
+"""
+
 from events_rag.evaluation.difficulty import content_tokens, lexical_overlap
 
 

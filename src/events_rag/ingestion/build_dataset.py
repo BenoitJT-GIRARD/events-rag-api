@@ -1,3 +1,9 @@
+"""Fetch the events and write the raw corpus.
+
+Deliberately outside the reproduction path: running it replaces the frozen corpus with a
+different one, and every published number stops applying. See the README.
+"""
+
 import json
 
 from events_rag.config import get_settings

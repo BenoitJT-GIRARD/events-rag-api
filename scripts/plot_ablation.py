@@ -1,3 +1,5 @@
+"""Redraw docs/images/ablation.svg from the published ablation results."""
+
 import json
 from pathlib import Path
 

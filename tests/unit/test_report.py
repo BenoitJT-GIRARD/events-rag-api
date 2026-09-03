@@ -1,3 +1,8 @@
+"""The published table has one row per configuration, marks the best, and shows failures.
+
+A configuration that errors and disappears reads as one that was never tried.
+"""
+
 from events_rag.evaluation.report import render_table
 
 

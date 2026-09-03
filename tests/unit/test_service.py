@@ -1,3 +1,8 @@
+"""The context handed to the model carries the metadata, and the sources come back serialisable.
+
+The sources are what lets a reader check the answer against the events it came from.
+"""
+
 from langchain_core.documents import Document
 
 from events_rag.rag.service import build_sources, format_context

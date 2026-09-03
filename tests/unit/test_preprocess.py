@@ -1,3 +1,5 @@
+"""HTML is stripped, and the metadata a filter needs survives the conversion to a document."""
+
 from events_rag.ingestion.preprocess import event_to_document, strip_html
 
 
