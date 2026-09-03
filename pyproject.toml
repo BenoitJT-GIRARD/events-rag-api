@@ -66,6 +66,9 @@ indent-style = "space"
 [tool.pytest.ini_options]
 addopts = "-ra -q --strict-markers --strict-config --import-mode=importlib"
 testpaths = ["tests"]
+# Warnings are errors. The suite passes with no exemption: nothing this code or
+# its dependencies emit needs silencing, and now a new deprecation will say so.
+filterwarnings = ["error"]
 
 [tool.bandit]
 exclude_dirs = ["tests", ".venv", ".git", "data"]
