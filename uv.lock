@@ -544,7 +544,7 @@ dev = [
     { name = "pytest", specifier = ">=8.3.0" },
     { name = "pytest-asyncio", specifier = ">=0.24.0" },
     { name = "pytest-cov", specifier = ">=5.0.0" },
-    { name = "ragas", specifier = ">=0.4.3" },
+    { name = "ragas", specifier = ">=0.4.3,<0.5" },
     { name = "ruff", specifier = ">=0.6.0" },
 ]
 lint = [
@@ -556,7 +556,7 @@ test = [
     { name = "pytest", specifier = ">=8.3.0" },
     { name = "pytest-asyncio", specifier = ">=0.24.0" },
     { name = "pytest-cov", specifier = ">=5.0.0" },
-    { name = "ragas", specifier = ">=0.4.3" },
+    { name = "ragas", specifier = ">=0.4.3,<0.5" },
 ]
 
 [[package]]

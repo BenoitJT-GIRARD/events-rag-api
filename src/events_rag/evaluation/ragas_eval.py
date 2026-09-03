@@ -6,19 +6,28 @@ from pathlib import Path
 from ragas import EvaluationDataset, SingleTurnSample, evaluate
 from ragas.embeddings import LangchainEmbeddingsWrapper
 from ragas.llms import LangchainLLMWrapper
-from ragas.metrics import (
+
+# These names are underscore-prefixed, and that is not an oversight to clean up: as of
+# ragas 0.4.3 there is no public path to the concrete metrics at all. `ragas.metrics.__all__`
+# is empty of them and every metric module is itself underscore-prefixed. The classes are
+# re-exported at package level, which is the closest thing to a supported entry point.
+#
+# The protection is therefore the version cap in pyproject.toml (`ragas>=0.4.3,<0.5`), not
+# the import style. Without it an unrelated `uv sync` would pull a release where this
+# surface has moved and break the evaluation with no warning.
+from ragas.metrics import (  # noqa: PLC2701
     _AnswerRelevancy as AnswerRelevancy,
 )
-from ragas.metrics import (
+from ragas.metrics import (  # noqa: PLC2701
     _ContextPrecision as ContextPrecision,
 )
-from ragas.metrics import (
+from ragas.metrics import (  # noqa: PLC2701
     _ContextRecall as ContextRecall,
 )
-from ragas.metrics import (
+from ragas.metrics import (  # noqa: PLC2701
     _ContextRelevance as ContextRelevancy,
 )
-from ragas.metrics import (
+from ragas.metrics import (  # noqa: PLC2701
     _Faithfulness as Faithfulness,
 )
 from ragas.run_config import RunConfig

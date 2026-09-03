@@ -154,8 +154,15 @@ themselves, so RAGAS's faithfulness and relevancy numbers remain optimistic. Fix
 means writing reference answers blind, which is a different exercise.
 
 **Two of the five RAGAS metrics do not work.** `answer_relevancy` and `context_relevancy`
-return null. They are reported as not measured rather than shown as zero, and the module
-still imports private RAGAS symbols that will break on the next upgrade.
+return null. They are reported as not measured rather than shown as zero — a null that
+looks like a score is worse than an admitted gap.
+
+**The RAGAS integration imports private symbols, and there is no alternative.** As of
+0.4.3 the library exposes no public path to its concrete metrics: `ragas.metrics.__all__`
+holds none of them and every metric module is itself underscore-prefixed. The mitigation
+is a version cap, `ragas>=0.4.3,<0.5`, so that an unrelated dependency sync cannot pull a
+release where that surface has moved. Depending on a private API is a real liability; the
+cap makes it a scheduled one rather than a surprise.
 
 **n = 20 is too small to rank close configurations.** Every conclusion above about small
 differences is guarded for that reason. Two hundred questions would settle it; that is
