@@ -1,631 +1,208 @@
 # Events RAG
 
-POC de système **RAG (Retrieval-Augmented Generation)** pour la recommandation d'événements culturels à partir du dataset public OpenDataSoft `evenements-publics-openagenda`, avec **LangChain**, **Mistral**, **FAISS** et une **API FastAPI**.
+A retrieval-augmented question answering API over a thousand public cultural events in
+Occitanie. Ask it in plain French what there is to do in your town, and it answers from
+the corpus — or says it does not know.
 
----
+## Project status
 
-## 1. Objectif du projet
+**This repository is archived in a runnable state.** No service is running behind it: the
+API keys have been revoked and the continuous integration workflows are frozen to
+manual trigger only, deliberately, so that nothing here can quietly rot into a red cross
+on an unmaintained project. Their last successful runs remain visible in the Actions tab.
 
-L'objectif de ce projet est de démontrer la faisabilité technique d'un assistant capable de répondre à des questions en langage naturel sur des événements culturels, en s'appuyant sur :
+Everything below is reproducible locally with `docker compose up` and a Mistral API key.
+The event corpus is committed, so the numbers in this README can be recomputed exactly —
+see [Reproducing the results](#reproducing-the-results).
 
-- une ingestion configurable des données d'événements ;
-- un prétraitement et un chunking des descriptions ;
-- une vectorisation sémantique via **Mistral Embeddings** ;
-- une indexation vectorielle locale avec **FAISS** ;
-- un retrieval sémantique puis une génération augmentée via **Mistral Chat** ;
-- une **API REST FastAPI** permettant de tester rapidement la solution ;
-- des **tests**, une **évaluation automatisée** et une **documentation de reproduction**.
+## The problem
 
----
+Public event listings are published as flat, faceted datasets: you filter by city, by
+date, by category. What people actually ask is *"is there something for a three-year-old
+near Alès during the holidays, and is it free?"* — a question that crosses four facets
+and names none of them.
 
-## 2. Périmètre retenu
+This is a proof of concept for answering that kind of question over
+[OpenAgenda's public events](https://public.opendatasoft.com/explore/dataset/evenements-publics-openagenda/),
+restricted to Occitanie.
 
-Le cahier des charges autorise à cibler une zone géographique au choix, à condition de travailler sur des événements récents (moins d'un an) ou à venir.
+## What it does
 
-Le corpus retenu pour le développement principal est configurable via variables d'environnement. La configuration de référence utilisée pendant le développement est :
-
-- `location_field=city`
-- `location_value=Montpellier`
-- `date_window_mode=rolling`
-- `date_window_days=365`
-
-Ce paramétrage produit un corpus d'environ **688 événements**, ce qui constitue une taille adaptée pour un POC démontrable, reproductible et raisonnable en coût/temps d'indexation.
-
----
-
-## 3. Source de données
-
-Le projet s'appuie sur le dataset public OpenDataSoft :
-
-- **Dataset** : `evenements-publics-openagenda`
-- **Endpoint** : `/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records`
-
-### Pourquoi ce choix ?
-
-Le dataset public OpenDataSoft a été retenu. Ce choix permet :
-
-- une **reproductibilité directe** ;
-- l'absence de clé API spécifique à OpenAgenda.
-
-Le projet reste donc aligné avec le besoin métier : interroger des événements publics issus de l'écosystème OpenAgenda, via leur exposition publique sur OpenDataSoft.
-
----
-
-## 4. Stack technique
-
-### Runtime / API / orchestration
-
-- **Python 3.12**
-- **FastAPI**
-- **Uvicorn**
-- **LangChain**
-
-### RAG / vectorisation
-
-- **MistralAIEmbeddings** pour les embeddings
-- **ChatMistralAI** pour la génération
-- **FAISS** pour la base vectorielle
-- **RecursiveCharacterTextSplitter** pour le chunking
-
-### Qualité / industrialisation
-
-- **uv** pour la gestion d'environnement et des dépendances
-- **Git Flow** pour l'organisation Git
-- **pytest** pour les tests
-- **Ruff** pour lint + format
-- **Bandit** pour l'analyse sécurité
-- **pre-commit**
-- **GitHub Actions** pour la CI
-- **structlog** pour les logs
-- **Docker** pour l'exécution locale conteneurisée
-
-### Évaluation
-
-- **Évaluation heuristique custom**
-- **Ragas** pour les métriques RAG avancées
-- **datasets** pour le format d'entrée Ragas
-
----
-
-## 5. Structure du projet
-
-```text
-events-rag/
-├── .github/
-│   └── workflows/
-│       ├── ci.yml
-│       └── eval.yml
-├── data/
-│   ├── raw/
-│   │   └── events.json
-│   ├── eval/
-│   │   ├── reference_qa.json
-│   │   ├── evaluation_results.json
-│   │   └── ragas_results.json
-│   └── faiss/
-│       └── events_index/
-├── docs/
-│   ├── rapport_technique.md
-│   ├── autoevaluation_notes.md
-│   └── demo_scenarios.md
-├── scripts/
-│   ├── api_test.py
-│   ├── build_dataset.py
-│   ├── build_index.py
-│   ├── evaluate_rag.py
-│   ├── evaluate_ragas.py
-│   ├── generate_eval_dataset.py
-│   └── run_local.py
-├── src/
-│   └── events_rag/
-│       ├── api/
-│       ├── evaluation/
-│       ├── ingestion/
-│       ├── rag/
-│       ├── config.py
-│       └── logger.py
-├── tests/
-│   ├── integration/
-│   └── unit/
-├── .env.example
-├── .dockerignore
-├── Dockerfile
-├── README.md
-├── pyproject.toml
-├── requirements.txt
-└── uv.lock
+```console
+$ curl -X POST localhost:8000/ask -H 'Content-Type: application/json' \
+    -d '{"question":"Un atelier pour apprendre à réparer son vélo à Toulouse au printemps ?","top_k":3}'
 ```
-
----
-
-## 6. Architecture fonctionnelle
-
-Le pipeline suit les étapes suivantes :
-
-1. **Récupération des événements** depuis OpenDataSoft
-2. **Filtrage géographique et temporel**
-3. **Transformation** de chaque événement en document textuel
-4. **Chunking** des documents
-5. **Embeddings Mistral**
-6. **Indexation FAISS**
-7. **Recherche sémantique** des documents les plus proches
-8. **Construction d'un prompt contextuel**
-9. **Génération de réponse** via Mistral
-10. **Exposition du système** via FastAPI
-
----
-
-## 7. Installation
-
-### 7.1. Cloner le projet
-
-```bash
-git clone <repo_url>
-cd events-rag
-```
-
-### 7.2. Installer les dépendances avec uv
-
-```bash
-uv sync --all-groups
-```
-
-Le projet utilise `pyproject.toml` et `uv.lock` comme source principale de vérité.
-Un `requirements.txt` exporté est également fourni pour les environnements qui ne disposent pas de `uv`.
-
-### 7.3. Variables d'environnement
-
-Créer un fichier `.env` à partir de `.env.example`.
-
-Exemple minimal :
-
-```dotenv
-EVENTS_RAG_ENV=dev
-EVENTS_RAG_LOG_LEVEL=INFO
-
-EVENTS_RAG_LOCATION_FIELD=city
-EVENTS_RAG_LOCATION_VALUE=Montpellier
-EVENTS_RAG_LANG=fr
-EVENTS_RAG_TIMEZONE=Europe/Paris
-
-EVENTS_RAG_DATE_WINDOW_MODE=rolling
-EVENTS_RAG_DATE_WINDOW_DAYS=365
-
-EVENTS_RAG_INGESTION_BATCH_SIZE=100
-EVENTS_RAG_INGESTION_MAX_RECORDS=700
-
-EVENTS_RAG_MISTRAL_API_KEY=your_mistral_api_key
-EVENTS_RAG_EMBEDDING_MODEL=mistral-embed
-EVENTS_RAG_CHAT_MODEL=mistral-small-latest
-
-EVENTS_RAG_FAISS_INDEX_NAME=events_index
-EVENTS_RAG_REBUILD_TOKEN=change_me_local_token
-```
-
----
-
-## 8. Dépendances
-
-### Dépendances runtime
-
-Le projet dépend notamment de :
-
-- `fastapi`
-- `uvicorn[standard]`
-- `httpx`
-- `langchain`
-- `langchain-community`
-- `langchain-mistralai`
-- `langchain-text-splitters`
-- `faiss-cpu`
-- `pydantic-settings`
-- `python-dotenv`
-- `structlog`
-- `tenacity`
-
-### Dépendances de test / qualité
-
-- `pytest`
-- `pytest-cov`
-- `pytest-asyncio`
-- `ragas`
-- `datasets`
-- `ruff`
-- `bandit[toml]`
-- `pre-commit`
-
----
-
-## 9. Reproduction du pipeline
-
-### 9.1. Construire le dataset brut
-
-```bash
-uv run python scripts/build_dataset.py
-```
-
-Sortie attendue :
-
-- `data/raw/events.json`
-
-### 9.2. Construire l'index vectoriel
-
-```bash
-uv run python scripts/build_index.py
-```
-
-Sorties attendues :
-
-- `data/faiss/events_index/index.faiss`
-- `data/faiss/events_index/index.pkl`
-- `data/faiss/events_index/manifest.json`
-
-### 9.3. Lancer les tests
-
-```bash
-uv run pytest
-```
-
-### 9.4. Lancer l'évaluation heuristique
-
-```bash
-uv run python scripts/evaluate_rag.py
-```
-
-Sortie :
-
-- `data/eval/evaluation_results.json`
-
-### 9.5. Lancer l'évaluation Ragas
-
-```bash
-uv run python scripts/evaluate_ragas.py
-```
-
-Sortie :
-
-- `data/eval/ragas_results.json`
-
-### 9.6. Lancer l'API
-
-```bash
-uv run fastapi dev src/events_rag/api/main.py
-```
-
-Documentation interactive :
-
-- `http://127.0.0.1:8000/docs`
-
-### 9.7. Lancer tout le pipeline localement
-
-```bash
-uv run python scripts/run_local.py
-```
-
-Ce script exécute automatiquement :
-
-- la construction du dataset ;
-- la reconstruction de l'index ;
-- l'évaluation heuristique ;
-- puis le lancement de l'API.
-
----
-
-## 10. API REST
-
-### `GET /health`
-
-Vérifie que l'API répond.
-
-Exemple de réponse :
 
 ```json
 {
-  "status": "ok"
-}
-```
-
-### `GET /metadata`
-
-Retourne la configuration métier du corpus actif :
-
-- filtre géographique ;
-- valeur géographique ;
-- langue ;
-- mode temporel ;
-- fenêtre temporelle ;
-- `retrieval_k`.
-
-### `POST /ask`
-
-Interroge le système RAG.
-
-Exemple de requête :
-
-```json
-{
-  "question": "Quels événements gratuits ont lieu à Montpellier ?",
-  "top_k": 5
-}
-```
-
-Exemple de réponse :
-
-```json
-{
-  "answer": "…",
+  "answer": "Voici un événement correspondant à votre demande :\n\n**Atelier d'initiation à la mécanique vélo**\n- **Ville** : Toulouse\n- **Date** : 19 mai 2026 à 13h00\n- **Lieu** : DSNA-DTI, 1 avenue du docteur Maurice Grynfogel\n\n*Remarque* : Aucun autre atelier de réparation vélo n'est mentionné pour Toulouse dans le contexte fourni.",
   "sources": [
-    {
-      "uid": "123",
-      "title": "Nom de l'événement",
-      "city": "Montpellier",
-      "date": "2026-03-10T18:00:00+00:00",
-      "score": null
-    }
+    { "uid": "58859316", "title": "Atelier d'auto-réparation vélo", "city": "Perpignan",  "date": "2026-05-01T16:00:00+02:00" },
+    { "uid": "4721721",  "title": "Atelier d'initiation à la mécanique", "city": "Toulouse", "date": "2026-05-19T13:00:00+02:00" },
+    { "uid": "73449814", "title": "Atelier réparation vélos", "city": "Narbonne", "date": "2026-05-20T14:00:00+02:00" }
   ]
 }
 ```
 
-### `POST /rebuild`
+Real response, 2.5 s end to end. Retrieval returns three bike-repair workshops across the
+region; generation picks the Toulouse one and says so when there is nothing else. Asked
+about a concert in Paris, it refuses rather than inventing one — a behaviour the
+evaluation set tests explicitly.
 
-Reconstruit l'index vectoriel à la demande.
+Four endpoints: `/health`, `/metadata`, `/ask`, `/rebuild`.
 
-Exemple de requête :
+## Approach
 
-```json
-{
-  "token": "change_me_local_token"
-}
-```
+Ingestion pulls events from the OpenDataSoft API, flattens them to text plus metadata,
+and chunks them at 800 characters. Chunks are embedded with `mistral-embed` into a FAISS
+index. At query time the top chunks become the context for `mistral-small`, behind a
+prompt that instructs it to answer only from that context.
 
-Le token protège l'endpoint contre une reconstruction non autorisée.
+The one choice worth defending: **FAISS on disk rather than a vector database.** A
+thousand events is a few thousand vectors. A managed vector store would add a service to
+run, a schema to migrate and a bill to pay, in exchange for scaling headroom this corpus
+will never need. The index rebuilds from the committed corpus in about a minute.
 
----
+## Evaluation, and what it took to make it mean anything
 
-## 11. Test fonctionnel de l'API
+This is the part I would read first, so it comes before the stack.
 
-Un script dédié est fourni :
+### The first benchmark was worthless, and it looked perfect
 
-```bash
-uv run python scripts/api_test.py
-```
+Evaluating a RAG system on whether an LLM judge likes the answer is expensive and
+non-deterministic. So the evaluation set records, for each question, the `uid` of the
+event it was written from — a hard relevance label — and retrieval is scored with
+`recall@k` and `MRR`, no judge involved.
 
-Ce script teste :
+The first run gave **`recall@1` = 1.00**. Every question retrieved its source event at
+rank one.
 
-- `/health`
-- `/metadata`
-- `/ask`
+That is not a good result, it is a broken benchmark. A perfect score means no headroom:
+no configuration can beat it, so the ablation it was built for cannot rank anything. The
+tell was in the floor row — **BM25 alone, a bag of words with no embeddings at all,
+reached 0.90 `recall@5` over a thousand events.** That is impossible on genuinely hard
+questions.
 
-Il constitue une preuve simple et relançable de bon fonctionnement local de l'API.
+The cause was that the questions had been generated by an LLM *from the event text*, and
+it quoted the titles verbatim: *"Quel est le titre du concert de Noël organisé par Goma
+Espérance ?"*. `Goma Espérance` is a unique string in the corpus. The benchmark was
+measuring exact string matching.
 
----
+I put a number on it rather than leaving it as an impression:
+[`difficulty.py`](src/events_rag/evaluation/difficulty.py) measures how many of a
+question's content words appear verbatim in the document it should retrieve. The
+generated set scored **0.61**.
 
-## 12. Qualité logicielle
+### Rebuilding the set by hand
 
-### Tests
+The twenty positive questions were rewritten by hand from the same seeded event sample —
+same events, so no cherry-picking — phrased the way someone looking for an outing would
+phrase it, without reusing titles. Overlap fell to **0.50**; the residue is mostly town
+names, which a user legitimately says out loud.
 
-Le projet contient :
+Every score dropped, which is the point:
 
-- des **tests unitaires** sur l'ingestion, le preprocessing, l'indexation et les fonctions d'évaluation ;
-- des **tests d'intégration API** pour vérifier la validation et les endpoints de base ;
-- un **script de test API** pour démonstration rapide.
+| | generated set | hand-written set |
+|---|---|---|
+| lexical overlap | 0.61 | **0.50** |
+| `bm25-only` `recall@1` | 0.70 | **0.50** |
+| `dense-baseline` `recall@1` | 1.00 | **0.90** |
 
-### Lint / sécurité
+BM25 fell hardest, exactly as the diagnosis predicted: removing quoted titles hits pure
+lexical matching first. The baseline dropped off the ceiling, so the benchmark can now
+separate configurations.
 
-Les outils suivants sont intégrés :
+### The ablation
 
-- `ruff check`
-- `ruff format`
-- `bandit`
+![Retrieval ablation results](docs/images/ablation.svg)
 
-### CI
+| Configuration | Chunking | recall@1 | recall@5 | MRR@10 | Median latency |
+|---|---|---|---|---|---|
+| `bm25-only` | baseline | 0.50 | 0.75 | 0.615 | **3.8 ms** |
+| `dense-baseline` | baseline | 0.90 | **1.00** | 0.950 | 159 ms |
+| `dense-one-chunk-per-event` | one chunk per event | 0.85 | 0.95 | 0.900 | 164 ms |
+| `dense-metadata-header` | metadata in text | 0.80 | 0.95 | 0.855 | 180 ms |
+| `dense+city-filter` | baseline | 0.95 | **1.00** | 0.975 | 216 ms |
+| `hybrid-rrf` | baseline | 0.80 | 0.95 | 0.857 | 178 ms |
+| `hybrid-rrf+rerank` | baseline | 0.55 | 0.70 | 0.622 | 208 ms |
 
-Le dépôt inclut des workflows GitHub Actions :
+**What this does not show.** The city filter tops the table, but 0.95 against 0.90 is
+**one question out of twenty**. At n = 20 the standard error is about 6.7 points, so the
+95 % interval is roughly ±13. That difference is well inside the noise and I am not
+claiming it as an improvement.
 
-- `.github/workflows/ci.yml` : lint + sécurité + tests
-- `.github/workflows/eval.yml` : reconstruction + évaluations relançables
+**What it does show.** Reranking clearly hurts — 0.55 against 0.90 is far outside the
+noise — and the cause is identifiable: `ms-marco-TinyBERT-L-2-v2` is a small
+cross-encoder trained on English, applied to French. Dropped, and the row is left in the
+table because a tried-and-abandoned path is information.
 
----
+**The honest conclusion:** on this corpus, at this sample size, none of the five
+alternatives beats plain dense retrieval by a margin the evidence supports. Query
+rewriting was not tried at all — one LLM call per query for a gain the literature puts as
+marginal on short factual questions.
 
-## 13. Stratégie d'évaluation
+## Limitations, and what I would do differently
 
-Le projet utilise **deux niveaux d'évaluation complémentaires**.
+**The generation side is still evaluated circularly.** The hand-written questions fixed
+the *retrieval* benchmark, but the reference answers are still derived from the events
+themselves, so RAGAS's faithfulness and relevancy numbers remain optimistic. Fixing that
+means writing reference answers blind, which is a different exercise.
 
-### 13.1. Évaluation heuristique
+**Two of the five RAGAS metrics do not work.** `answer_relevancy` and `context_relevancy`
+return null. They are reported as not measured rather than shown as zero, and the module
+still imports private RAGAS symbols that will break on the next upgrade.
 
-Le script `scripts/evaluate_rag.py` compare les réponses générées à un jeu de test annoté simple :
+**n = 20 is too small to rank close configurations.** Every conclusion above about small
+differences is guarded for that reason. Two hundred questions would settle it; that is
+hours of writing, not a change of method.
 
-- couverture de mots-clés attendus ;
-- cohérence géographique des sources ;
-- classification :
-  - `correct`
-  - `partially_correct`
-  - `incorrect`
+**The evaluation questions are still written by a language model** — by me rather than by
+Mistral, which removes the same-family bias between question and embedding, but does not
+make the set human. Saying otherwise would be dressing it up.
 
-Cette méthode est :
+**The corpus is frozen deliberately.** Upstream is a rolling window, so re-ingesting gives
+a different corpus and no number here would reproduce. See
+[`data/raw/SOURCE.md`](data/raw/SOURCE.md).
 
-- simple ;
-- rapide ;
-- relançable ;
-- utile pour la non-régression.
+## Stack
 
-### 13.2. Évaluation Ragas
+Python 3.12 · FastAPI · LangChain · FAISS · `mistral-embed` and `mistral-small` ·
+`rank_bm25` · FlashRank (optional, 41 MB) · pytest · ruff · uv · Docker.
 
-Le script `scripts/evaluate_ragas.py` produit des métriques RAG avancées via RAGAS 0.4.x.
-
-L'évaluation Ragas est exécutée avec :
-
-- **ChatMistralAI** comme LLM d'évaluation ;
-- **MistralAIEmbeddings** pour les embeddings ;
-- **sans dépendance à OpenAI**.
-
-#### Métriques retenues
-
-| Métrique | Description |
-|---|---|
-| `faithfulness` | Fraction des affirmations de la réponse qui sont ancrées dans les documents récupérés (détection d'hallucination) |
-| `context_precision` | Proportion des chunks récupérés réellement utiles à la réponse (qualité du retrieval) |
-| `context_recall` | Fraction des informations nécessaires à la réponse présentes dans les chunks récupérés (complétude du retrieval) |
-
-Les métriques `answer_relevancy` et `context_relevancy` (NV) n'ont pas produit de résultats valides : la première a subi des échecs systématiques liés au rate limiting API lors de l'évaluation, la seconde est une variante NVIDIA incompatible avec les modèles Mistral.
-
-#### Résultats obtenus sur 30 cas
-
-| Métrique | Score |
-|---|---|
-| faithfulness | **0.762** |
-| context_precision | **0.575** |
-| context_recall | **0.650** |
-
-**Interprétation :** Le score de faithfulness (0.76) confirme que le modèle respecte majoritairement les informations du contexte fourni. La context precision (0.575) révèle un bruit dans le retrieval : environ 4 documents sur 10 récupérés ne sont pas utiles à la réponse. Le context recall (0.65) indique que le retriever manque environ 35 % des informations pertinentes — ce qui fait du retrieval le maillon prioritaire à améliorer (reranking, filtrage seuil de distance FAISS).
-
-### Résultats évaluation heuristique (30 cas)
-
-| Indicateur | Valeur |
-|---|---|
-| Correct | 22 / 30 (73 %) |
-| Partiellement correct | 3 / 30 (10 %) |
-| Incorrect | 5 / 30 (17 %) |
-| Avg keyword coverage | 0.908 |
-
----
-
-### 14. Choix techniques clés
-
-### Pourquoi FAISS ?
-
-- simple à intégrer ;
-- très adapté à un POC local ;
-- performant sur quelques centaines à quelques milliers de chunks ;
-- facilement reconstruisible.
-
-### Pourquoi Mistral pour embeddings et génération ?
-
-- homogénéité de la stack, un seul fournisseur pour l'embedding et la génération ;
-- simplicité d'intégration dans LangChain.
-
-### Pourquoi pas de reranker ?
-
-Le reranking n était pas requis par le cahier des charges.
-Pour ce POC, le pipeline retrieval + génération couvre correctement les attentes. Le reranking constitue une **piste d'amélioration**, pas une condition de réussite.
-
-### Pourquoi uv plutôt qu'un simple requirements.txt ?
-
-`uv` fournit :
-
-- un environnement reproductible ;
-- un lockfile (`uv.lock`) ;
-- une gestion claire des groupes de dépendances ;
-- une meilleure ergonomie moderne.
-
-Un `requirements.txt` exporté reste toutefois fourni pour les environnements qui ne disposent pas de `uv`.
-
----
-
-## 15. Exécution avec Docker
-
-### Build
+## Reproducing the results
 
 ```bash
-docker build -t events-rag .
+cp .env.example .env          # add EVENTS_RAG_MISTRAL_API_KEY
+uv sync
+uv run python scripts/build_index.py      # embeds the committed corpus, ~1 min
+uv run python scripts/run_ablation.py     # writes data/eval/ablation_table.md
+docker compose up                          # API on :8000, Swagger at /docs
 ```
 
-### Run
+The corpus in `data/raw/` is committed, so `run_ablation.py` reproduces the table above
+exactly. `generate_eval_dataset.py` regenerates an evaluation set from scratch — it is
+how you would bootstrap one for a different corpus, not how the set shipped here was
+built.
 
-```bash
-docker run --rm -p 8000:8000 --env-file .env events-rag
+Tests: `uv run pytest` — 70 tests, no network.
+
+## Repository layout
+
+```
+src/events_rag/
+├── ingestion/    OpenDataSoft client, cleaning, dataset assembly
+├── rag/          chunking, FAISS index, retriever, prompts, service
+├── evaluation/   metrics, search strategies, ablation harness, reporting
+└── api/          FastAPI routes and schemas
+scripts/          thin entry points, one per operation
+data/raw/         the frozen corpus and its licence
+data/eval/        evaluation set and published results
 ```
 
-### Avec Docker Compose
+Engineering decisions in [`docs/architecture.md`](docs/architecture.md).
 
-```bash
-docker compose up --build
-```
+## Licence
 
-### Remarque importante
-
-Le conteneur permet d'exécuter localement l'API, mais la génération et les embeddings restent dépendants de l'API Mistral.
-Le système est donc **conteneurisé**, mais pas entièrement autonome hors ligne.
-
----
-
-## 16. Exemples d'usage
-
-### Via Swagger
-
-- ouvrir `http://127.0.0.1:8000/docs`
-- tester `/ask`
-- tester `/rebuild`
-
-### Via curl (Windows PowerShell)
-
-```bash
-curl -X POST "http://127.0.0.1:8000/ask" ^
-  -H "Content-Type: application/json" ^
-  -d "{"question":"Quels événements musicaux ont lieu à Montpellier ?","top_k":5}"
-```
-
-```bash
-curl -X POST "http://127.0.0.1:8000/rebuild" ^
-  -H "Content-Type: application/json" ^
-  -d "{"token":"change_me_local_token"}"
-```
-
----
-
-## 17. Limites actuelles
-
-- corpus limité à une zone géographique et une fenêtre temporelle configurées ;
-- dépendance à Mistral pour les embeddings et la génération ;
-- évaluation fondée sur 30 cas générés automatiquement (sans validation humaine exhaustive) ;
-- absence d'historique conversationnel ;
-- pas de reranking dédié ;
-- pas d'interface front dédiée ;
-- scores de source encore simples.
-
----
-
-## 18. Pistes d'amélioration
-
-- ajouter un reranker pour améliorer la context precision (0.575) ;
-- implémenter un filtre par seuil de distance FAISS (`max_distance_threshold`) pour réduire le bruit dans le retrieval et mieux gérer les requêtes hors corpus ;
-- augmenter `top_k` ou implémenter un retrieval adaptatif pour améliorer le context recall (0.650) ;
-- enrichir le jeu de test annoté avec validation humaine ;
-- améliorer les scores et justifications de sources ;
-- ajouter une interface utilisateur même simple ;
-- industrialiser davantage le monitoring et l'observabilité ;
-- préparer un déploiement cloud plus robuste.
-
----
-
-### 19. Démo recommandée
-
-Trois scénarios simples et parlants :
-
-1. **Quels événements musicaux ont lieu à Montpellier ?**
-2. **Y a-t-il des événements gratuits à Montpellier ?**
-3. **Quels événements pour les enfants sont prévus à Montpellier ?**
-
----
-
-## 20. Résumé
-
-Le projet livre un **POC RAG complet, testable et démontrable**, avec :
-
-- ingestion de données ;
-- preprocessing ;
-- chunking ;
-- embeddings ;
-- indexation FAISS ;
-- retrieval ;
-- génération via Mistral ;
-- API FastAPI ;
-- endpoint `/rebuild` ;
-- tests ;
-- évaluation heuristique ;
-- évaluation Ragas ;
-- CI ;
-- script de lancement local ;
-- conteneurisation Docker.
-
-Il répond au périmètre attendu pour un prototype métier crédible et constitue une base solide pour un élargissement futur.
+Code under [MIT](LICENSE). The event data is redistributed under the
+[Licence Ouverte / Open Licence v1.0](https://www.etalab.gouv.fr/wp-content/uploads/2014/05/Licence_Ouverte.pdf),
+published by OpenAgenda and distributed by OpenDataSoft.
