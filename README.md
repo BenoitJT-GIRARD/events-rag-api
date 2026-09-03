@@ -192,9 +192,19 @@ docker compose up                          # API on :8000, Swagger at /docs
 ```
 
 The corpus in `data/raw/` is committed, so `run_ablation.py` reproduces the table above
-exactly. `generate_eval_dataset.py` regenerates an evaluation set from scratch — it is
-how you would bootstrap one for a different corpus, not how the set shipped here was
-built.
+exactly.
+
+Two scripts deliberately sit outside that path, because both would replace a frozen input:
+
+- `build_dataset.py` re-ingests from the live upstream. Upstream is a rolling window, so
+  running it builds a *different* corpus and silently invalidates every figure above. It is
+  how you would bootstrap a corpus for another deployment, not how this one is reproduced —
+  which is why the CI evaluation workflow has no ingestion step either.
+- `generate_eval_dataset.py` regenerates the question set from scratch, for the same reason
+  and with the same caveat.
+
+`plot_ablation.py` redraws `docs/images/ablation.svg` from `data/eval/ablation_results.json`
+after an ablation run.
 
 Tests: `uv run pytest` — 70 tests, no network.
 
