@@ -1,30 +1,33 @@
 # Events RAG
 
-A retrieval-augmented question answering API over a thousand public cultural events in
-Occitanie. Ask it in plain French what there is to do in your town, and it answers from
-the corpus — or says it does not know.
+A question-answering API over a thousand public cultural events in Occitanie. Ask it in
+plain French what there is to do in your town, and it answers from the corpus — or says it
+does not know.
 
-## Project status
-
-**This repository is archived in a runnable state.** No service is running behind it: the
-API keys have been revoked and the continuous integration workflows are frozen to
-manual trigger only, deliberately, so that nothing here can quietly rot into a red cross
-on an unmaintained project. Their last successful runs remain visible in the Actions tab.
-
-Everything below is reproducible locally with `docker compose up` and a Mistral API key.
-The event corpus is committed, so the numbers in this README can be recomputed exactly —
-see [Reproducing the results](#reproducing-the-results).
+**Project status** — finished, and archived in a runnable state. No service runs behind it:
+the API keys are revoked and the CI is frozen to manual trigger, so that nothing here
+decays into a red badge on a project nobody maintains. The corpus is committed, so every
+number below recomputes exactly with `docker compose up` and a Mistral API key.
 
 ## The problem
 
-Public event listings are published as flat, faceted datasets: you filter by city, by
-date, by category. What people actually ask is *"is there something for a three-year-old
-near Alès during the holidays, and is it free?"* — a question that crosses four facets
-and names none of them.
+Public event listings are published as flat, faceted datasets: you filter by city, by date,
+by category. What people actually ask is *"is there something for a three-year-old near
+Alès during the holidays, and is it free?"* — a question that crosses four facets and names
+none of them.
 
-This is a proof of concept for answering that kind of question over
+Retrieval-augmented generation is the obvious answer, and the obvious answer comes with a
+trap. A RAG system is easy to build and hard to *measure*: the usual benchmark asks a
+language model whether it likes the answer, which is expensive, non-deterministic, and
+agrees with almost anything. Without a benchmark that can be wrong, no design choice in the
+pipeline can be defended.
+
+So this repository is built around two questions. **Can it answer the crossed question, and
+what evidence would distinguish one retrieval configuration from another?**
+
+The corpus is
 [OpenAgenda's public events](https://public.opendatasoft.com/explore/dataset/evenements-publics-openagenda/),
-restricted to Occitanie.
+restricted to Occitanie: 1 000 events, frozen.
 
 ## What it does
 
@@ -46,78 +49,33 @@ $ curl -X POST localhost:8000/ask -H 'Content-Type: application/json' \
 
 Real response, 2.5 s end to end. Retrieval returns three bike-repair workshops across the
 region; generation picks the Toulouse one and says so when there is nothing else. Asked
-about a concert in Paris, it refuses rather than inventing one — a behaviour the
-evaluation set tests explicitly.
+about a concert in Paris, it refuses rather than inventing one — a behaviour the evaluation
+set tests explicitly.
 
 Four endpoints, documented by the generated OpenAPI schema:
 
 ![The API surface at /docs](docs/images/swagger.png)
 
-`/rebuild` is guarded by a token — rebuilding the index calls a paid API, so it is not
+`/rebuild` is guarded by a token: rebuilding the index calls a paid API, so it is not
 something an anonymous caller should be able to trigger.
 
-## Approach
+### How it is built
 
-Ingestion pulls events from the OpenDataSoft API, flattens them to text plus metadata,
-and chunks them at 800 characters. Chunks are embedded with `mistral-embed` into a FAISS
-index. At query time the top chunks become the context for `mistral-small`, behind a
-prompt that instructs it to answer only from that context.
+Ingestion pulls events from the OpenDataSoft API, flattens them to text plus metadata, and
+chunks them at 800 characters. Chunks are embedded with `mistral-embed` into a FAISS index.
+At query time the top chunks become the context for `mistral-small`, behind a prompt that
+instructs it to answer only from that context.
 
-The one choice worth defending: **FAISS on disk rather than a vector database.** A
-thousand events is a few thousand vectors. A managed vector store would add a service to
-run, a schema to migrate and a bill to pay, in exchange for scaling headroom this corpus
-will never need. The index rebuilds from the committed corpus in about a minute.
+The one choice worth defending: **FAISS on disk rather than a vector database.** A thousand
+events is a few thousand vectors. A managed vector store would add a service to run, a
+schema to migrate and a bill to pay, in exchange for scaling headroom this corpus will
+never need. The index rebuilds from the committed corpus in about a minute.
 
-## Evaluation, and what it took to make it mean anything
+## The result
 
-This is the part I would read first, so it comes before the stack.
-
-### The first benchmark was worthless, and it looked perfect
-
-Evaluating a RAG system on whether an LLM judge likes the answer is expensive and
-non-deterministic. So the evaluation set records, for each question, the `uid` of the
-event it was written from — a hard relevance label — and retrieval is scored with
-`recall@k` and `MRR`, no judge involved.
-
-The first run gave **`recall@1` = 1.00**. Every question retrieved its source event at
-rank one.
-
-That is not a good result, it is a broken benchmark. A perfect score means no headroom:
-no configuration can beat it, so the ablation it was built for cannot rank anything. The
-tell was in the floor row — **BM25 alone, a bag of words with no embeddings at all,
-reached 0.90 `recall@5` over a thousand events.** That is impossible on genuinely hard
-questions.
-
-The cause was that the questions had been generated by an LLM *from the event text*, and
-it quoted the titles verbatim: *"Quel est le titre du concert de Noël organisé par Goma
-Espérance ?"*. `Goma Espérance` is a unique string in the corpus. The benchmark was
-measuring exact string matching.
-
-I put a number on it rather than leaving it as an impression:
-[`difficulty.py`](src/events_rag/evaluation/difficulty.py) measures how many of a
-question's content words appear verbatim in the document it should retrieve. The
-generated set scored **0.61**.
-
-### Rebuilding the set by hand
-
-The twenty positive questions were rewritten by hand from the same seeded event sample —
-same events, so no cherry-picking — phrased the way someone looking for an outing would
-phrase it, without reusing titles. Overlap fell to **0.50**; the residue is mostly town
-names, which a user legitimately says out loud.
-
-Every score dropped, which is the point:
-
-| | generated set | hand-written set |
-|---|---|---|
-| lexical overlap | 0.61 | **0.50** |
-| `bm25-only` `recall@1` | 0.70 | **0.50** |
-| `dense-baseline` `recall@1` | 1.00 | **0.90** |
-
-BM25 fell hardest, exactly as the diagnosis predicted: removing quoted titles hits pure
-lexical matching first. The baseline dropped off the ceiling, so the benchmark can now
-separate configurations.
-
-### The ablation
+Retrieval is scored on twenty questions that each record the `uid` of the event they were
+written from — a hard relevance label — with `recall@k` and `MRR`, no judge involved. Seven
+configurations, same questions, same corpus:
 
 ![Retrieval ablation results](docs/images/ablation.svg)
 
@@ -131,70 +89,76 @@ separate configurations.
 | `hybrid-rrf` | baseline | 0.80 | 0.95 | 0.857 | 178 ms |
 | `hybrid-rrf+rerank` | baseline | 0.55 | 0.70 | 0.622 | 208 ms |
 
-**What this does not show.** The city filter tops the table, but 0.95 against 0.90 is
-**one question out of twenty**. At n = 20 the standard error is about 6.7 points, so the
-95 % interval is roughly ±13. That difference is well inside the noise and I am not
-claiming it as an improvement.
+**What this does not show.** The city filter tops the table, but 0.95 against 0.90 is **one
+question out of twenty**. At n = 20 the standard error is about 6.7 points, so the 95 %
+interval is roughly ±13. That difference is well inside the noise, and it is not claimed as
+an improvement.
 
-**What it does show.** Reranking clearly hurts — 0.55 against 0.90 is far outside the
-noise — and the cause is identifiable: `ms-marco-TinyBERT-L-2-v2` is a small
-cross-encoder trained on English, applied to French. Dropped, and the row is left in the
-table because a tried-and-abandoned path is information.
+**What it does show.** Reranking clearly hurts — 0.55 against 0.90 is far outside the noise
+— and the cause is identifiable: `ms-marco-TinyBERT-L-2-v2` is a small cross-encoder
+trained on English, applied to French. It is dropped, and the row is left in the table
+because a tried-and-abandoned path is information.
 
-**The honest conclusion:** on this corpus, at this sample size, none of the five
-alternatives beats plain dense retrieval by a margin the evidence supports. Query
-rewriting was not tried at all — one LLM call per query for a gain the literature puts as
-marginal on short factual questions.
+**The conclusion, in full:** on this corpus, at this sample size, none of the five
+alternatives beats plain dense retrieval by a margin the evidence supports. Query rewriting
+was not tried at all — one LLM call per query for a gain the literature puts as marginal on
+short factual questions.
 
-## Limitations, and what I would do differently
+## Why these numbers can be believed
 
-**The generation side is still evaluated circularly.** The hand-written questions fixed
-the *retrieval* benchmark, but the reference answers are still derived from the events
-themselves, so RAGAS's faithfulness and relevancy numbers remain optimistic. Fixing that
-means writing reference answers blind, which is a different exercise.
+Because the benchmark they come from was rebuilt after the first one turned out to measure
+the wrong thing.
 
-**Two of the five RAGAS metrics do not work.** `answer_relevancy` and `context_relevancy`
-return null. They are reported as not measured rather than shown as zero — a null that
-looks like a score is worse than an admitted gap.
+**The first run gave `recall@1` = 1.00.** Every question retrieved its source event at rank
+one. That is not a good result, it is a broken benchmark: a perfect score means no headroom,
+so the ablation it exists for cannot rank anything.
 
-**The RAGAS integration imports private symbols, and there is no alternative.** As of
-0.4.3 the library exposes no public path to its concrete metrics: `ragas.metrics.__all__`
-holds none of them and every metric module is itself underscore-prefixed. The mitigation
-is a version cap, `ragas>=0.4.3,<0.5`, so that an unrelated dependency sync cannot pull a
-release where that surface has moved. Depending on a private API is a real liability; the
-cap makes it a scheduled one rather than a surprise.
+The tell was in the floor row — **BM25 alone, a bag of words with no embeddings at all,
+reached 0.90 `recall@5` over a thousand events.** That is impossible on genuinely hard
+questions.
 
-**n = 20 is too small to rank close configurations.** Every conclusion above about small
-differences is guarded for that reason. Two hundred questions would settle it; that is
-hours of writing, not a change of method.
+The cause was that the questions had been generated by a language model *from the event
+text*, and it quoted the titles verbatim: *"Quel est le titre du concert de Noël organisé
+par Goma Espérance ?"*. `Goma Espérance` is a unique string in the corpus. The benchmark was
+measuring exact string matching.
 
-**The evaluation questions are still written by a language model** — by me rather than by
-Mistral, which removes the same-family bias between question and embedding, but does not
-make the set human. Saying otherwise would be dressing it up.
+That deserved a number rather than an impression.
+[`difficulty.py`](src/events_rag/evaluation/difficulty.py) measures how many of a question's
+content words appear verbatim in the document it should retrieve. The generated set scored
+**0.61**.
 
-**The corpus is frozen deliberately.** Upstream is a rolling window, so re-ingesting gives
-a different corpus and no number here would reproduce. See
-[`data/raw/SOURCE.md`](data/raw/SOURCE.md).
+The twenty positive questions were then rewritten by hand from the same seeded event sample
+— same events, so no cherry-picking — phrased the way someone looking for an outing would
+phrase it, without reusing titles. Overlap fell to **0.50**; the residue is mostly town
+names, which a user legitimately says out loud.
 
-## Stack
+Every score dropped, which is the point:
 
-Python 3.12 · FastAPI · LangChain · FAISS · `mistral-embed` and `mistral-small` ·
-`rank_bm25` · FlashRank (optional, 41 MB) · pytest · ruff · uv · Docker.
+| | generated set | hand-written set |
+|---|---|---|
+| lexical overlap | 0.61 | **0.50** |
+| `bm25-only` `recall@1` | 0.70 | **0.50** |
+| `dense-baseline` `recall@1` | 1.00 | **0.90** |
 
-## Reproducing the results
+BM25 fell hardest, exactly as the diagnosis predicted: removing quoted titles hits pure
+lexical matching first. The baseline dropped off the ceiling, so the benchmark can now
+separate configurations — which is the only reason the table above is worth reading.
+
+## Running it
 
 ```bash
 cp .env.example .env          # add EVENTS_RAG_MISTRAL_API_KEY
 uv sync
 uv run python scripts/build_index.py      # embeds the committed corpus, ~1 min
 uv run python scripts/run_ablation.py     # writes data/eval/ablation_table.md
-docker compose up                          # API on :8000, Swagger at /docs
+docker compose up                         # API on :8000, Swagger at /docs
 ```
 
 The corpus in `data/raw/` is committed, so `run_ablation.py` reproduces the table above
-exactly.
+exactly. `plot_ablation.py` redraws `docs/images/ablation.svg` from
+`data/eval/ablation_results.json` afterwards.
 
-Two scripts deliberately sit outside that path, because both would replace a frozen input:
+Two scripts deliberately sit outside that path, because both replace a frozen input:
 
 - `build_dataset.py` re-ingests from the live upstream. Upstream is a rolling window, so
   running it builds a *different* corpus and silently invalidates every figure above. It is
@@ -203,12 +167,9 @@ Two scripts deliberately sit outside that path, because both would replace a fro
 - `generate_eval_dataset.py` regenerates the question set from scratch, for the same reason
   and with the same caveat.
 
-`plot_ablation.py` redraws `docs/images/ablation.svg` from `data/eval/ablation_results.json`
-after an ablation run.
-
 Tests: `uv run pytest` — 70 tests, no network.
 
-## Repository layout
+## Structure
 
 ```
 src/events_rag/
@@ -223,8 +184,44 @@ data/eval/        evaluation set and published results
 
 Engineering decisions in [`docs/architecture.md`](docs/architecture.md).
 
-## Licence
+Python 3.12 · FastAPI · LangChain · FAISS · `mistral-embed` and `mistral-small` ·
+`rank_bm25` · FlashRank (optional, 41 MB) · pytest · ruff · uv · Docker.
 
-Code under [MIT](LICENSE). The event data is redistributed under the
+## What this does not prove
+
+**n = 20 is too small to rank close configurations.** Every conclusion above about small
+differences is guarded for that reason. Two hundred questions would settle it; that is hours
+of writing, not a change of method.
+
+**The generation side is still evaluated circularly.** The hand-written questions fixed the
+*retrieval* benchmark, but the reference answers are still derived from the events
+themselves, so RAGAS's faithfulness and relevancy numbers remain optimistic. Fixing that
+means writing reference answers blind, which is a different exercise.
+
+**Two of the five RAGAS metrics do not work.** `answer_relevancy` and `context_relevancy`
+return null. They are reported as not measured rather than shown as zero — a null that looks
+like a score is worse than an admitted gap.
+
+**The RAGAS integration imports private symbols, and there is no alternative.** As of 0.4.3
+the library exposes no public path to its concrete metrics: `ragas.metrics.__all__` holds
+none of them and every metric module is itself underscore-prefixed. The mitigation is a
+version cap, `ragas>=0.4.3,<0.5`, so that an unrelated dependency sync cannot pull a release
+where that surface has moved. Depending on a private API is a real liability; the cap makes
+it a scheduled one rather than a surprise.
+
+**The evaluation questions are still written by a language model** — by me rather than by
+Mistral, which removes the same-family bias between question and embedding, but does not
+make the set human. Saying otherwise would be dressing it up.
+
+**The corpus is frozen deliberately.** Upstream is a rolling window, so re-ingesting gives a
+different corpus and no number here would reproduce. See
+[`data/raw/SOURCE.md`](data/raw/SOURCE.md).
+
+## Licence and data
+
+Code under [MIT](LICENSE).
+
+The event data is redistributed under the
 [Licence Ouverte / Open Licence v1.0](https://www.etalab.gouv.fr/wp-content/uploads/2014/05/Licence_Ouverte.pdf),
-published by OpenAgenda and distributed by OpenDataSoft.
+published by OpenAgenda and distributed by OpenDataSoft. The corpus is committed so that the
+figures above reproduce; `data/raw/SOURCE.md` records where it came from and when.
