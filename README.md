@@ -49,7 +49,12 @@ region; generation picks the Toulouse one and says so when there is nothing else
 about a concert in Paris, it refuses rather than inventing one — a behaviour the
 evaluation set tests explicitly.
 
-Four endpoints: `/health`, `/metadata`, `/ask`, `/rebuild`.
+Four endpoints, documented by the generated OpenAPI schema:
+
+![The API surface at /docs](docs/images/swagger.png)
+
+`/rebuild` is guarded by a token — rebuilding the index calls a paid API, so it is not
+something an anonymous caller should be able to trigger.
 
 ## Approach
 
