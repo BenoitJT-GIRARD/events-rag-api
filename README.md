@@ -4,10 +4,11 @@ A question-answering API over a thousand public cultural events in Occitanie. As
 plain French what there is to do in your town, and it answers from the corpus — or says it
 does not know.
 
-**Project status** — finished, and archived in a runnable state. No service runs behind it:
-the API keys are revoked and the CI is frozen to manual trigger, so that nothing here
-decays into a red badge on a project nobody maintains. The corpus is committed, so every
-number below recomputes exactly with `docker compose up` and a Mistral API key.
+**Project status** — finished, and archived in a runnable state. The Mistral key that
+produced the published answers has been revoked. The corpus is committed, so every number
+below recomputes exactly with `docker compose up` and a key of your own. Continuous
+integration runs on push and on pull requests; it will be reduced to a manual trigger when
+the repository is archived for good.
 
 ## The problem
 
@@ -167,7 +168,7 @@ Two scripts deliberately sit outside that path, because both replace a frozen in
 - `generate_eval_dataset.py` regenerates the question set from scratch, for the same reason
   and with the same caveat.
 
-Tests: `uv run pytest` — 70 tests, no network.
+Tests: `uv run pytest` — 63 tests, no network.
 
 ## Structure
 
