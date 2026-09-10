@@ -11,3 +11,6 @@ tests
 *.pyc
 data/eval/evaluation_results.json
 data/eval/ragas_results.json
+
+# Les index FAISS locaux : quatre repertoires construits ici, que l'image reconstruit.
+data/faiss
