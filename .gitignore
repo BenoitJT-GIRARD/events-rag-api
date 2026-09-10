@@ -23,9 +23,6 @@ data/processed/*
 data/faiss/*
 
 # Keep folder structure
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!data/faiss/.gitkeep
 
 # The evaluation corpus is versioned on purpose: upstream is a rolling window, so
 # re-ingesting would give a different corpus and no measurement here would reproduce.
