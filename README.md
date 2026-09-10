@@ -168,7 +168,7 @@ Two scripts deliberately sit outside that path, because both replace a frozen in
 - `generate_eval_dataset.py` regenerates the question set from scratch, for the same reason
   and with the same caveat.
 
-Tests: `uv run pytest` — 63 tests, no network.
+Tests: `uv run pytest` — 70 tests, no network.
 
 ## Structure
 
