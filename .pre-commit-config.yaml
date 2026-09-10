@@ -3,8 +3,6 @@ repos:
     rev: 0.8.15
     hooks:
       - id: uv-lock
-      - id: uv-export
-        args: ["--no-hashes", "-o", "requirements.txt"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0

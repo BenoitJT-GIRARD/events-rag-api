@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir uv==0.11.6
 # any host volume it is given, and an image that never needed the privilege should not hold it.
 RUN useradd --create-home --uid 1000 events
 
-COPY --chown=events:events pyproject.toml uv.lock requirements.txt README.md /app/
+COPY --chown=events:events pyproject.toml uv.lock README.md /app/
 COPY --chown=events:events src /app/src
 COPY --chown=events:events scripts /app/scripts
 COPY --chown=events:events data /app/data
