@@ -7,9 +7,9 @@ map, and says what the schema cannot: what each route costs and how it fails.
 ## `GET /health`
 
 Liveness. Answers `{"status": "ok"}` as soon as the process is up, without touching the index
-or the model — which is what makes it usable as a container probe. A service whose health
-check loaded the index would report unhealthy for the minute it takes to load, and would
-report healthy afterwards even if the model behind it had gone.
+or the model, which is what makes it usable as a container probe. A service whose health check
+loaded the index would report unhealthy for the minute it takes to load, and would report
+healthy afterwards even if the model behind it had gone.
 
 ## `GET /metadata`
 
@@ -34,9 +34,9 @@ built from, each with its `uid`, so any sentence can be traced to a record in th
 **Cost.** One embedding call and one generation call per question, both paid. Typical end to
 end: about 2.5 s.
 
-**Failures.** `400` for a question the retriever cannot use, `503` when the index is absent —
-the message names the script that builds it — and `500` for anything else, with the error in
-the detail rather than swallowed.
+**Failures.** `400` for a question the retriever cannot use. `503` when the index is absent,
+with a message naming the script that builds it. `500` for anything else, carrying the error
+in its detail so that a caller sees what broke.
 
 ## `POST /rebuild`
 

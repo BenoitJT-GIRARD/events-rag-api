@@ -13,13 +13,13 @@ from __future__ import annotations
 
 import json
 import re
-from pathlib import Path
 
 import pytest
 
+from events_rag.utils.paths import ROOT_DIR as ROOT
+
 pytestmark = pytest.mark.claim
 
-ROOT = Path(__file__).resolve().parents[2]
 RESULTS = ROOT / "reports" / "ablation_results.json"
 ERRATA = ROOT / "reports" / "errata.json"
 README = ROOT / "README.md"

@@ -3,14 +3,14 @@
 Destination: ``scripts/capture.py``.
 
 A screenshot is the only image of a repository that cannot be regenerated from data. What
-makes it checkable is not the pixels but the sentence next to them: which build was running,
-what had already happened to the application, where the displayed data came from. This script
-takes the picture and writes that sentence into ``docs/images/MANIFEST.json`` in the same
-gesture, because a manifest filled in afterwards is filled in from memory.
+makes it checkable is the sentence next to it: which build was running, what had already
+happened to the application, where the displayed data came from. This script takes the picture
+and writes that sentence into ``docs/images/MANIFEST.json`` in the same gesture, because a
+manifest filled in afterwards is filled in from memory.
 
 The repository fills in :data:`CAPTURES` and nothing else. Each entry says what the image must
-*prove*, not what it shows: « the API answers a prediction » is a surface, « a request with a
-missing feature is refused with the field named » is a behaviour.
+*prove*: « the API answers a prediction » names a surface, « a request with a missing feature
+is refused with the field named » names a behaviour.
 
     uv run python scripts/capture.py                 # every capture
     uv run python scripts/capture.py --only api-docs
@@ -57,10 +57,10 @@ SOURCE = "scripts/capture.py"
 class Capture:
     """One image, and everything a reader needs to believe it.
 
-    ``app_state`` is described precisely enough to be reproduced — « after 300 scoring
-    requests, two of them refused » rather than « with data ». ``data_source`` names where
-    what is displayed comes from; a capture never redistributes someone else's work, so a
-    third-party source is refused rather than declared.
+    ``app_state`` is described precisely enough to be reproduced: « after 300 scoring
+    requests, two of them refused », and never « with data ». ``data_source`` names where what
+    is displayed comes from; a capture never redistributes someone else's work, so a
+    third-party source is refused outright.
     """
 
     name: str
@@ -133,8 +133,8 @@ CAPTURES: tuple[Capture, ...] = (
 def wait_until_healthy(url: str, *, timeout: float = 90.0) -> None:
     """Poll until the service answers. Never sleep a fixed number of seconds.
 
-    A fixed sleep is either too short on a cold start — the capture then photographs a
-    connection error — or wasted on every run afterwards.
+    A fixed sleep is either too short on a cold start, and the capture photographs a
+    connection error, or wasted on every run afterwards.
     """
     deadline = time.monotonic() + timeout
     last: Exception | None = None

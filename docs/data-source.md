@@ -29,8 +29,8 @@ it with every source so an answer can be traced back to a record on the portal.
 Upstream is a rolling window: the same query run tomorrow returns a different set of events,
 because past events fall out of it and new ones appear. A repository that fetched its corpus
 at run time would publish numbers that nobody could reproduce, including its author. So the
-1 000 records are committed, and `scripts/build_dataset.py` — the script that would replace
-them — is documented as the one command that invalidates every published figure.
+1 000 records are committed, and `scripts/build_dataset.py`, the script that would replace
+them, is documented as the one command that invalidates every published figure.
 
 ## Licence
 

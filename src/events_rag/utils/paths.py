@@ -1,6 +1,6 @@
 """Where this project's files are. One module answers, and nothing else computes a root.
 
-Every path hangs off :data:`ROOT_DIR`, which is **found** rather than assumed. Counting
+Every path hangs off :data:`ROOT_DIR`, which is **found**, never assumed. Counting
 directories up from a file only works from an editable ``src/`` checkout: installed as a
 wheel, the package lands inside ``site-packages``, and the whole tree — models, reports,
 figures — would be written there without a word. Finding the marker file instead means the
@@ -24,7 +24,7 @@ from pathlib import Path
 
 
 def _package_name() -> str:
-    """The distribution package this module belongs to, read rather than written down.
+    """The distribution package this module belongs to, read from the import system.
 
     Nothing in it names this project, so the module can be copied as it is.
     """
@@ -52,7 +52,7 @@ def _find_root() -> Path:
         if (candidate / "pyproject.toml").exists():
             return candidate
     # Installed outside a checkout. The working directory is the only defensible guess, and
-    # it keeps what a run writes where the user is working instead of inside site-packages.
+    # it keeps what a run writes where the user is working, and out of site-packages.
     return Path.cwd().resolve()
 
 
@@ -88,7 +88,7 @@ def ensure_dirs() -> None:
     """Create the directories a run writes into.
 
     Reading is never a reason to create a directory: a missing input must fail where it is
-    missing, not quietly become an empty folder.
+    missing, and never quietly become an empty folder.
     """
     for path in (REPORTS_DIR, FIGURES_DIR, VAR_DIR, INDEX_DIR):
         path.mkdir(parents=True, exist_ok=True)

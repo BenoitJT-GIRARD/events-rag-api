@@ -89,9 +89,9 @@ source = ["src/events_rag", "scripts"]
 data_file = "var/.coverage"
 # The figure style is a copied-in module, tested at its source. Counting it here would
 # measure someone else's tests.
-# Two copied-in modules, tested at their source: the figure style and the capture script.
-# Counting them here would measure someone else's tests.
-omit = ["*/figure_style.py", "scripts/capture.py"]
+# Three copied-in modules, tested at their source: the figure style, the capture script
+# and the smoke runner. Counting them here would measure someone else's tests.
+omit = ["*/figure_style.py", "scripts/capture.py", "scripts/smoke.py"]
 
 [tool.coverage.report]
 # The floor is the rate measured the day the three tiers were completed, rounded down. A

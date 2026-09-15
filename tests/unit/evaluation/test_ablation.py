@@ -70,13 +70,13 @@ def test_registry_contains_the_planned_configurations(expected: str) -> None:
     assert expected in {config.name for config in CONFIGS}
 
 
-def test_le_scorer_recoit_l_evenement_entier_et_non_son_dernier_bloc():
-    """Un événement découpé en plusieurs chunks arrive au cross-encoder avec son titre.
+def test_the_scorer_receives_the_whole_event_and_not_its_last_block():
+    """An event split into several chunks reaches the cross-encoder with its title.
 
-    La première version indexait `{uid: doc.page_content}` : pour 2 046 chunks et 1 000
-    événements, seul le DERNIER chunk de chaque événement découpé survivait, et le
-    cross-encoder notait un bloc de dates et de tarifs. Le chiffre publié — 0,55 contre 0,90
-    — mesurait cette préparation, pas le reranking.
+    The first version indexed `{uid: doc.page_content}`: over 2 046 chunks for 1 000 events,
+    only the LAST chunk of every split event survived, and the cross-encoder scored a block of
+    dates and prices. The published 0.55 against 0.90 measured that preparation, not
+    reranking.
     """
     from langchain_core.documents import Document
 
@@ -95,7 +95,7 @@ def test_le_scorer_recoit_l_evenement_entier_et_non_son_dernier_bloc():
     assert passages["evt-2"] == "Exposition Léger"
 
 
-def test_un_chunk_sans_uid_n_entre_dans_aucun_passage():
+def test_a_chunk_without_a_uid_enters_no_passage():
     from langchain_core.documents import Document
 
     from events_rag.evaluation.ablation import passages_by_uid

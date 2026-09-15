@@ -17,17 +17,10 @@ from pathlib import Path
 
 import pytest
 
+from events_rag.utils.paths import ROOT_DIR as ROOT
 
-def repo_root() -> Path:
-    """The repository root, found the way the package finds it — never recomputed here."""
-    here = Path(__file__).resolve()
-    for candidate in here.parents:
-        if (candidate / "pyproject.toml").exists():
-            return candidate
-    return Path.cwd().resolve()
-
-
-ROOT = repo_root()
+# The root is NOT recomputed here: the import above takes it from the package, which already
+# decides where the repository is. A second answer to that question is a second answer.
 
 
 def skip_unless(condition: bool, *, command: str) -> pytest.MarkDecorator:

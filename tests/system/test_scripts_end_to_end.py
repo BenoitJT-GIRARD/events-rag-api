@@ -16,9 +16,9 @@ from pathlib import Path
 
 import pytest
 
-pytestmark = [pytest.mark.system, pytest.mark.claim]
+from events_rag.utils.paths import ROOT_DIR as ROOT
 
-ROOT = Path(__file__).resolve().parents[2]
+pytestmark = [pytest.mark.system, pytest.mark.claim]
 
 
 def run(script: str, cwd: Path, *arguments: str, **env: str) -> subprocess.CompletedProcess:

@@ -7,7 +7,7 @@ the detail. Everything here is a choice that could reasonably have gone the othe
 
 `ingestion/openagenda_client.py` pages the OpenDataSoft Explore v2.1 API a hundred records
 at a time, filtered server-side by region and by a date window. Filtering server-side
-rather than locally keeps the payload small and the window declarative — the query that
+upstream, and not locally, keeps the payload small and the window declarative: the query that
 produced the committed corpus is written out in [`../data/raw/SOURCE.md`](../data/raw/SOURCE.md),
 which is what makes the snapshot auditable.
 
@@ -36,7 +36,7 @@ the text, far from the title, and a split with no overlap strands them in a chun
 longer says what event it belongs to.
 
 `dense-one-chunk-per-event` tested indexing each event whole. It scored slightly worse,
-which is the expected direction — longer documents dilute the embedding — but the margin
+which is the expected direction, longer documents diluting the embedding, but the margin
 is inside the noise at this sample size.
 
 ## Index
@@ -44,7 +44,7 @@ is inside the noise at this sample size.
 FAISS, saved to disk, loaded through an LRU cache. The reasoning is in the README: a few
 thousand vectors do not justify a managed service.
 
-The cache is sized for eight entries rather than one because the ablation holds several
+The cache is sized for eight entries, not one, because the ablation holds several
 indexes open at once; at one entry it evicted on every alternation and reloaded from disk.
 
 `evaluation/indexes.py` builds one index per **chunking variant**, keyed by a fingerprint
@@ -69,31 +69,31 @@ composes with the others:
 Two details that are easy to get wrong:
 
 **Deduplicate by `uid` before ranking.** One event yields several chunks, so a top-k of
-chunks collapses to fewer distinct events. Ranking chunks instead of events inflates
-recall — the same event can occupy three of the first five positions. Every strategy
+chunks collapses to fewer distinct events. Ranking chunks, and not events, inflates recall:
+the same event can occupy three of the first five positions. Every strategy
 deduplicates, and there is a test pinning it.
 
 **Over-fetch before filtering.** Because deduplication and filtering both shrink the
 result list, asking the inner strategy for exactly `k` returns short. Strategies request
 `k × 4` and trim afterwards.
 
-`HybridSearch` uses reciprocal rank fusion rather than a weighted score sum, because RRF
-needs no calibration between a cosine similarity and a BM25 score — there is no shared
+`HybridSearch` uses reciprocal rank fusion and no weighted score sum, because RRF
+needs no calibration between a cosine similarity and a BM25 score, for which there is no shared
 scale to tune, and nothing to re-tune when either side changes. Its known quirk is that it
-rewards *agreement* rather than *closeness to the top*: a document ranked first and third
+rewards *agreement* over *closeness to the top*: a document ranked first and third
 beats one ranked second twice, since `1/61 + 1/63 > 2/62`.
 
 `CityFilter` matches town names against those present in the corpus, longest first so
 `Castelnaudary` wins over `Castelnau`, and passes results through untouched when it
 recognises no town. It never removes what it cannot justify removing.
 
-`Rerank` takes its scorer as an argument rather than constructing a model, so the unit
+`Rerank` takes its scorer as an argument and constructs no model itself, so the unit
 tests need no download and swapping the backend touches one call site.
 
 ## Evaluation
 
-`evaluation/retrieval.py` holds the metrics — `recall@k` and `MRR@10` against the source
-event's `uid`, roughly thirty lines, written out rather than imported so a reader can
+`evaluation/retrieval.py` holds the metrics, `recall@k` and `MRR@10` against the source
+event's `uid`, roughly thirty lines, written out in full so a reader can
 check them. Only the twenty positive cases enter these metrics; the negative and ambiguous
 cases have no target event and are scored on refusal instead.
 
@@ -102,7 +102,7 @@ document it should retrieve. It exists because "this benchmark is too easy" need
 number before it could be acted on.
 
 `evaluation/ablation.py` runs each configuration and **reports failures in the results
-table with their error message** instead of dropping them. That rule came from watching
+table with their error message**, and never dropped. That rule came from watching
 two RAGAS metrics return null silently for months.
 
 ## API
@@ -112,7 +112,7 @@ by a token from the environment: rebuilding the index is expensive and calls a p
 so it is not something an anonymous caller should be able to trigger.
 
 The prompt in `rag/prompts.py` instructs the model to answer only from the supplied
-context and to say when it cannot. That instruction is not decoration — five of the thirty
+context and to say when it cannot. That instruction earns its place: five of the thirty
 evaluation cases ask about events outside the corpus, and they exist to catch the day it
 starts inventing them.
 

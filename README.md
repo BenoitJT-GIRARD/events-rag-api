@@ -6,7 +6,7 @@
   <img src="docs/badges/python.svg" alt="Python 3.12">
   <img src="docs/badges/stack.svg" alt="Built with FAISS · LangChain · Docker">
   <img src="docs/badges/licence.svg" alt="License: MIT">
-  <img src="docs/badges/coverage.svg" alt="coverage 69%">
+  <img src="docs/badges/coverage.svg" alt="coverage 68%">
 </p>
 
 **Project status** — finished, and archived in a runnable state. The Mistral key that
@@ -201,7 +201,7 @@ Two scripts deliberately sit outside that path, because both replace a frozen in
   ingestion step for the same reason.
 - `generate_eval_dataset.py` regenerates the question set from scratch, with the same caveat.
 
-Tests: `uv run pytest` — 107 tests in three tiers, no network. Coverage is measured on every
+Tests: `uv run pytest` — 140 tests in three tiers, no network. Coverage is measured on every
 run, with a floor. Day-to-day operations are in
 [`docs/operations.md`](docs/operations.md).
 
