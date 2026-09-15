@@ -82,7 +82,7 @@ def score_answer(
 ) -> tuple[float | None, str]:
     """The coverage and the label of one answer. No model call, no corpus, no index.
 
-    Scoring is separated from asking so that the correction of an audit can be replayed on
+    Scoring is separated from asking so that a correction to the scorer can be replayed on
     answers already given: `scripts/rescore_archive.py` calls this on the 30 answers of the
     run of 2026-09-02, which no key can produce again.
     """

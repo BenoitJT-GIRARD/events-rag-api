@@ -5,10 +5,10 @@ were replaced by the hand-written set the same day, and the account that paid fo
 has no chat quota left. What is still checkable is the arithmetic on top of them, and that is
 what this script checks.
 
-The heuristic archive is the interesting half. The methodological audit found that the
-refusal detector looked for the literal noun « événement » while the model answers in the
-noun of the question, so all five out-of-corpus questions were recorded as wrong answers when
-the system had refused each one correctly. Scoring the archived answers again with the code
+The heuristic archive is the interesting half. Its refusal detector looked for the literal
+noun « événement » while the model answers in the noun of the question, so all five
+out-of-corpus questions were recorded as wrong answers when the system had refused each one
+correctly. Scoring the archived answers again with the code
 that replaced the detector is how that correction is verified.
 
     uv run python scripts/rescore_archive.py
@@ -34,7 +34,7 @@ def rescore(payload: dict) -> dict:
     """The heuristic archive, with every case scored by the current code.
 
     `city_match` is read back and not recomputed: it depends on the sources that run
-    retrieved, which the archive carries, and no audit defect touched it.
+    retrieved, which the archive carries, and none of the four defects touched it.
     """
     results = []
     for case in payload["results"]:

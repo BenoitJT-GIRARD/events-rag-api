@@ -5,7 +5,8 @@ whose point is to stay installable, and the output has to survive being read on 
 page with no runtime behind it.
 
 The colours come from :mod:`events_rag.figure_style`, the palette shared by every figure of
-the project, so this chart and any future matplotlib figure agree on what a series looks
+the same module the figures use, so this chart and any future matplotlib figure agree on
+what a series looks
 like. Nothing here writes a colour of its own.
 
 The chart shows what the numbers can carry: a graduated axis so a bar can be read against a

@@ -2,7 +2,7 @@
 
 The refusal patterns get the most attention here, and each of the five phrasings the model
 actually produced has its own case: the matcher that replaced the list of nouns is the piece
-the methodological audit rewrote, so it is the piece with the most tests.
+that was rewritten, so it is the piece with the most tests.
 """
 
 import pytest

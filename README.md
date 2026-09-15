@@ -201,8 +201,8 @@ is in [`docs/protocol.md`](docs/protocol.md).
 
 ### The scorer had defects too
 
-A methodological audit went through the grading code and found four. Two of them moved a
-published number.
+Re-reading the grading code turned up four defects. Two of them had moved a published
+number.
 
 **The refusal detector missed every refusal it was built to catch.** It searched an answer
 for the noun *événement*, and the model answers in the noun of the question: *« aucune
@@ -249,7 +249,7 @@ Two scripts deliberately sit outside that path, because both replace a frozen in
   ingestion step for the same reason.
 - `generate_eval_dataset.py` regenerates the question set from scratch, with the same caveat.
 
-Tests: `uv run pytest` — 178 tests in three tiers, no network. Coverage is measured on every
+Tests: `uv run pytest` — 180 tests in three tiers, no network. Coverage is measured on every
 run, with a floor. Day-to-day operations are in
 [`docs/operations.md`](docs/operations.md).
 

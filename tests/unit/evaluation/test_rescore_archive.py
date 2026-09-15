@@ -1,4 +1,4 @@
-"""The correction of the audit, replayed on answers that cannot be asked again.
+"""The correction of the scorer, replayed on answers that cannot be asked again.
 
 The scorer of 2026-09-02 recorded all five out-of-corpus questions as wrong answers, because
 it looked for the noun « événement » in a refusal that uses the noun of the question. The

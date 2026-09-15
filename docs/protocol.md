@@ -98,7 +98,7 @@ reranking configuration, whose passages were assembled wrongly before scoring.
 
 ## The archived run of 2026-09-02
 
-Two files carry the state of the grading chain on the day the methodological audit read it.
+Two files carry the state of the grading chain on the day its defects were found.
 Neither the questions nor the corpus of that day survive: the question set was replaced by
 the hand-written one, and the corpus covered Montpellier alone before the region-wide
 extraction took over. Two of the 139 events their answers cite are still in the corpus.
