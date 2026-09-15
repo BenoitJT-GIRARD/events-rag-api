@@ -11,7 +11,7 @@
       "dispersion": "±1 standard error of a proportion at this sample size",
       "dpi": null,
       "n": "n = 20",
-      "sha256": "0ff40e630e87453b31477ac5de4e398fff3c85a26543ac24b8e0f7494772eb3f",
+      "sha256": "e817022244e100b75867a80cd6b719d7c8c5d60e7ecbb0e3aaf7017daae8464b",
       "source": "scripts/plot_ablation.py",
       "style_version": 1,
       "written": "2026-09-15"

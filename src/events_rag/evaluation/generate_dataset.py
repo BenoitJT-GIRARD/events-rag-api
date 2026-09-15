@@ -299,7 +299,7 @@ def generate_eval_dataset() -> list[dict]:
     output_path = settings.questions_dir / "reference_qa.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    with output_path.open("w", encoding="utf-8") as f:
+    with output_path.open("w", encoding="utf-8", newline="") as f:
         json.dump(all_cases, f, ensure_ascii=False, indent=2)
 
     print(f"\nWrote {len(all_cases)} cases to {output_path}")

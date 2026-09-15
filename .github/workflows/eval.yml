@@ -10,6 +10,10 @@ jobs:
     env:
       EVENTS_RAG_MISTRAL_API_KEY: ${{ secrets.EVENTS_RAG_MISTRAL_API_KEY }}
       EVENTS_RAG_REBUILD_TOKEN: dummy-token
+      # The run writes beside what is published, never over it: reports/ is committed, and a
+      # workflow that rewrote it would replace the numbers of the README with numbers nobody
+      # read. var/ is the ignored directory, and it is what the artefact below carries.
+      EVENTS_RAG_REPORTS_DIR: var/eval-run
 
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -39,4 +43,10 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: evaluation-results
-          path: reports/
+          path: var/eval-run/
+
+      - name: Show what changed against the published results
+        if: always()
+        run: |
+          echo "--- ablation_results.json"
+          diff --unified=0 reports/ablation_results.json var/eval-run/ablation_results.json || true

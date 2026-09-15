@@ -48,8 +48,8 @@ writes `reports/ablation_results.json` and `reports/ablation_table.md`; the plot
 redraws `reports/figures/ablation.svg` from the first of those, and records the image in
 `reports/figures/MANIFEST.json`.
 
-**Cost.** Embedding the corpus is 2 046 calls. The ablation builds three indexes — one per
-chunking variant — and reuses them across configurations, so the bill is dominated by the
+**Cost.** Embedding the corpus is 2 046 calls. The ablation builds three indexes, one per
+chunking variant, and reuses them across configurations, so the bill is dominated by the
 first build.
 
 **What the numbers can carry.** n = 20. The standard error of a proportion at that size is
@@ -67,12 +67,15 @@ EVENTS_RAG_MISTRAL_API_KEY=... uv run python scripts/evaluate_ragas.py   # model
 The first writes `reports/evaluation_results.json`: keyword coverage, town match, and a
 refusal test for the negative cases, all deterministic. The second writes
 `reports/ragas_results.json`: faithfulness, context precision and context recall, each
-computed by a model.
+computed by a model. Neither file is committed, because neither has been produced since the
+account ran out of chat quota.
 
-**Two of the five metrics return null on this setup.** `answer_relevancy` and
-`context_relevancy` are reported as not measured. A null rendered as zero would read as a
-measured score of nothing, and `NaNSafeEncoder` exists so that a missing metric survives
-serialisation as `null` rather than as the token `NaN`, which no JSON reader accepts.
+**One of the five metrics returns null on this setup.** `answer_relevancy` is reported as
+not measured. A null rendered as zero would read as a measured score of nothing, and
+`NaNSafeEncoder` exists so that a missing metric survives serialisation as `null` and not as
+the token `NaN`, which no JSON reader accepts. The mapping from a published metric to the
+column RAGAS writes it into lives in one place, `RAGAS_COLUMN`; it was written twice before,
+and the two spellings of context relevancy disagreed.
 
 **The reference answers come from the events themselves**, so these numbers are optimistic by
 construction. Writing them blind is a different exercise, and the README lists it among the
@@ -88,7 +91,27 @@ re-run against them.
 
 ## Withdrawn results
 
-A measurement that turns out to have measured the wrong thing is withdrawn rather than
-quietly corrected, and the withdrawal is recorded in `reports/errata.json` with its reason,
-its fix, and the command that would measure it again. One entry stands today: the reranking
-configuration, whose passages were assembled wrongly before scoring.
+A measurement that turns out to have measured the wrong thing is withdrawn, and the
+withdrawal is recorded in `reports/errata.json` with its reason, its fix, and the command
+that would measure it again. One entry stands today: the reranking configuration, whose
+passages were assembled wrongly before scoring.
+
+## The archived run of 2026-09-02
+
+Two files carry the state of the grading chain on the day the methodological audit read it.
+They measured a setup that no longer exists: the generated question set, which the
+hand-written one replaced, over a corpus restricted to Montpellier, which the Occitanie-wide
+extraction replaced. Two of the 139 events their answers cite are in the committed corpus.
+
+- `reports/evaluation_2026-09-02.json` — the thirty answers, the summary the defective
+  scorer published, and the summary the current code computes from the same text.
+  `scripts/rescore_archive.py` regenerates the second, deterministically and without a model
+  call, which is how the correction of the refusal detector is verified today.
+- `reports/ragas_2026-09-02.json` — the model grading of the same thirty answers, kept for
+  `avg_context_precision` = 0.575, the number that made the retrieval side worth a full
+  ablation. Its means are recomputed from its own rows, each with the count it was taken
+  over.
+
+Both are dated in their names because they measure a setup this repository no longer carries.
+Nothing in the README is derived from them apart from the before-and-after of the scorer, and
+the one metric that comes back null.

@@ -113,7 +113,7 @@ def save_faiss_index(
     }
 
     manifest_path = output_dir / "manifest.json"
-    with manifest_path.open("w", encoding="utf-8") as file:
+    with manifest_path.open("w", encoding="utf-8", newline="") as file:
         json.dump(manifest, file, ensure_ascii=False, indent=2)
 
     logger.info("indexer.faiss_saved", path=str(output_dir))

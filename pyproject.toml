@@ -41,6 +41,21 @@ lint = [
   "ruff>=0.6.0",
   "bandit[toml]>=1.7.10",
 ]
+# Outside the default groups: this one is for taking the screenshots, once, on the
+# author's machine. The browser is the system's own (channel="chrome"), so nothing is
+# downloaded. Run `uv sync --group capture` before `python scripts/capture.py`.
+capture = [
+  "playwright>=1.47.0",
+]
+# Outside the default groups, like the one above: reading the notebooks needs nothing,
+# replaying them needs a kernel. `uv sync --group notebook` before
+# `python scripts/run_notebooks.py`.
+notebook = [
+  "ipykernel>=6.29.0",
+  "matplotlib>=3.9.0",
+  "nbclient>=0.10.0",
+  "nbformat>=5.10.0",
+]
 
 [tool.uv]
 default-groups = ["dev"]
@@ -87,11 +102,15 @@ skips = ["B101"]
 branch = true
 source = ["src/events_rag", "scripts"]
 data_file = "var/.coverage"
-# The figure style is a copied-in module, tested at its source. Counting it here would
-# measure someone else's tests.
-# Three copied-in modules, tested at their source: the figure style, the capture script
-# and the smoke runner. Counting them here would measure someone else's tests.
-omit = ["*/figure_style.py", "scripts/capture.py", "scripts/smoke.py"]
+# Four copied-in modules, tested at their source: the figure style, the capture script, the
+# smoke runner and the notebook runner. Counting them here would measure someone else's
+# tests.
+omit = [
+  "*/figure_style.py",
+  "scripts/capture.py",
+  "scripts/run_notebooks.py",
+  "scripts/smoke.py",
+]
 
 [tool.coverage.report]
 # The floor is the rate measured the day the three tiers were completed, rounded down. A

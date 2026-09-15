@@ -30,3 +30,13 @@ def test_event_to_document_maps_opendatasoft_fields() -> None:
     assert doc["metadata"]["city"] == "Montpellier"
     assert doc["metadata"]["location_name"] == "Opéra"
     assert doc["metadata"]["date"] == "2026-04-01T18:00:00+00:00"
+
+
+def test_a_doubly_escaped_description_leaves_no_literal_tag() -> None:
+    """Agenda feeds copied out of a CMS arrive in this shape, and the old order kept the tag."""
+
+    assert strip_html("&lt;p&gt;Un concert&lt;/p&gt;") == "Un concert"
+
+
+def test_an_entity_that_is_not_markup_survives_the_strip() -> None:
+    assert strip_html("1 &lt; 2, au Caf&eacute;") == "1 < 2, au Café"

@@ -1,5 +1,7 @@
 {
-  "summary": {
+  "run": "2026-09-02",
+  "question_set": "The 30 generated questions of 2026-09-02, over a corpus restricted to Montpellier. Both were replaced the same day: the questions by the hand-written set that ships in data/questions/, the corpus by the Occitanie-wide extraction in data/raw/. Two of the 139 events these answers cite are in the committed corpus, so nothing here can be produced again, and the account that paid for them has no chat quota left either.",
+  "published_summary": {
     "count": 30,
     "avg_faithfulness": 0.762,
     "avg_answer_relevancy": null,
@@ -12,6 +14,26 @@
       "ambiguous": 5
     }
   },
+  "published_summary_note": "What was published before the summary was made reproducible. avg_context_relevancy read a column named after the metric; RAGAS writes that metric into nv_context_relevance, so a value measured on all thirty rows was published as null.",
+  "summary": {
+    "count": 30,
+    "avg_faithfulness": 0.762,
+    "n_faithfulness": 30,
+    "avg_answer_relevancy": null,
+    "n_answer_relevancy": 0,
+    "avg_context_precision": 0.575,
+    "n_context_precision": 26,
+    "avg_context_recall": 0.65,
+    "n_context_recall": 30,
+    "avg_context_relevancy": 0.658,
+    "n_context_relevancy": 30,
+    "by_case_type": {
+      "positive": 20,
+      "negative": 5,
+      "ambiguous": 5
+    }
+  },
+  "summary_note": "Recomputed from the rows below by scripts/rescore_archive.py, with the number of rows each mean is taken over.",
   "results": [
     {
       "user_input": "Quel événement célèbre les 20 ans d'un atelier vélo à Montpellier en mai 2025 ?",

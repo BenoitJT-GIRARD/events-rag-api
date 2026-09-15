@@ -19,7 +19,10 @@ metrics:
     source: "scripts/run_ablation.py, over the twenty positive cases of data/questions/reference_qa.json"
     uncertainty: >-
       Binomial standard error at n = 20: about 6.7 points at p = 0.9, so a 95 % interval of
-      roughly ±13 points. Two configurations inside that band are not distinguishable here.
+      roughly ±13 points. That interval is the conservative reading. Two configurations answer
+      the same questions, so the comparison is paired, and reports/paired_comparison.json
+      carries McNemar's exact test on the discordant pairs, which is what decides whether a
+      gap is a gap.
 
   recall@5:
     definition: >-
@@ -57,7 +60,7 @@ metrics:
       twenty questions.
     unit: "milliseconds"
     direction: lower_is_better
-    anchor: "165.4 — reports/ablation_results.json#results[dense-baseline].median_latency_ms"
+    anchor: "192.7 — reports/ablation_results.json#results[dense-baseline].median_latency_ms"
     business_reading: >-
       The part of the wait this repository controls. The answer a user waits for is about
       2.5 s end to end; almost all of the rest is the generation call.
@@ -81,3 +84,49 @@ metrics:
     uncertainty: >-
       Mean over twenty questions, no interval quoted: it is a property of the question set,
       not an estimate of a population. Town names are its irreducible floor.
+
+  questions_won:
+    definition: >-
+      In a paired comparison against the shipped configuration, the number of questions this
+      configuration retrieves at the given depth and the shipped one does not.
+    unit: "questions, out of the twenty that carry a target event"
+    direction: higher_is_better
+    anchor: "1 — reports/paired_comparison.json#comparisons[dense+city-filter, recall@1].won"
+    business_reading: >-
+      The concrete size of a gain: one question out of twenty means one person in twenty
+      finds their event at the top who would not have otherwise.
+    source: "scripts/compare_paired.py, from the per-question ranks of scripts/run_ablation.py"
+    uncertainty: >-
+      A count, not an estimate. What is uncertain is whether it would hold on other
+      questions, and that is what the p value beside it answers.
+
+  questions_lost:
+    definition: >-
+      The mirror of the above: questions the shipped configuration retrieves at the given
+      depth and this one does not.
+    unit: "questions, out of the twenty that carry a target event"
+    direction: lower_is_better
+    anchor: "8 — reports/paired_comparison.json#comparisons[bm25-only, recall@1].lost"
+    business_reading: >-
+      What switching would cost. Eight lost questions out of twenty is the price of dropping
+      embeddings for lexical search alone.
+    source: "scripts/compare_paired.py, from the per-question ranks of scripts/run_ablation.py"
+    uncertainty: >-
+      A count, not an estimate; the p value beside it says whether the imbalance between won
+      and lost is more than a coin toss.
+
+  mcnemar_p:
+    definition: >-
+      Two-sided p value of McNemar's exact test on the discordant questions: the probability
+      of an imbalance at least this large if the two configurations were equally good.
+    unit: "probability, 0 to 1"
+    direction: lower_is_better
+    anchor: "0.008 — reports/paired_comparison.json#comparisons[bm25-only, recall@1].p_value"
+    business_reading: >-
+      Whether a difference is worth acting on. Below 0.05 the gap survives the sample size;
+      above it, the two configurations are indistinguishable on twenty questions, however
+      different their averages look.
+    source: "scripts/compare_paired.py, events_rag.evaluation.retrieval.mcnemar_exact"
+    uncertainty: >-
+      Exact rather than asymptotic: at twenty questions the discordant pairs are few enough
+      that the normal approximation is wrong, so the binomial tail is summed directly.

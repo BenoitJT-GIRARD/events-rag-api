@@ -42,10 +42,12 @@ COMMAND = "uv run python scripts/smoke.py"
 #: The ablation and the RAGAS run are absent on purpose. Both need an API key and both cost
 #: money, so the evidence here covers what any reader can reproduce for free: the corpus
 #: profile, the difficulty of the question set, and the figure drawn from the published
-#: results. `docs/evaluation-protocol.md` says what the paid half costs.
+#: results. `docs/protocol.md` says what the paid half costs.
 KEY_OUTPUT: tuple[str, ...] = (
     "reports/corpus_profile.json",
     "reports/difficulty.json",
+    "reports/evaluation_2026-09-02.json",
+    "reports/paired_comparison.json",
     "reports/figures/ablation.svg",
 )
 
@@ -61,7 +63,13 @@ def steps() -> None:
     two. A smoke run that swallowed an error would always pass, so nothing here catches: a
     failing step stops the run and no evidence is written.
     """
-    for script in ("profile_corpus.py", "measure_difficulty.py", "plot_ablation.py"):
+    for script in (
+        "profile_corpus.py",
+        "measure_difficulty.py",
+        "rescore_archive.py",
+        "compare_paired.py",
+        "plot_ablation.py",
+    ):
         done = subprocess.run(
             [sys.executable, f"scripts/{script}"],
             cwd=ROOT_DIR,

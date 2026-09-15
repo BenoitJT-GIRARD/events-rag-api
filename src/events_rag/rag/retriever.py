@@ -14,8 +14,22 @@ from langchain_mistralai import MistralAIEmbeddings
 
 from events_rag.config import get_settings
 from events_rag.logger import get_logger
+from events_rag.utils.paths import ROOT_DIR
 
 logger = get_logger(__name__)
+
+
+def relative_to_root(path: Path) -> str:
+    """A path as the reader would type it, when it lies under the project.
+
+    The message goes out over HTTP and into a screenshot. One machine's absolute path helps
+    nobody running the service somewhere else, and it publishes a directory layout that has
+    nothing to do with the product.
+    """
+    try:
+        return path.relative_to(ROOT_DIR).as_posix()
+    except ValueError:
+        return str(path)
 
 
 @lru_cache(maxsize=1)
@@ -43,7 +57,7 @@ def load_vectorstore(index_dir: str | None = None, index_name: str | None = None
 
     if not input_dir.exists():
         raise FileNotFoundError(
-            f"FAISS index directory not found: {input_dir}. "
+            f"FAISS index directory not found: {relative_to_root(input_dir)}. "
             "Build the index first with scripts/build_index.py."
         )
 

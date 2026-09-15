@@ -23,13 +23,24 @@ class FakeStore:
         return [f"doc-{index}" for index in range(k)]
 
 
+def _forget(name: str) -> None:
+    """Empty the cache of a cached loader, when it is still the cached loader.
+
+    Two tests below put a stub in place of `load_vectorstore`, and a stub has no cache to
+    clear. Calling it anyway raised at teardown and turned two passing tests into errors.
+    """
+    clear = getattr(getattr(retriever, name), "cache_clear", None)
+    if clear is not None:
+        clear()
+
+
 @pytest.fixture(autouse=True)
 def _forget_cached_stores():
-    retriever.load_vectorstore.cache_clear()
-    retriever.build_embeddings.cache_clear()
+    for name in ("load_vectorstore", "build_embeddings"):
+        _forget(name)
     yield
-    retriever.load_vectorstore.cache_clear()
-    retriever.build_embeddings.cache_clear()
+    for name in ("load_vectorstore", "build_embeddings"):
+        _forget(name)
 
 
 def test_a_missing_key_is_refused_with_the_name_of_the_variable(monkeypatch) -> None:
@@ -67,3 +78,20 @@ def test_an_explicit_top_k_wins_over_the_setting(monkeypatch) -> None:
     retriever.retrieve_documents("une exposition", top_k=2)
 
     assert store.calls == [("une exposition", 2)]
+
+
+def test_the_missing_index_is_named_as_the_reader_would_type_it(tmp_path, monkeypatch) -> None:
+    """The message travels over HTTP and into a screenshot, so it carries no absolute path."""
+
+    settings = retriever.get_settings()
+    monkeypatch.setattr(settings, "index_dir", retriever.ROOT_DIR / "var" / "absent")
+
+    with pytest.raises(FileNotFoundError) as refus:
+        retriever.load_vectorstore()
+
+    assert "var/absent/" in str(refus.value)
+    assert str(retriever.ROOT_DIR) not in str(refus.value)
+
+
+def test_a_path_outside_the_project_is_named_in_full(tmp_path) -> None:
+    assert retriever.relative_to_root(tmp_path) == str(tmp_path)

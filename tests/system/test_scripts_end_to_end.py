@@ -3,7 +3,7 @@
 Two of them need no API key, and those are the two exercised here: the one that redraws the
 published figure from the published results, and the one that refuses to start without a key.
 Everything else in `scripts/` embeds the corpus or calls the model, so it cannot run in a
-suite that is offline by construction; `docs/evaluation-protocol.md` says what it costs and
+suite that is offline by construction; `docs/protocol.md` says what it costs and
 how to run it.
 """
 

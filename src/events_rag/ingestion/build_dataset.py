@@ -27,7 +27,7 @@ async def build_dataset() -> list[dict]:
     documents = [event_to_document(event) for event in events]
 
     output_path = settings.raw_data_dir / "events.json"
-    with output_path.open("w", encoding="utf-8") as file:
+    with output_path.open("w", encoding="utf-8", newline="") as file:
         json.dump(documents, file, ensure_ascii=False, indent=2)
 
     logger.info(

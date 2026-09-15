@@ -74,14 +74,19 @@ def is_refusal(answer: str) -> bool:
     return any(pattern.search(answer) for pattern in REFUSAL_PATTERNS)
 
 
-def evaluate_case(case: dict) -> dict:
-    result = answer_question(question=case["question"], top_k=5)
-    answer = result["answer"]
-    sources = result["sources"]
-    case_type = case.get("case_type", "positive")
+def score_answer(
+    answer: str,
+    case_type: str,
+    expected_keywords: list[str],
+    has_city_match: bool,
+) -> tuple[float | None, str]:
+    """The coverage and the label of one answer. No model call, no corpus, no index.
 
-    coverage = keyword_coverage(answer, case.get("expected_keywords", []), case_type)
-    has_city_match = city_match(sources, case.get("expected_city"))
+    Scoring is separated from asking so that the correction of an audit can be replayed on
+    answers already given: `scripts/rescore_archive.py` calls this on the 30 answers of the
+    run of 2026-09-02, which no key can produce again.
+    """
+    coverage = keyword_coverage(answer, expected_keywords, case_type)
 
     if case_type == "negative":
         label = "correct" if is_refusal(answer) else "incorrect"
@@ -91,6 +96,20 @@ def evaluate_case(case: dict) -> dict:
         label = "partially_correct"
     else:
         label = "incorrect"
+
+    return coverage, label
+
+
+def evaluate_case(case: dict) -> dict:
+    result = answer_question(question=case["question"], top_k=5)
+    answer = result["answer"]
+    sources = result["sources"]
+    case_type = case.get("case_type", "positive")
+
+    has_city_match = city_match(sources, case.get("expected_city"))
+    coverage, label = score_answer(
+        answer, case_type, case.get("expected_keywords", []), has_city_match
+    )
 
     ground_truth = case.get("ground_truth") or case.get("reference_answer", "")
 
@@ -159,7 +178,7 @@ def run_evaluation() -> dict:
         "results": results,
     }
 
-    with output_path.open("w", encoding="utf-8") as file:
+    with output_path.open("w", encoding="utf-8", newline="") as file:
         json.dump(payload, file, ensure_ascii=False, indent=2)
 
     return payload

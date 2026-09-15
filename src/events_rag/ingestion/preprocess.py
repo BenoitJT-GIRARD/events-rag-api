@@ -13,11 +13,18 @@ logger = get_logger(__name__)
 
 
 def strip_html(text: str | None) -> str:
+    """Unescape first, then strip: the reverse order leaves literal markup in the text.
+
+    Agenda feeds copied out of a CMS carry doubly escaped descriptions, where a paragraph
+    arrives as `&lt;p&gt;`. Stripping tags before unescaping finds no tag to strip, and the
+    unescape then turns the entity into a `<p>` that survives into the embedded text, which
+    is the one case the strip exists for. No record of the committed corpus is in that shape;
+    the next corpus decides nothing about the order this function should have had.
+    """
     if not text:
         return ""
-    clean = sub(r"<[^>]+>", " ", text)
-    clean = sub(r"\s+", " ", clean).strip()
-    return unescape(clean)
+    clean = sub(r"<[^>]+>", " ", unescape(text))
+    return sub(r"\s+", " ", clean).strip()
 
 
 def event_to_document(event: dict) -> dict:

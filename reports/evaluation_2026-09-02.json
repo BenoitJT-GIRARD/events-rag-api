@@ -1,5 +1,7 @@
 {
-  "summary": {
+  "run": "2026-09-02",
+  "question_set": "The 30 generated questions of 2026-09-02, over a corpus restricted to Montpellier. Both were replaced the same day: the questions by the hand-written set that ships in data/questions/, the corpus by the Occitanie-wide extraction in data/raw/. Two of the 139 events these answers cite are in the committed corpus, so nothing here can be produced again, and the account that paid for them has no chat quota left either.",
+  "published_summary": {
     "total": 30,
     "correct": 22,
     "partially_correct": 3,
@@ -11,6 +13,32 @@
       "ambiguous": 5
     }
   },
+  "published_summary_note": "What the scorer published before the methodological audit of 2026-09-02, kept so that the correction below has something to be compared with.",
+  "summary": {
+    "total": 30,
+    "correct": 27,
+    "partially_correct": 3,
+    "incorrect": 0,
+    "avg_keyword_coverage_positive": 0.938,
+    "keyword_coverage_n": 20,
+    "by_case_type": {
+      "positive": {
+        "total": 20,
+        "correct": 18,
+        "partially_correct": 2
+      },
+      "negative": {
+        "total": 5,
+        "correct": 5
+      },
+      "ambiguous": {
+        "total": 5,
+        "correct": 4,
+        "partially_correct": 1
+      }
+    }
+  },
+  "summary_note": "The same answers, scored by the code that replaced the broken scorer. Rewritten by scripts/rescore_archive.py.",
   "results": [
     {
       "id": "q01",
@@ -1025,7 +1053,7 @@
       ],
       "keyword_coverage": 1.0,
       "city_match": false,
-      "label": "incorrect",
+      "label": "correct",
       "sources": [
         {
           "uid": "72749152",
@@ -1077,7 +1105,7 @@
       ],
       "keyword_coverage": 1.0,
       "city_match": false,
-      "label": "incorrect",
+      "label": "correct",
       "sources": [
         {
           "uid": "84608691",
@@ -1123,7 +1151,7 @@
       ],
       "keyword_coverage": 1.0,
       "city_match": false,
-      "label": "incorrect",
+      "label": "correct",
       "sources": [
         {
           "uid": "90287445",
@@ -1175,7 +1203,7 @@
       ],
       "keyword_coverage": 1.0,
       "city_match": true,
-      "label": "incorrect",
+      "label": "correct",
       "sources": [
         {
           "uid": "20841619",
@@ -1228,7 +1256,7 @@
       ],
       "keyword_coverage": 1.0,
       "city_match": false,
-      "label": "incorrect",
+      "label": "correct",
       "sources": [
         {
           "uid": "19188791",

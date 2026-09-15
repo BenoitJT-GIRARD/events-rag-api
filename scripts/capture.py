@@ -72,8 +72,11 @@ class Capture:
     #: A selector that exists only once the content has arrived. Required by the playwright
     #: engine, ignored by Chrome.
     ready_selector: str | None = None
-    #: Actions to perform before the picture, as (role, name) pairs handed to playwright.
-    clicks: tuple[tuple[str, str], ...] = ()
+    #: What to do before the picture, in order. Each step is ``(action, target, value)``:
+    #: ``("click", role, accessible name)``, ``("fill", css selector, text)``,
+    #: ``("scroll", css selector, "")``. A capture of an answer needs the three: click the
+    #: control, type a real question, bring the response into the frame.
+    steps: tuple[tuple[str, str, str], ...] = ()
     #: The twin image, when the product has a nominal and a degraded behaviour. A refusal
     #: shown alone reads as a failure; shown next to the nominal answer it reads as a design.
     paired_with: str | None = None
@@ -114,8 +117,8 @@ CAPTURES: tuple[Capture, ...] = (
         name="swagger",
         route="/docs",
         app_state=(
-            "the service started with no API key and no index on disk, which is the state "
-            "in which the documentation page is complete and nothing has been answered yet"
+            "the service started from the committed configuration, before any question is "
+            "asked: the documentation page is complete and nothing has been answered yet"
         ),
         demonstrates_behaviour=(
             "the four routes are grouped by tag, and the six schemas the page lists are the "
@@ -124,10 +127,73 @@ CAPTURES: tuple[Capture, ...] = (
         data_source="none: the page is generated from the Pydantic models",
         depends_on=("src/events_rag/api/main.py", "src/events_rag/api/schemas.py"),
     ),
+    Capture(
+        name="metadata-served",
+        route="/docs#/operations/metadata_metadata_get",  # tag « operations », then the id
+        engine="playwright",
+        app_state=(
+            "the service started from the committed configuration with the index built, then "
+            "GET /metadata executed from the documentation page itself"
+        ),
+        demonstrates_behaviour=(
+            "the deployment describes the corpus it serves — the region, the language, the "
+            "date window and the retrieval depth — from the settings object it runs on, so "
+            "two deployments can be told apart before their answers are compared"
+        ),
+        data_source="the running service's own settings, no corpus record displayed",
+        steps=(
+            ("click", "button", "Try it out"),
+            ("click", "button", "Execute"),
+            ("scroll", ".opblock-body .responses-wrapper", ""),
+        ),
+        ready_selector=".responses-table .response-col_status",
+        paired_with="ask-unavailable",
+        depends_on=("src/events_rag/api/main.py", "src/events_rag/config.py"),
+    ),
+    Capture(
+        name="ask-unavailable",
+        route="/docs#/ask/ask_ask_post",
+        engine="playwright",
+        app_state=(
+            "the same service with var/faiss/events_index moved aside, which is the state a "
+            "fresh clone is in, then POST /ask executed with a question of the corpus"
+        ),
+        demonstrates_behaviour=(
+            "the answering route refuses with 503 and names the script that builds the "
+            "index, where a service that returned an empty answer would look healthy"
+        ),
+        data_source=(
+            "a question of the committed corpus, typed into the documentation page; the "
+            "refusal happens before any model call"
+        ),
+        steps=(
+            ("click", "button", "Try it out"),
+            (
+                "fill",
+                ".opblock-body textarea",
+                '{"question": "Un atelier pour reparer son velo a Toulouse au printemps ?",'
+                ' "top_k": 3}',
+            ),
+            ("click", "button", "Execute"),
+            ("scroll", ".opblock-body .responses-wrapper", ""),
+        ),
+        ready_selector=".responses-table .response-col_status",
+        paired_with="metadata-served",
+        depends_on=("src/events_rag/api/main.py", "src/events_rag/rag/retriever.py"),
+    ),
 )
 
 
 # --- Starting the product, and knowing when it is up ------------------------
+
+
+def _answers(url: str) -> bool:
+    """Whether something is already serving that URL, right now."""
+    try:
+        with urllib.request.urlopen(url, timeout=1) as answer:
+            return answer.status < 500
+    except (urllib.error.URLError, OSError):
+        return False
 
 
 def wait_until_healthy(url: str, *, timeout: float = 90.0) -> None:
@@ -163,6 +229,14 @@ class Serving:
         if not self.command:
             wait_until_healthy(self.health, timeout=5)
             return self
+        # Something already answering on that port would be photographed instead of the
+        # product: a server left over from an earlier run serves an older build, and its
+        # picture is indistinguishable from a fresh one.
+        if _answers(self.health):
+            raise RuntimeError(
+                f"{self.health} already answers: stop what is listening before capturing, "
+                "or the picture will be of that and not of this build"
+            )
         self.process = subprocess.Popen(
             list(self.command), cwd=ROOT_DIR, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT
         )
@@ -170,12 +244,23 @@ class Serving:
         return self
 
     def __exit__(self, *_exception) -> None:
-        if self.process is not None:
+        """Stop the whole tree. `uv run uvicorn` is two processes, and killing the first
+        leaves the second holding the port for the next run."""
+        if self.process is None:
+            return
+        if os.name == "nt":
+            subprocess.run(
+                ["taskkill", "/F", "/T", "/PID", str(self.process.pid)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+        else:
             self.process.terminate()
-            try:
-                self.process.wait(timeout=20)
-            except subprocess.TimeoutExpired:
-                self.process.kill()
+        try:
+            self.process.wait(timeout=20)
+        except subprocess.TimeoutExpired:
+            self.process.kill()
 
 
 # --- The two engines --------------------------------------------------------
@@ -239,8 +324,19 @@ def by_playwright(capture: Capture) -> None:
             device_scale_factor=DEVICE_SCALE_FACTOR,
         )
         page.goto(capture.target, wait_until="networkidle", timeout=90_000)
-        for role, name in capture.clicks:
-            page.get_by_role(role, name=name).click()
+        for action, target, value in capture.steps:
+            if action == "click":
+                # `.first`: a Swagger operation carries a title button and an arrow button
+                # under the same accessible name, and the first in document order is the one
+                # a reader sees and clicks.
+                page.get_by_role(target, name=value).first.click()
+            elif action == "fill":
+                page.locator(target).first.fill(value)
+            elif action == "scroll":
+                page.locator(target).first.scroll_into_view_if_needed()
+            else:
+                raise ValueError(f"{capture.name}: unknown capture step « {action} »")
+            page.wait_for_timeout(300)
         if capture.ready_selector:
             page.wait_for_selector(capture.ready_selector, timeout=180_000)
         page.wait_for_timeout(4000)  # let the animations settle

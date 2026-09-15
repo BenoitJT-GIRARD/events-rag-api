@@ -5,6 +5,8 @@ the event each positive question was generated from, which is exactly the releva
 a retrieval benchmark needs.
 """
 
+import math
+
 
 def dedupe_uids(uids: list[str]) -> list[str]:
     """Keep the first occurrence of each uid, preserving rank order.
@@ -30,6 +32,49 @@ def reciprocal_rank(retrieved: list[str], target: str, k: int = 10) -> float:
     if target not in ranked:
         return 0.0
     return 1.0 / (ranked.index(target) + 1)
+
+
+def target_rank(retrieved: list[str], target: str) -> int | None:
+    """The 1-based rank of the target event, or None when it was not retrieved.
+
+    One number per question and per configuration, which is what a PAIRED comparison needs:
+    the seven configurations answer the same twenty questions, so what separates two of them
+    is the set of questions where one succeeds and the other fails, and that set is invisible
+    once each side is averaged into a proportion.
+    """
+    ranked = dedupe_uids(retrieved)
+    if target not in ranked:
+        return None
+    return ranked.index(target) + 1
+
+
+def mcnemar_exact(first: list[bool], second: list[bool]) -> dict:
+    """The exact McNemar test on two runs over the same questions.
+
+    Only the discordant pairs carry information: a question both configurations get right,
+    or both get wrong, says nothing about which is better. Under the null hypothesis the
+    discordant pairs split like a fair coin, so the two-sided p-value is the binomial tail.
+
+    Returns the two discordant counts and the p-value. With twenty questions the test is
+    almost always undecided, and saying so is the point of computing it.
+    """
+    if len(first) != len(second):
+        raise ValueError("a paired test needs the same questions on both sides")
+    only_first = sum(1 for a, b in zip(first, second, strict=True) if a and not b)
+    only_second = sum(1 for a, b in zip(first, second, strict=True) if b and not a)
+    discordant = only_first + only_second
+    if discordant == 0:
+        return {"only_first": 0, "only_second": 0, "discordant": 0, "p_value": 1.0}
+
+    smaller = min(only_first, only_second)
+    tail = sum(math.comb(discordant, i) for i in range(smaller + 1))
+    p_value = min(1.0, 2 * tail / (2**discordant))
+    return {
+        "only_first": only_first,
+        "only_second": only_second,
+        "discordant": discordant,
+        "p_value": round(p_value, 4),
+    }
 
 
 def aggregate(rows: list[dict], ks: tuple[int, ...] = (1, 3, 5, 10)) -> dict:

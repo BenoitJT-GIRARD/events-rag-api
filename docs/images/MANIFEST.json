@@ -1,6 +1,48 @@
 {
   "schema": "image-manifest/1",
   "images": {
+    "ask-unavailable.png": {
+      "sha256": "d91ea4ef8d4dd8e0a05f1635f72536fc8c8157723d0c3acf70f30e45e2d25a82",
+      "written": "2026-09-15",
+      "source": "scripts/capture.py",
+      "command": "uv run python scripts/capture.py --only ask-unavailable",
+      "target": "http://127.0.0.1:8000/docs#/ask/ask_ask_post",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "device_scale_factor": 2,
+      "app_state": "the same service with var/faiss/events_index moved aside, which is the state a fresh clone is in, then POST /ask executed with a question of the corpus",
+      "data_source": "a question of the committed corpus, typed into the documentation page; the refusal happens before any model call",
+      "demonstrates_behaviour": "the answering route refuses with 503 and names the script that builds the index, where a service that returned an empty answer would look healthy",
+      "git_revision": "1d49ae49ce95e2744ccacfc4bd84361bf68133ae",
+      "paired_with": "metadata-served.png",
+      "depends_on": [
+        "src/events_rag/api/main.py",
+        "src/events_rag/rag/retriever.py"
+      ]
+    },
+    "metadata-served.png": {
+      "sha256": "59985ca36ea4c4ffdae9e5a35b8ed44d64d7763e862075b3ac20f262c461df60",
+      "written": "2026-09-15",
+      "source": "scripts/capture.py",
+      "command": "uv run python scripts/capture.py --only metadata-served",
+      "target": "http://127.0.0.1:8000/docs#/operations/metadata_metadata_get",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "device_scale_factor": 2,
+      "app_state": "the service started from the committed configuration with the index built, then GET /metadata executed from the documentation page itself",
+      "data_source": "the running service's own settings, no corpus record displayed",
+      "demonstrates_behaviour": "the deployment describes the corpus it serves — the region, the language, the date window and the retrieval depth — from the settings object it runs on, so two deployments can be told apart before their answers are compared",
+      "git_revision": "1d49ae49ce95e2744ccacfc4bd84361bf68133ae",
+      "paired_with": "ask-unavailable.png",
+      "depends_on": [
+        "src/events_rag/api/main.py",
+        "src/events_rag/config.py"
+      ]
+    },
     "swagger.png": {
       "sha256": "e0520771102f70359f61e84efad71769a54f7f1da98f5b5813dfc267c27ac22d",
       "written": "2026-09-15",
@@ -12,10 +54,10 @@
         1000
       ],
       "device_scale_factor": 2,
-      "app_state": "the service started with no API key and no index on disk, which is the state in which the documentation page is complete and nothing has been answered yet",
+      "app_state": "the service started from the committed configuration, before any question is asked: the documentation page is complete and nothing has been answered yet",
       "data_source": "none: the page is generated from the Pydantic models",
       "demonstrates_behaviour": "the four routes are grouped by tag, and the six schemas the page lists are the Pydantic models that refuse a malformed question before any paid call",
-      "git_revision": "9d7465cb5de28d5073ce88035e2220ca494d9cde",
+      "git_revision": "1d49ae49ce95e2744ccacfc4bd84361bf68133ae",
       "depends_on": [
         "src/events_rag/api/main.py",
         "src/events_rag/api/schemas.py"

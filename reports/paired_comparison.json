@@ -1,0 +1,127 @@
+{
+  "n_questions": 20,
+  "reference": "dense-baseline",
+  "test": "McNemar, exact binomial on the discordant pairs, two-sided",
+  "comparisons": [
+    {
+      "configuration": "bm25-only",
+      "against": "dense-baseline",
+      "metric": "recall@1",
+      "won": 0,
+      "lost": 8,
+      "discordant": 8,
+      "p_value": 0.0078,
+      "decided_at_5_percent": true
+    },
+    {
+      "configuration": "bm25-only",
+      "against": "dense-baseline",
+      "metric": "recall@5",
+      "won": 0,
+      "lost": 5,
+      "discordant": 5,
+      "p_value": 0.0625,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "dense-one-chunk-per-event",
+      "against": "dense-baseline",
+      "metric": "recall@1",
+      "won": 1,
+      "lost": 2,
+      "discordant": 3,
+      "p_value": 1.0,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "dense-one-chunk-per-event",
+      "against": "dense-baseline",
+      "metric": "recall@5",
+      "won": 0,
+      "lost": 1,
+      "discordant": 1,
+      "p_value": 1.0,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "dense-metadata-header",
+      "against": "dense-baseline",
+      "metric": "recall@1",
+      "won": 0,
+      "lost": 2,
+      "discordant": 2,
+      "p_value": 0.5,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "dense-metadata-header",
+      "against": "dense-baseline",
+      "metric": "recall@5",
+      "won": 0,
+      "lost": 1,
+      "discordant": 1,
+      "p_value": 1.0,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "dense+city-filter",
+      "against": "dense-baseline",
+      "metric": "recall@1",
+      "won": 1,
+      "lost": 0,
+      "discordant": 1,
+      "p_value": 1.0,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "dense+city-filter",
+      "against": "dense-baseline",
+      "metric": "recall@5",
+      "won": 0,
+      "lost": 0,
+      "discordant": 0,
+      "p_value": 1.0,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "hybrid-rrf",
+      "against": "dense-baseline",
+      "metric": "recall@1",
+      "won": 0,
+      "lost": 2,
+      "discordant": 2,
+      "p_value": 0.5,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "hybrid-rrf",
+      "against": "dense-baseline",
+      "metric": "recall@5",
+      "won": 0,
+      "lost": 1,
+      "discordant": 1,
+      "p_value": 1.0,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "hybrid-rrf+rerank",
+      "against": "dense-baseline",
+      "metric": "recall@1",
+      "won": 1,
+      "lost": 6,
+      "discordant": 7,
+      "p_value": 0.125,
+      "decided_at_5_percent": false
+    },
+    {
+      "configuration": "hybrid-rrf+rerank",
+      "against": "dense-baseline",
+      "metric": "recall@5",
+      "won": 0,
+      "lost": 3,
+      "discordant": 3,
+      "p_value": 0.25,
+      "decided_at_5_percent": false
+    }
+  ]
+}

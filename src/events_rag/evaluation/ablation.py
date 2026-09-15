@@ -14,7 +14,7 @@ from pathlib import Path
 from langchain_core.documents import Document
 
 from events_rag.evaluation.indexes import ChunkingVariant, chunks_for, index_for
-from events_rag.evaluation.retrieval import aggregate
+from events_rag.evaluation.retrieval import aggregate, target_rank
 from events_rag.evaluation.strategies import (
     BM25Search,
     CityFilter,
@@ -47,6 +47,7 @@ def run_config(config: AblationConfig, cases: list[dict], k: int = 10) -> dict:
         "variant": config.variant.name,
         "note": config.note,
         "metrics": None,
+        "per_question": None,
         "median_latency_ms": None,
         "error": None,
     }
@@ -66,6 +67,12 @@ def run_config(config: AblationConfig, cases: list[dict], k: int = 10) -> dict:
         return result
 
     result["metrics"] = aggregate(rows)
+    # One rank per question, kept so that two configurations can be compared as the paired
+    # runs they are. Averages alone cannot answer « which questions does it win », and the
+    # published table was read for two weeks with the interval of a single proportion.
+    result["per_question"] = [
+        {"uid": row["target"], "rank": target_rank(row["retrieved"], row["target"])} for row in rows
+    ]
     result["median_latency_ms"] = round(statistics.median(latencies), 1) if latencies else None
     return result
 

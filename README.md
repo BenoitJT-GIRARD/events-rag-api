@@ -6,14 +6,15 @@
   <img src="docs/badges/python.svg" alt="Python 3.12">
   <img src="docs/badges/stack.svg" alt="Built with FAISS · LangChain · Docker">
   <img src="docs/badges/licence.svg" alt="License: MIT">
-  <img src="docs/badges/coverage.svg" alt="coverage 68%">
+  <img src="docs/badges/coverage.svg" alt="coverage 71%">
 </p>
 
-**Project status** — finished, and archived in a runnable state. The Mistral key that
-produced the published answers has been revoked. The corpus is committed, so every number
-below recomputes exactly with `docker compose up` and a key of your own. Continuous
-integration runs on push and on pull requests; it will be reduced to a manual trigger when
-the repository is archived for good.
+**Project status** — finished, and frozen with its corpus. The retrieval table below was
+measured again on 2026-09-15 and came back identical, row for row; the generation numbers
+date from the run of 2026-09-02, because the model account behind them has no chat quota
+left, and every page that uses one says so. The thousand events and the twenty questions are
+committed, so a key of your own re-measures the lot. Continuous integration runs on push and
+on pull requests, and drops to a manual trigger when the repository is archived.
 
 ## The problem
 
@@ -82,7 +83,7 @@ a minute.
 
 Around the code: **pytest** in three tiers with coverage measured in the project
 configuration, **Ruff** and **Bandit** on every push, **uv** for a locked environment, and
-**Docker** for the one command that starts the whole thing.
+**Docker** for the one command that starts the API with its index already embedded.
 
 ## The result
 
@@ -96,39 +97,58 @@ configurations, same questions, same corpus:
 <!-- source: reports/ablation_results.json -->
 | Configuration | Chunking | recall@1 | recall@5 | MRR@10 | Median latency |
 |---|---|---|---|---|---|
-| `bm25-only` | baseline | 0.50 | 0.75 | 0.615 | 17.5 ms |
-| `dense-baseline` | baseline | 0.90 | 1.00 | 0.950 | 165.4 ms |
-| `dense-one-chunk-per-event` | one chunk per event | 0.85 | 0.95 | 0.900 | 163.8 ms |
-| `dense-metadata-header` | metadata in text | 0.80 | 0.95 | 0.855 | 169.9 ms |
-| `dense+city-filter` | baseline | 0.95 | 1.00 | 0.975 | 162.1 ms |
-| `hybrid-rrf` | baseline | 0.80 | 0.95 | 0.857 | 203.3 ms |
-| `hybrid-rrf+rerank` | baseline | withdrawn | withdrawn | withdrawn | withdrawn |
-n = 20 questions for every row.
+| `bm25-only` | baseline | 0.50 | 0.75 | 0.615 | 3.8 ms |
+| `dense-baseline` | baseline | 0.90 | 1.00 | 0.950 | 192.7 ms |
+| `dense-one-chunk-per-event` | one chunk per event | 0.85 | 0.95 | 0.900 | 165.6 ms |
+| `dense-metadata-header` | metadata in text | 0.80 | 0.95 | 0.855 | 166.3 ms |
+| `dense+city-filter` | baseline | 0.95 | 1.00 | 0.975 | 172.4 ms |
+| `hybrid-rrf` | baseline | 0.80 | 0.95 | 0.857 | 210.2 ms |
+| `hybrid-rrf+rerank` | baseline | 0.65 | 0.85 | 0.750 | 262.2 ms |
+n = 20 questions for every row, run of 2026-09-15.
 
 Every number above is read from `reports/ablation_results.json`, written by
 `scripts/run_ablation.py`, and `tests/unit/test_published_numbers.py` fails if the table and
-the file disagree. n = 20 questions for every row. What each metric means, and what it is
-worth to someone using the service, is in [`metrics.yaml`](metrics.yaml).
+the file disagree. What each metric means, and what it is worth to someone using the service,
+is in [`metrics.yaml`](metrics.yaml). The latency column is one machine's, measured in the
+same run as the rest; it compares rows and travels to no other machine.
 
-**The reranking row is withdrawn, and here is why.** The run that produced it scored the
-wrong text. The passage given to the cross-encoder was built as one entry per event uid over
-2 046 chunks, so for every event the splitter had cut, about half the corpus, only the last
-chunk survived: usually the block carrying dates and prices. The published 0.55 measured that
-mistake. `passages_by_uid` now reassembles the chunks of an event before scoring, a unit test
-checks that a two-chunk event reaches the scorer with its title in the text, and the
-configuration is measured again on the next run with an API key. Until then the row carries
-no number, because a wrong one that looks plausible costs a reader more than a blank. The
-withdrawal is recorded in [`reports/errata.json`](reports/errata.json).
+**The reranking row was withdrawn for two weeks, and here is what it hid.** The run that
+first produced it scored the wrong text. The passage given to the cross-encoder was built as
+one entry per event uid over 2 046 chunks, so for every event the splitter had cut, about
+half the corpus, only the last chunk survived: usually the block carrying dates and prices.
+The published 0.55 measured that mistake. `passages_by_uid` now reassembles the chunks of an
+event before scoring, and a unit test checks that a two-chunk event reaches the scorer with
+its title in the text. Measured again on the reassembled passages, the row reads 0.65 at
+recall@1. The conclusion holds and the number that carried it was wrong by ten points, which
+is the whole reason the row spent two weeks blank instead of quietly corrected.
+[`reports/errata.json`](reports/errata.json) keeps the withdrawal and its resolution.
 
-<!-- source: reports/ablation_results.json -->
-**What the table does not show.** At n = 20 the city filter tops it, but 0.95 against 0.90
-is **one question out of twenty**. The standard error of a proportion at that sample size is
-about 6.7 points, so the 95 % interval is roughly ±13 points. That difference sits inside the noise, and it is not claimed
-as an improvement.
+<!-- source: reports/paired_comparison.json -->
+**What separates these configurations.** The seven answer the same twenty questions, so the
+comparison is paired: what distinguishes two of them is the questions one gets right and the
+other gets wrong, and averaging each side into a proportion throws exactly that away.
+`scripts/compare_paired.py` reads the per-question ranks and runs McNemar's exact test
+against the shipped configuration, over n = 20 questions:
+
+<!-- source: reports/paired_comparison.json -->
+| Against `dense-baseline`, recall@1 | Questions won | Questions lost | McNemar p |
+|---|---|---|---|
+| `bm25-only` | 0 | 8 | 0.008 |
+| `hybrid-rrf+rerank` | 1 | 6 | 0.125 |
+| `dense-metadata-header` | 0 | 2 | 0.5 |
+| `hybrid-rrf` | 0 | 2 | 0.5 |
+| `dense-one-chunk-per-event` | 1 | 2 | 1.0 |
+| `dense+city-filter` | 1 | 0 | 1.0 |
+n = 20 questions, the same twenty on both sides of every comparison.
+
+One comparison out of twelve is decided at the 5 % level, and it is the floor: lexical search
+alone loses eight questions to dense retrieval and wins none. Everything else, the city
+filter included, sits where twenty questions cannot separate it. The interval of a single
+proportion, about ±13 points here, says the same thing more conservatively.
 
 **What it does show.** Dense retrieval puts the source event in the first five results for
-all twenty questions; lexical search alone does it for fifteen. Beyond that floor, none of
-the four remaining alternatives separates itself by a margin twenty questions can support.
+all twenty questions; lexical search alone does it for fifteen. Above that floor, none of the
+five remaining configurations separates itself by a margin twenty questions can support.
 Query rewriting was not tried: it costs one model call per question, for a gain the
 literature puts as marginal on short factual queries.
 
@@ -137,10 +157,11 @@ literature puts as marginal on short factual queries.
 Because the benchmark they come from was rebuilt after the first one turned out to measure
 the wrong thing.
 
-<!-- source: reports/errata.json -->
-**The first run gave `recall@1` = 1.00** on the same n = 20. Every question retrieved its
-source event at rank one. That is not a good result, it is a broken benchmark: a perfect score means no headroom,
-so the ablation it exists for cannot rank anything.
+The first run gave `recall@1` = 1.00 on the same twenty questions: every one of them
+retrieved its source event at rank one. That is not a good result, it is a broken benchmark.
+A perfect score means no headroom, so the ablation it exists for cannot rank anything. That
+figure comes from the run of 2026-09-02 and is one of the two numbers on this page that
+cannot be recomputed here, for the reason the next paragraphs give.
 
 The tell was in the floor row: **BM25 alone, a bag of words with no embeddings at all,
 reached 0.90 `recall@5` over a thousand events.** That is impossible on genuinely hard
@@ -176,7 +197,34 @@ replaced rather than kept, so nothing in this repository reproduces them. BM25 f
 exactly as the diagnosis predicted, because removing quoted titles hits pure lexical matching
 first. The baseline dropped off the ceiling, so the benchmark can now separate
 configurations, which is the only reason the table above is worth reading. The full protocol
-is in [`docs/evaluation-protocol.md`](docs/evaluation-protocol.md).
+is in [`docs/protocol.md`](docs/protocol.md).
+
+### The scorer had defects too
+
+A methodological audit went through the grading code and found four. Two of them moved a
+published number.
+
+**The refusal detector missed every refusal it was built to catch.** It searched an answer
+for the noun *événement*, and the model answers in the noun of the question: *« aucune
+information concernant des opéras »*, *« aucun festival de cirque à Lyon »*. The five
+out-of-corpus questions were therefore all recorded as wrong answers, on a run where the
+system had refused each one correctly. The defect ran in the rare direction: it understated
+the system on the capability that matters most here, saying no when the corpus holds no
+answer. Detection matches negations now, and a test carries each of those five phrasings.
+
+**The other three concern the keyword metric.** A refusal repeats the words of the question,
+so its keyword coverage scored 1.0 by echo, and that echo was averaged in with the twenty
+positive cases; a case carrying no keywords was handed a free 1.0 as well. Coverage is now
+averaged over positive cases alone, carries its `n`, and returns nothing where there is
+nothing to cover.
+
+The thirty answers of that run cannot be asked again: the questions were replaced the same
+day, and the account that paid for them has no chat quota left. They are committed in
+[`reports/evaluation_2026-09-02.json`](reports/evaluation_2026-09-02.json), which keeps what
+the defective scorer published beside what the current code reads from the same text. 22
+correct and 5 wrong become 27 correct and none wrong; keyword coverage 0.908 over the thirty
+cases becomes 0.938 over the twenty positive ones. `scripts/rescore_archive.py` recomputes
+the corrected reading and calls no model, so the correction can be checked without a key.
 
 ## Running it
 
@@ -201,7 +249,7 @@ Two scripts deliberately sit outside that path, because both replace a frozen in
   ingestion step for the same reason.
 - `generate_eval_dataset.py` regenerates the question set from scratch, with the same caveat.
 
-Tests: `uv run pytest` — 140 tests in three tiers, no network. Coverage is measured on every
+Tests: `uv run pytest` — 178 tests in three tiers, no network. Coverage is measured on every
 run, with a floor. Day-to-day operations are in
 [`docs/operations.md`](docs/operations.md).
 
@@ -215,6 +263,7 @@ src/events_rag/
 ├── api/          FastAPI routes and schemas
 └── utils/        where the files are, decided once
 scripts/          thin entry points, one per operation
+notebooks/        the lab: how the benchmark was found broken, and the ablation read closely
 tests/            unit, integration and system tiers
 data/raw/         the frozen corpus and its licence
 data/questions/   the frozen question set the evaluation reads
@@ -223,8 +272,16 @@ var/              the FAISS index and anything else a run leaves behind
 ```
 
 Engineering decisions in [`docs/architecture.md`](docs/architecture.md); the API surface is
-described by the generated OpenAPI schema at `/docs` and summarised in
-[`docs/API.md`](docs/API.md).
+described by the generated OpenAPI schema at `/docs`, and what each route costs and how it
+fails is in [`docs/operations.md`](docs/operations.md).
+
+The reasoning behind the two sections above is in the notebooks, executed and committed with
+their outputs: [`notebooks/01_benchmark_diagnosis.ipynb`](notebooks/01_benchmark_diagnosis.ipynb)
+establishes that the first question set was broken and measures what replaced it, and
+[`notebooks/02_retrieval_ablation.ipynb`](notebooks/02_retrieval_ablation.ipynb) reads the
+seven configurations question by question, including the passages the reranker was given.
+Neither writes anything: `uv sync --group notebook && uv run python scripts/run_notebooks.py`
+replays them.
 
 ## What this does not prove
 
@@ -233,14 +290,25 @@ described by the generated OpenAPI schema at `/docs` and summarised in
 differences is guarded for that reason. Two hundred questions would settle it; that is hours
 of writing, and no change of method.
 
-**The generation side is still evaluated circularly.** The hand-written questions fixed the
-*retrieval* benchmark, but the reference answers are still derived from the events
-themselves, so the faithfulness and relevancy numbers from RAGAS remain optimistic. Fixing
-that means writing reference answers blind, which is a different exercise.
+**The generation side has no current measurement.** The only RAGAS run this repository
+carries is the one of 2026-09-02, and it graded a question set and a corpus that have both
+been replaced since: two of the 139 events its answers cite are in the committed corpus,
+which was widened from Montpellier to the whole region afterwards. Its numbers are kept in
+`reports/ragas_2026-09-02.json` as the record of what was run, and no page reads them as a
+property of what ships. Re-measuring needs chat quota on a model account, which this one no
+longer has.
 
-**Two of the five RAGAS metrics do not work.** `answer_relevancy` and `context_relevancy`
-return null. They are reported as not measured, because a null that looks like a score hides
-a gap the reader should see.
+**And that evaluation was circular by construction.** The hand-written questions fixed the
+*retrieval* benchmark; the reference answers RAGAS grades against are still derived from the
+events themselves, so faithfulness and relevancy come out optimistic whoever runs them.
+Fixing that means writing reference answers blind, which is a different exercise.
+
+**One of the five RAGAS metrics does not work.** `answer_relevancy` came back null on every
+answer of the archived run, and it is reported as not measured: a null rendered as zero would
+read as a measured score of nothing. The summary claimed two until the archive was made
+recomputable — it read `context_relevancy` from a column named after the metric, while RAGAS
+writes that one into `nv_context_relevance`. Each mean now carries the number of rows it was
+taken over, which is how `context_precision` turned out to be a mean over 26 of the 30.
 
 **The RAGAS integration imports private symbols, and there is no alternative.** As of 0.4.3
 the library exposes no public path to its concrete metrics: `ragas.metrics.__all__` holds

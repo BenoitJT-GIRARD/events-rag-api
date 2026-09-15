@@ -78,6 +78,37 @@ class NaNSafeEncoder(json.JSONEncoder):
         return obj
 
 
+#: The metric this repository publishes, and the column RAGAS writes it into. They differ
+#: for one of the five: `ContextRelevancy` is served by the NVIDIA context-relevance metric,
+#: whose column is `nv_context_relevance`. Reading the metric's own name gave an average over
+#: nothing, and `avg_context_relevancy` was published as null while all thirty rows carried a
+#: value. A name written twice is a name that can disagree with itself, so it is written once.
+RAGAS_COLUMN = {
+    "faithfulness": "faithfulness",
+    "answer_relevancy": "answer_relevancy",
+    "context_precision": "context_precision",
+    "context_recall": "context_recall",
+    "context_relevancy": "nv_context_relevance",
+}
+
+
+def metric_summary(rows: list[dict]) -> dict:
+    """The mean of each metric, and the number of rows it was computed over.
+
+    The count is half the result: `context_precision` came out on 26 of the 30 answers of the
+    archived run, and a mean published without its denominator reads as a mean over all of
+    them. A metric that computed nowhere gives back null, and its count is zero.
+    """
+    summary: dict[str, float | int | None] = {}
+    for metric, column in RAGAS_COLUMN.items():
+        values = [row.get(column) for row in rows]
+        summary[f"avg_{metric}"] = safe_mean(values)
+        summary[f"n_{metric}"] = sum(
+            1 for v in values if isinstance(v, (int, float)) and math.isfinite(v)
+        )
+    return summary
+
+
 def build_case_type_summary(cases: list[dict]) -> dict:
     type_counts: dict[str, int] = {}
     for case in cases:
@@ -163,11 +194,7 @@ def run_ragas_evaluation() -> dict:
 
     summary = {
         "count": len(payload),
-        "avg_faithfulness": safe_mean([r.get("faithfulness") for r in payload]),
-        "avg_answer_relevancy": safe_mean([r.get("answer_relevancy") for r in payload]),
-        "avg_context_precision": safe_mean([r.get("context_precision") for r in payload]),
-        "avg_context_recall": safe_mean([r.get("context_recall") for r in payload]),
-        "avg_context_relevancy": safe_mean([r.get("context_relevancy") for r in payload]),
+        **metric_summary(payload),
         "by_case_type": build_case_type_summary(cases),
     }
 
@@ -176,7 +203,7 @@ def run_ragas_evaluation() -> dict:
         "results": payload,
     }
 
-    with output_path.open("w", encoding="utf-8") as file:
+    with output_path.open("w", encoding="utf-8", newline="") as file:
         json.dump(final_payload, file, cls=NaNSafeEncoder, ensure_ascii=False, indent=2)
 
     return final_payload

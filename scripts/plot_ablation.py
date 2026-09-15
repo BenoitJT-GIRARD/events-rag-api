@@ -10,15 +10,8 @@ from pathlib import Path
 
 from events_rag.config import get_settings
 from events_rag.evaluation.chart import render_ablation_svg
+from events_rag.evaluation.errata import withdrawn_rows
 from events_rag.figure_style import save_svg
-
-
-def withdrawn_rows(reports_dir: Path, artefact: str) -> set[str]:
-    errata = reports_dir / "errata.json"
-    if not errata.is_file():
-        return set()
-    entries = json.loads(errata.read_text(encoding="utf-8")).get("entries", [])
-    return {e["row"] for e in entries if e.get("artefact") == artefact and e.get("row")}
 
 
 def main() -> int:
