@@ -1,8 +1,8 @@
-"""recall@k, reciprocal rank, and the deduplication that has to happen before the cut at k.
+"""What the deterministic metrics count, and what they refuse to count twice.
 
-Several chunks of one event can be retrieved; counting them separately would inflate recall
-at every k. The absent-target cases are here too, because a metric that only ever sees a
-hit is a metric nobody has tested.
+The absent-target cases matter as much as the hits: a metric exercised only on successes is
+a metric whose failure path nobody has run. The paired test at the end of the file is where
+two configurations are finally compared.
 """
 
 import pytest

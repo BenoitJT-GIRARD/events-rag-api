@@ -13,9 +13,9 @@ that replaced the detector is how that correction is verified.
 
     uv run python scripts/rescore_archive.py
 
-Rewrites the two summaries, and the per-case labels of the heuristic archive. Both files keep
-`published_summary`, what was published before the audit, beside what the current code reads
-from the same text.
+Rewrites the two summaries, and the per-case labels of the heuristic archive. Both files
+keep their `published_summary` untouched: the correction is only legible against what it
+corrects.
 """
 
 from __future__ import annotations

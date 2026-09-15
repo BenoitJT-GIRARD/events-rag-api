@@ -20,10 +20,9 @@ Two consequences of that split are worth naming, because both surfaced later:
 
 - The `uid` travelling in metadata is what makes deterministic retrieval metrics possible
   at all. Without a stable identifier on every chunk there is no relevance label.
-- Metadata is **not** embedded. Title and venue live outside the vector, so a query naming
-  a venue has nothing to match. `dense-metadata-header` in the ablation tests putting them
-  back into the text; it did not help on this corpus, but the reasoning was sound enough
-  to measure.
+- Metadata is **not** embedded: the vector is built from the text alone, and the title and
+  the venue sit beside it. `dense-metadata-header` measures what folding them in would buy,
+  and the answer on this corpus is nothing the sample can support.
 
 ## Chunking
 
@@ -68,10 +67,9 @@ composes with the others:
 
 Two details that are easy to get wrong:
 
-**Deduplicate by `uid` before ranking.** One event yields several chunks, so a top-k of
-chunks collapses to fewer distinct events. Ranking chunks, and not events, inflates recall:
-the same event can occupy three of the first five positions. Every strategy
-deduplicates, and there is a test pinning it.
+**Deduplicate by `uid` before ranking.** The unit a reader asks about is the event, and the
+unit the index returns is the chunk; one event can take three of the first five positions and
+make recall look better than it is. Every strategy deduplicates, and a test pins it.
 
 **Over-fetch before filtering.** Because deduplication and filtering both shrink the
 result list, asking the inner strategy for exactly `k` returns short. Strategies request
@@ -107,9 +105,9 @@ two RAGAS metrics return null silently for months.
 
 ## API
 
-`api/main.py` exposes `/health`, `/metadata`, `/ask` and `/rebuild`. `/rebuild` is guarded
-by a token from the environment: rebuilding the index is expensive and calls a paid API,
-so it is not something an anonymous caller should be able to trigger.
+`api/main.py` exposes `/health`, `/metadata`, `/ask` and `/rebuild`. The token that guards
+`/rebuild` is a cost control first: the route spends one embedding call per chunk, 2 046 of
+them on this corpus, and the module says so where it refuses.
 
 The prompt in `rag/prompts.py` instructs the model to answer only from the supplied
 context and to say when it cannot. That instruction earns its place: five of the thirty

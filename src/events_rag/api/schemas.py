@@ -1,4 +1,4 @@
-"""The request and response shapes, which are also the generated OpenAPI documentation.
+"""What a question may carry, and what an answer carries back.
 
 `AskResponse` carries the sources beside the answer on purpose: an answer whose supporting
 events cannot be checked is the failure mode this whole repository is arranged against.

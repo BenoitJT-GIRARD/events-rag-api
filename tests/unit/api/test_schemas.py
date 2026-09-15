@@ -1,8 +1,8 @@
 """The request shapes refuse what the service cannot answer, before the model is called.
 
-These bounds are also the OpenAPI documentation a reader sees at `/docs`, so they are part of
-the public surface: a question of two characters and a `top_k` of fifty are both refused here
-rather than turned into a paid call that returns nothing useful.
+Each bound of the schema has its case at the edge, on both sides: three characters and two,
+ten results and eleven. A bound that is documented and not enforced costs a paid call per
+malformed request.
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ def test_a_depth_outside_the_bounds_is_refused(top_k: int) -> None:
 
 
 def test_an_answer_carries_its_sources() -> None:
-    """An answer whose supporting events cannot be checked is the failure this guards."""
+    """`sources` is required, and an empty list is a valid value: no source found, and said."""
     response = AskResponse(
         answer="Un concert de l'orchestre national.",
         sources=[SourceItem(uid="evt-1", title="Concert", city="Albi")],

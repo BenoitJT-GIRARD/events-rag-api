@@ -1,8 +1,8 @@
 """Keyword coverage, city matching, refusal detection, and how the summary averages.
 
-The refusal patterns get the most attention: a question about an event that does not exist
-is answered correctly by refusing, and this matcher is the only thing between that and a
-confident invention scored as a success.
+The refusal patterns get the most attention here, and each of the five phrasings the model
+actually produced has its own case: the matcher that replaced the list of nouns is the piece
+the methodological audit rewrote, so it is the piece with the most tests.
 """
 
 import pytest

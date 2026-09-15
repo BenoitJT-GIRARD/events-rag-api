@@ -1,8 +1,8 @@
-"""The chunking variants build the indexes the ablation compares, and are told apart.
+"""What pins a chunking variant: its fingerprint, and what the header variant puts in text.
 
-Each variant carries a fingerprint. Two variants that produce the same fingerprint would be
-compared as different configurations while sharing one index, and the ablation would be
-measuring nothing — so the fingerprint has to move when the chunking does.
+Two variants sharing a fingerprint would share an index and be reported as two
+configurations, so every field that changes the chunking has to change the fingerprint. The
+header case is checked on the text itself, since that is where the difference has to land.
 """
 
 from langchain_core.documents import Document
@@ -44,8 +44,8 @@ def test_sized_variant_splits_a_long_event_into_several_chunks() -> None:
 
 
 def test_header_variant_embeds_the_metadata_in_the_indexed_text() -> None:
-    # Title, venue, city and date live in metadata and never reach the embedding, so a
-    # query naming a venue has nothing to match against. This variant puts them in text.
+    # Title, venue, city and date stay out of the vector, so the header variant is the only
+    # one where a query naming a venue has anything to match.
     documents = [
         Document(
             page_content="soiree musicale",

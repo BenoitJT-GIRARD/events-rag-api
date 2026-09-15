@@ -1,8 +1,8 @@
 """Re-ingest the corpus from the live upstream.
 
-Outside the reproduction path on purpose: upstream is a rolling window, so this builds a
-*different* corpus and silently invalidates every published figure. It is how you would
-bootstrap a corpus for another deployment.
+Outside the reproduction path on purpose: upstream is a rolling window, so a second run
+returns other events, and every published figure would then describe a corpus nobody has.
+Run it to start a new deployment, and expect to re-measure everything after it.
 """
 
 import asyncio

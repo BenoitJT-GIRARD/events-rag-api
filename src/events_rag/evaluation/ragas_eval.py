@@ -5,8 +5,8 @@ because a null rendered as zero reads as a measured score of nothing and hides t
 `NaNSafeEncoder` exists so that a missing metric survives serialisation as `null` instead of
 as the string `NaN`, which no JSON reader accepts.
 
-The reference answers are derived from the events themselves, so these numbers are
-optimistic by construction. The README says so.
+The reference answers come from the events, which is the ceiling on what this file can
+establish; the README lists it among the limits.
 """
 
 import json
@@ -18,10 +18,9 @@ from ragas import EvaluationDataset, SingleTurnSample, evaluate
 from ragas.embeddings import LangchainEmbeddingsWrapper
 from ragas.llms import LangchainLLMWrapper
 
-# These names are underscore-prefixed, and that is not an oversight to clean up: as of
-# ragas 0.4.3 there is no public path to the concrete metrics at all. `ragas.metrics.__all__`
-# is empty of them and every metric module is itself underscore-prefixed. The classes are
-# re-exported at package level, which is the closest thing to a supported entry point.
+# Private imports, on purpose: ragas 0.4.3 publishes no path to its concrete metrics. The
+# classes are re-exported at package level, which is the nearest thing to a supported entry
+# point, and the README lists this among the things the repository does not prove.
 #
 # The protection is therefore the version cap in pyproject.toml (`ragas>=0.4.3,<0.5`), not
 # the import style. Without it an unrelated `uv sync` would pull a release where this

@@ -84,9 +84,9 @@ def test_a_refusal_phrased_in_the_noun_of_the_question_is_not_a_wrong_answer(ans
 def test_a_metric_is_read_from_the_column_ragas_writes_it_into() -> None:
     """The defect the recomputation surfaced: two spellings of one metric, and they differed.
 
-    `ContextRelevancy` is served by the NVIDIA context-relevance metric, whose column is
-    `nv_context_relevance`. The summary read `context_relevancy`, found nothing, and
-    published null for a value measured on all thirty rows.
+    The summary looked for a column named after the metric, found nothing, and published
+    null for a value that all thirty rows carried. `RAGAS_COLUMN` now holds the mapping in
+    one place; this pins it.
     """
     rows = [{"nv_context_relevance": 0.5}, {"nv_context_relevance": 1.0}]
 

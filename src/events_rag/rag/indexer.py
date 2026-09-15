@@ -4,9 +4,9 @@ Chunking at 800 characters is the baseline the ablation measures the alternative
 -- one chunk per event, and metadata folded into the text -- and neither beats it by a
 margin twenty questions can support.
 
-FAISS on disk rather than a vector database: a thousand events is a few thousand vectors,
-and a managed store would add a service to run and a bill to pay for headroom this corpus
-will never need.
+The index is a build artefact: it is written under `var/`, never committed, and rebuilt
+from the corpus in about a minute. The README says why a file on disk is enough for this
+size of corpus.
 """
 
 import json

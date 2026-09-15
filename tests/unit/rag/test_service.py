@@ -1,6 +1,7 @@
 """The context handed to the model carries the metadata, and the sources come back serialisable.
 
-The sources are what lets a reader check the answer against the events it came from.
+Both halves are pinned here because both are part of the answer's contract: a uid that never
+reaches the response, or a Document that will not serialise, breaks it in the same way.
 """
 
 from langchain_core.documents import Document

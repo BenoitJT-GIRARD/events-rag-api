@@ -13,8 +13,8 @@
 measured again on 2026-09-15 and came back identical, row for row; the generation numbers
 date from the run of 2026-09-02, because the model account behind them has no chat quota
 left, and every page that uses one says so. The thousand events and the twenty questions are
-committed, so a key of your own re-measures the lot. Continuous integration runs on push and
-on pull requests, and drops to a manual trigger when the repository is archived.
+committed, so a key of your own re-measures the lot. The workflows still fire on every push
+and every pull request; archiving the repository reduces them to a manual trigger.
 
 ## The problem
 

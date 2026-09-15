@@ -1,10 +1,9 @@
 """Compare each retrieval configuration with the shipped one, question by question.
 
-The seven configurations answer the same twenty questions, so the comparison is paired, and
-the interval of a single proportion is the wrong yardstick: it ignores that the two sides
-agree on most questions. What separates two configurations is the discordant pairs, the
-questions one gets right and the other gets wrong, and McNemar's exact test reads exactly
-those.
+Every configuration is run over one fixed question set, so two of them can be compared
+question by question. The interval of a single proportion ignores that they agree on most
+of the set; the discordant pairs are the whole signal, and McNemar's exact test reads them
+directly.
 
 Reads `reports/ablation_results.json`, which carries the rank of the target event for every
 question and every configuration. No model call, no index: this is arithmetic on a committed
