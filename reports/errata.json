@@ -1,0 +1,14 @@
+{
+  "schema": "errata/1",
+  "note": "Published results withdrawn after publication, with the reason and the way back. A run that happened is not deleted: the file it wrote stays as the record, and this file says which of its rows can no longer be read as a measurement.",
+  "entries": [
+    {
+      "artefact": "reports/ablation_results.json",
+      "row": "hybrid-rrf+rerank",
+      "withdrawn_on": "2026-09-15",
+      "reason": "The passages handed to the cross-encoder were built as one entry per event uid over 2 046 chunks, so for every event the splitter had cut -- about half the corpus -- only the last chunk survived, usually the block carrying dates and prices. The 0.55 recall@1 measured that preparation, not reranking.",
+      "fixed_by": "events_rag.evaluation.ablation.passages_by_uid reassembles the chunks of an event before scoring; tests/unit/test_ablation.py checks that a two-chunk event reaches the scorer with its title.",
+      "remeasure": "EVENTS_RAG_MISTRAL_API_KEY=... uv run python scripts/run_ablation.py"
+    }
+  ]
+}

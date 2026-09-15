@@ -41,14 +41,14 @@ def render_table(results: list[dict]) -> str:
 
 def run_ablation() -> dict:
     settings = get_settings()
-    eval_dir = Path(settings.eval_data_dir)
-    cases = load_reference_dataset(eval_dir / "reference_qa.json")
+    reports_dir = Path(settings.reports_dir)
+    cases = load_reference_dataset(Path(settings.questions_dir) / "reference_qa.json")
     results = run_all(CONFIGS, cases)
 
     payload = {"configurations": len(results), "results": results}
-    eval_dir.mkdir(parents=True, exist_ok=True)
-    (eval_dir / "ablation_results.json").write_text(
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    (reports_dir / "ablation_results.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    (eval_dir / "ablation_table.md").write_text(render_table(results) + "\n", encoding="utf-8")
+    (reports_dir / "ablation_table.md").write_text(render_table(results) + "\n", encoding="utf-8")
     return payload

@@ -11,7 +11,7 @@ from pathlib import Path
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+from events_rag.utils import paths
 
 
 class Settings(BaseSettings):
@@ -41,11 +41,15 @@ class Settings(BaseSettings):
     embedding_model: str = "mistral-embed"
     chat_model: str = "mistral-small-latest"
 
-    data_dir: Path = BASE_DIR / "data"
-    raw_data_dir: Path = data_dir / "raw"
-    processed_data_dir: Path = data_dir / "processed"
-    eval_data_dir: Path = data_dir / "eval"
-    index_dir: Path = data_dir / "faiss"
+    # Where things are is decided in one place (`events_rag.utils.paths`), and overridden
+    # by the environment for a run that writes somewhere else. Two directories are inputs —
+    # the corpus and the frozen question set — and two are outputs: the published results and
+    # the index, which is rebuilt from the corpus and lives with what a run leaves behind.
+    data_dir: Path = paths.DATA_DIR
+    raw_data_dir: Path = paths.RAW_DIR
+    questions_dir: Path = paths.QUESTIONS_DIR
+    reports_dir: Path = paths.REPORTS_DIR
+    index_dir: Path = paths.INDEX_DIR
 
     retrieval_k: int = 5
     chunk_size: int = 800

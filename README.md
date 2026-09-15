@@ -78,32 +78,41 @@ Retrieval is scored on twenty questions that each record the `uid` of the event 
 written from — a hard relevance label — with `recall@k` and `MRR`, no judge involved. Seven
 configurations, same questions, same corpus:
 
-![Retrieval ablation results](docs/images/ablation.svg)
+![Retrieval ablation: recall@1 and MRR@10 per configuration, with the standard error each proportion carries at n = 20](reports/figures/ablation.svg)
 
 | Configuration | Chunking | recall@1 | recall@5 | MRR@10 | Median latency |
 |---|---|---|---|---|---|
-| `bm25-only` | baseline | 0.50 | 0.75 | 0.615 | **3.8 ms** |
-| `dense-baseline` | baseline | 0.90 | **1.00** | 0.950 | 159 ms |
-| `dense-one-chunk-per-event` | one chunk per event | 0.85 | 0.95 | 0.900 | 164 ms |
-| `dense-metadata-header` | metadata in text | 0.80 | 0.95 | 0.855 | 180 ms |
-| `dense+city-filter` | baseline | 0.95 | **1.00** | 0.975 | 216 ms |
-| `hybrid-rrf` | baseline | 0.80 | 0.95 | 0.857 | 178 ms |
-| `hybrid-rrf+rerank` | baseline | 0.55 | 0.70 | 0.622 | 208 ms |
+| `bm25-only` | baseline | 0.50 | 0.75 | 0.615 | **17.5 ms** |
+| `dense-baseline` | baseline | 0.90 | **1.00** | 0.950 | 165.4 ms |
+| `dense-one-chunk-per-event` | one chunk per event | 0.85 | 0.95 | 0.900 | 163.8 ms |
+| `dense-metadata-header` | metadata in text | 0.80 | 0.95 | 0.855 | 169.9 ms |
+| `dense+city-filter` | baseline | 0.95 | **1.00** | 0.975 | 162.1 ms |
+| `hybrid-rrf` | baseline | 0.80 | 0.95 | 0.857 | 203.3 ms |
+| `hybrid-rrf+rerank` | baseline | withdrawn | withdrawn | withdrawn | withdrawn |
 
-**What this does not show.** The city filter tops the table, but 0.95 against 0.90 is **one
+Source: `reports/ablation_results.json`, written by `scripts/run_ablation.py`. Every number
+above is read from that file, and `tests/system/test_published_numbers.py` fails if the two
+disagree. n = 20 questions for every row.
+
+**The reranking row is withdrawn, and here is why.** The run that produced it scored the
+wrong text. The passage given to the cross-encoder was built as one entry per event uid over
+2 046 chunks, so for every event the splitter had cut — about half the corpus — only the last
+chunk survived, usually the block carrying dates and prices. The published 0.55 measured that
+mistake. `passages_by_uid` now reassembles the chunks of an event before scoring, a unit test
+checks that a two-chunk event reaches the scorer with its title in the text, and the
+configuration is measured again on the next run with an API key. Until then the row carries
+no number: one that is wrong and plausible costs a reader more than a blank.
+
+**What the table does not show.** The city filter tops it, but 0.95 against 0.90 is **one
 question out of twenty**. At n = 20 the standard error is about 6.7 points, so the 95 %
-interval is roughly ±13. That difference is well inside the noise, and it is not claimed as
-an improvement.
+interval is roughly ±13 points. That difference sits inside the noise, and it is not claimed
+as an improvement.
 
-**What it does show.** Reranking clearly hurts — 0.55 against 0.90 is far outside the noise
-— and the cause is identifiable: `ms-marco-TinyBERT-L-2-v2` is a small cross-encoder
-trained on English, applied to French. It is dropped, and the row is left in the table
-because a tried-and-abandoned path is information.
-
-**The conclusion, in full:** on this corpus, at this sample size, none of the five
-alternatives beats plain dense retrieval by a margin the evidence supports. Query rewriting
-was not tried at all — one LLM call per query for a gain the literature puts as marginal on
-short factual questions.
+**What it does show.** Dense retrieval puts the source event in the first five results for
+all twenty questions; lexical search alone does it for fifteen. Beyond that floor, none of
+the four remaining alternatives separates itself by a margin twenty questions can support.
+Query rewriting was not tried: it costs one model call per question, for a gain the
+literature puts as marginal on short factual queries.
 
 ## Why these numbers can be believed
 
@@ -151,13 +160,14 @@ separate configurations — which is the only reason the table above is worth re
 cp .env.example .env          # add EVENTS_RAG_MISTRAL_API_KEY
 uv sync
 uv run python scripts/build_index.py      # embeds the committed corpus, ~1 min
-uv run python scripts/run_ablation.py     # writes data/eval/ablation_table.md
+uv run python scripts/run_ablation.py     # writes reports/ablation_table.md
 docker compose up                         # API on :8000, Swagger at /docs
 ```
 
-The corpus in `data/raw/` is committed, so `run_ablation.py` reproduces the table above
-exactly. `plot_ablation.py` redraws `docs/images/ablation.svg` from
-`data/eval/ablation_results.json` afterwards.
+The corpus in `data/raw/` and the question set in `data/questions/` are both committed, so
+`run_ablation.py` reproduces the table above exactly. `plot_ablation.py` redraws
+`reports/figures/ablation.svg` from `reports/ablation_results.json` afterwards, and records
+the image in `reports/figures/MANIFEST.json`.
 
 Two scripts deliberately sit outside that path, because both replace a frozen input:
 
@@ -180,7 +190,9 @@ src/events_rag/
 └── api/          FastAPI routes and schemas
 scripts/          thin entry points, one per operation
 data/raw/         the frozen corpus and its licence
-data/eval/        evaluation set and published results
+data/questions/   the frozen question set the evaluation reads
+reports/          published results, the figure, and the errata
+var/              the FAISS index and anything else a run leaves behind
 ```
 
 Engineering decisions in [`docs/architecture.md`](docs/architecture.md).

@@ -1,16 +1,26 @@
+# What never enters the build context.
+#
+# The image serves the API from the corpus. It needs the package, the scripts and data/;
+# it needs neither the published results nor the index, which it rebuilds.
+
 .git
 .gitignore
+.gitattributes
+.github
+
 .venv
 __pycache__
+*.pyc
 .pytest_cache
 .ruff_cache
 .mypy_cache
+
 docs
 tests
-.env
-*.pyc
-data/eval/evaluation_results.json
-data/eval/ragas_results.json
+reports
 
-# Les index FAISS locaux : quatre repertoires construits ici, que l'image reconstruit.
-data/faiss
+# The FAISS index is rebuilt from the corpus inside the image. The local one is several
+# directories of vectors that would go in and be overwritten.
+var
+
+.env

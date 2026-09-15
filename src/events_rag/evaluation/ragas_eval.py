@@ -127,8 +127,8 @@ def build_ragas_dataset(cases: list[dict]) -> EvaluationDataset:
 
 def run_ragas_evaluation() -> dict:
     settings = get_settings()
-    input_path = settings.eval_data_dir / "reference_qa.json"
-    output_path = settings.eval_data_dir / "ragas_results.json"
+    input_path = settings.questions_dir / "reference_qa.json"
+    output_path = settings.reports_dir / "ragas_results.json"
 
     cases = load_reference_dataset(input_path)
     dataset = build_ragas_dataset(cases)

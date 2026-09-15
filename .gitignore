@@ -1,41 +1,34 @@
+# What this repository does not track.
+#
+# No line begins with `!`. An exception means the line above ignored something that had to be
+# kept, which is an arbitration a .gitignore is not allowed to make: what is published lives
+# under data/ and reports/, what a run leaves behind lives under var/, and the path decides.
+
+# Everything a run writes and no reader opens: the FAISS index rebuilt from the corpus, the
+# coverage database and its HTML report. The only ignored directory, and the reason no
+# exception line is needed: the corpus under data/ and the results under reports/ are
+# tracked because that is where tracked things live.
+var/
+
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-
-# Virtual env
+*.egg-info/
 .venv/
-venv/
 
-# Environment
-.env
-
-# Test / lint caches
+# Tool caches
 .pytest_cache/
 .ruff_cache/
-.coverage
-htmlcov/
+.mypy_cache/
+.ipynb_checkpoints/
 
-# Data artifacts
-data/raw/*
-data/processed/*
-data/faiss/*
+# Secrets. `.env.example` is tracked and is not matched by this line: it is `.env` exactly,
+# so keeping the example needs no exception.
+.env
+.streamlit/secrets.toml
 
-# Keep folder structure
-
-# The evaluation corpus is versioned on purpose: upstream is a rolling window, so
-# re-ingesting would give a different corpus and no measurement here would reproduce.
-!data/raw/events.json
-!data/raw/SOURCE.md
-
-# IDE
+# Editors and operating systems
 .vscode/
 .idea/
-
-# OS
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log

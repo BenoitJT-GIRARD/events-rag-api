@@ -1,0 +1,20 @@
+/* Design tokens. Generated: edit the palette source, not this file. */
+:root {
+  --colour-primary: #123F5A;
+  --colour-quaternary: #6F3A55;
+  --colour-quinary: #745913;
+  --colour-control: #66707A;
+  --colour-secondary: #BC6A24;
+  --colour-tertiary: #4E9DB5;
+  --colour-reference: #B0342C;
+  --colour-ink: #1B1F23;
+  --colour-muted: #5B646D;
+  --colour-grid: #DDE1E4;
+  --colour-surface: #F3F5F6;
+  --colour-paper: #FFFFFF;
+  --state-ok: #2E6B4F;
+  --state-warning: #A8621B;
+  --state-danger: #8F2A22;
+  --state-neutral: #8A939B;
+  --font-stack: "Source Sans 3", "Inter", "DejaVu Sans";
+}

@@ -48,7 +48,7 @@ The cache is sized for eight entries rather than one because the ablation holds 
 indexes open at once; at one entry it evicted on every alternation and reloaded from disk.
 
 `evaluation/indexes.py` builds one index per **chunking variant**, keyed by a fingerprint
-of the chunking parameters, under `data/faiss/<fingerprint>/`. This is what keeps the
+of the chunking parameters, under `var/faiss/<fingerprint>/`. This is what keeps the
 ablation cheap: only chunking changes the vectors. Filtering, rank fusion and reranking
 are query-time operations on a shared index, so a new configuration costs no embedding
 calls at all.

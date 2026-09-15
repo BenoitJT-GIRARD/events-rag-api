@@ -1,0 +1,21 @@
+{
+  "images": {
+    "ablation.svg": {
+      "axes": [
+        {
+          "title": "Retrieval ablation — recall@1 and MRR@10",
+          "x": "Proportion of questions (0 to 1)",
+          "y": "Retrieval configuration"
+        }
+      ],
+      "dispersion": "±1 standard error of a proportion at this sample size",
+      "dpi": null,
+      "n": "n = 20",
+      "sha256": "0ff40e630e87453b31477ac5de4e398fff3c85a26543ac24b8e0f7494772eb3f",
+      "source": "scripts/plot_ablation.py",
+      "style_version": 1,
+      "written": "2026-09-15"
+    }
+  },
+  "schema": "image-manifest/1"
+}

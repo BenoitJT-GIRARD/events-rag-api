@@ -1,4 +1,4 @@
-"""Build the evaluation set of 30 Q&A cases and write it to data/eval/reference_qa.json.
+"""Build the evaluation set of 30 Q&A cases and write it to data/questions/reference_qa.json.
 
 Distribution:
   - 20 positive cases (2 per category x 10 categories)
@@ -296,7 +296,7 @@ def generate_eval_dataset() -> list[dict]:
     # ------------------------------------------------------------------
     # 5. Write output
     # ------------------------------------------------------------------
-    output_path = settings.eval_data_dir / "reference_qa.json"
+    output_path = settings.questions_dir / "reference_qa.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     with output_path.open("w", encoding="utf-8") as f:

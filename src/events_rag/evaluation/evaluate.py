@@ -145,10 +145,10 @@ def summarize(results: list[dict]) -> dict:
 
 def run_evaluation() -> dict:
     settings = get_settings()
-    settings.eval_data_dir.mkdir(parents=True, exist_ok=True)
+    settings.reports_dir.mkdir(parents=True, exist_ok=True)
 
-    input_path = settings.eval_data_dir / "reference_qa.json"
-    output_path = settings.eval_data_dir / "evaluation_results.json"
+    input_path = settings.questions_dir / "reference_qa.json"
+    output_path = settings.reports_dir / "evaluation_results.json"
 
     dataset = load_reference_dataset(input_path)
     results = [evaluate_case(case) for case in dataset]

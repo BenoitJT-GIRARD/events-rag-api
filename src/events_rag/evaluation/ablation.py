@@ -7,9 +7,11 @@ metrics that silently returned null are exactly the failure mode to avoid.
 import statistics
 import tempfile
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
+
+from langchain_core.documents import Document
 
 from events_rag.evaluation.indexes import ChunkingVariant, chunks_for, index_for
 from events_rag.evaluation.retrieval import aggregate
@@ -81,6 +83,26 @@ def _city_by_uid() -> dict[str, str]:
     }
 
 
+def passages_by_uid(chunks: Sequence[Document]) -> dict[str, str]:
+    """Reassemble every chunk of an event into the text the reranker is asked to score.
+
+    The first version built ``{uid: doc.page_content for doc in chunks}``. With 2 046 chunks
+    for 1 000 events, that dictionary keeps only the LAST chunk of every split event: for
+    about half the corpus the cross-encoder scored a trailing block — usually dates and
+    prices — instead of the event. The configuration did not fail; it returned a low,
+    plausible number, and that number was published as a property of reranking.
+
+    Chunks arrive in reading order, so joining them in iteration order restores the text
+    that was indexed.
+    """
+    passages: dict[str, list[str]] = {}
+    for doc in chunks:
+        uid = str(doc.metadata.get("uid", ""))
+        if uid:
+            passages.setdefault(uid, []).append(doc.page_content)
+    return {uid: "\n".join(parts) for uid, parts in passages.items()}
+
+
 def _flashrank_scorer() -> Callable[[str, list[str]], list[float]]:
     """Score candidate uids against the query with a small cross-encoder.
 
@@ -94,7 +116,7 @@ def _flashrank_scorer() -> Callable[[str, list[str]], list[float]]:
     # extraction: FlashRank opened the archive before the write was visible and failed
     # with "File is not a zip file" on a file that was in fact a valid zip.
     ranker = Ranker(cache_dir=str(Path(tempfile.gettempdir()) / "flashrank"))
-    texts = {str(doc.metadata.get("uid", "")): doc.page_content for doc in chunks_for(BASELINE)}
+    texts = passages_by_uid(chunks_for(BASELINE))
 
     def score(query: str, uids: list[str]) -> list[float]:
         passages = [{"id": uid, "text": texts.get(uid, "")} for uid in uids]

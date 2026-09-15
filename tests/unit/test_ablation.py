@@ -68,3 +68,38 @@ def test_registry_names_are_unique() -> None:
 )
 def test_registry_contains_the_planned_configurations(expected: str) -> None:
     assert expected in {config.name for config in CONFIGS}
+
+
+def test_le_scorer_recoit_l_evenement_entier_et_non_son_dernier_bloc():
+    """Un événement découpé en plusieurs chunks arrive au cross-encoder avec son titre.
+
+    La première version indexait `{uid: doc.page_content}` : pour 2 046 chunks et 1 000
+    événements, seul le DERNIER chunk de chaque événement découpé survivait, et le
+    cross-encoder notait un bloc de dates et de tarifs. Le chiffre publié — 0,55 contre 0,90
+    — mesurait cette préparation, pas le reranking.
+    """
+    from langchain_core.documents import Document
+
+    from events_rag.evaluation.ablation import passages_by_uid
+
+    chunks = [
+        Document(page_content="Concert de l'Orchestre national", metadata={"uid": "evt-1"}),
+        Document(page_content="Le 4 mai 2026, 20 h. Tarif plein 18 €.", metadata={"uid": "evt-1"}),
+        Document(page_content="Exposition Léger", metadata={"uid": "evt-2"}),
+    ]
+
+    passages = passages_by_uid(chunks)
+
+    assert "Concert de l'Orchestre national" in passages["evt-1"]
+    assert "Tarif plein 18 €" in passages["evt-1"]
+    assert passages["evt-2"] == "Exposition Léger"
+
+
+def test_un_chunk_sans_uid_n_entre_dans_aucun_passage():
+    from langchain_core.documents import Document
+
+    from events_rag.evaluation.ablation import passages_by_uid
+
+    passages = passages_by_uid([Document(page_content="orphelin", metadata={})])
+
+    assert passages == {}
