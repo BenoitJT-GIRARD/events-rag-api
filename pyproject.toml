@@ -99,12 +99,17 @@ exclude_dirs = ["tests", ".venv", ".git", "data"]
 skips = ["B101"]
 
 [tool.coverage.run]
+# Without this, the published XML report writes the absolute root of the measured sources:
+# a reader finds the directory tree of the machine that ran the suite, and two runs on two
+# machines produce two different files for the same numbers.
+relative_files = true
 branch = true
 source = ["src/events_rag", "scripts"]
 data_file = "var/.coverage"
-# Four copied-in modules, tested at their source: the figure style, the capture script, the
-# smoke runner and the notebook runner. Counting them here would measure someone else's
-# tests.
+# Four modules this project uses without owning: the figure style, the capture script, the
+# smoke runner and the notebook runner. They are copied in rather than imported, so that a
+# clone needs nothing beyond matplotlib, and they are tested at their source. Measuring
+# them here would report someone else's coverage as this project's.
 omit = [
   "*/figure_style.py",
   "scripts/capture.py",

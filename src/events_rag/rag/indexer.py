@@ -20,6 +20,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from events_rag.config import get_settings
 from events_rag.logger import get_logger
 from events_rag.rag.retriever import build_embeddings
+from events_rag.utils.paths import rel
 
 logger = get_logger(__name__)
 
@@ -34,7 +35,7 @@ def load_raw_documents(path: Path | None = None) -> list[dict]:
     if not isinstance(payload, list):
         raise ValueError("Raw dataset must be a JSON list of documents.")
 
-    logger.info("indexer.raw_documents_loaded", path=str(input_path), count=len(payload))
+    logger.info("indexer.raw_documents_loaded", path=rel(input_path), count=len(payload))
     return payload
 
 

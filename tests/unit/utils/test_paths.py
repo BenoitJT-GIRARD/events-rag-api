@@ -45,3 +45,15 @@ def test_the_override_is_read_from_the_environment(tmp_path: Path, monkeypatch) 
 def test_the_variable_is_named_after_the_package() -> None:
     assert paths.ROOT_ENV == "EVENTS_RAG_ROOT"
     assert os.environ.get(paths.ROOT_ENV) in (None, "")
+
+
+def test_the_corpus_is_logged_by_its_place_in_the_project() -> None:
+    """`indexer.raw_documents_loaded` says which file was read, not which disk held it."""
+    assert paths.rel(paths.REPORTS_DIR / "figures" / "roc.png") == "reports/figures/roc.png"
+
+
+def test_a_corpus_opened_from_somewhere_else_keeps_its_whole_path(tmp_path) -> None:
+    """An index built from a corpus outside the tree still has to say which file it read."""
+    elsewhere = tmp_path / "events.json"
+
+    assert paths.rel(elsewhere) == elsewhere.resolve().as_posix()
