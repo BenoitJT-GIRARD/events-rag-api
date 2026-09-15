@@ -1,7 +1,7 @@
 {
   "command": "uv run python scripts/smoke.py",
   "ran_at": "2026-09-15",
-  "git_revision": "65f5f8807b47c77012000be54213792271fdcc2a",
+  "git_revision": "1ca7e5d6265358c7411b73a30692303dda86930f",
   "tool_versions": {
     "python": "3.12.12",
     "faiss-cpu": "1.13.2",
@@ -11,10 +11,12 @@
     "uv": "uv 0.11.6 (65950801c 2026-04-09 x86_64-pc-windows-msvc)",
     "docker": "Docker version 29.2.0, build 0b9d198"
   },
-  "duration_seconds": 1.0,
+  "duration_seconds": 2.7,
   "key_output": [
     "reports/corpus_profile.json",
     "reports/difficulty.json",
+    "reports/evaluation_2026-09-02.json",
+    "reports/paired_comparison.json",
     "reports/figures/ablation.svg"
   ],
   "workflow_run_url": null
