@@ -1,8 +1,15 @@
-"""The routes answer, and reject a malformed question rather than passing it through."""
+"""The routes answer, and reject a malformed question rather than passing it through.
 
+Integration tier: the real FastAPI application object, wired to the real settings, answering
+through a real client. Nothing is mocked but the model, which is behind a paid API.
+"""
+
+import pytest
 from fastapi.testclient import TestClient
 
 from events_rag.api.main import app
+
+pytestmark = pytest.mark.integration
 
 
 def test_health_endpoint() -> None:

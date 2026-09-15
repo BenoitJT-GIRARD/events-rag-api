@@ -4,9 +4,12 @@ The route re-embeds the whole corpus through a paid API. An open one is a bill a
 run up.
 """
 
+import pytest
 from fastapi.testclient import TestClient
 
 from events_rag.api.main import app
+
+pytestmark = pytest.mark.integration
 
 
 def test_rebuild_requires_token() -> None:

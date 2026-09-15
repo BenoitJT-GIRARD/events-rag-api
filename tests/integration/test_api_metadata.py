@@ -1,8 +1,11 @@
 """`/metadata` reports the corpus and index it is actually serving, not a hard-coded string."""
 
+import pytest
 from fastapi.testclient import TestClient
 
 from events_rag.api.main import app
+
+pytestmark = pytest.mark.integration
 
 
 def test_metadata_endpoint_returns_expected_fields() -> None:

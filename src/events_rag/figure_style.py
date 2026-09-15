@@ -30,14 +30,16 @@ carrying a plotting dependency it never calls.
 
 from __future__ import annotations
 
+import contextlib
 import hashlib
 import json
+from collections.abc import Iterable, Mapping, Sequence
 from datetime import date
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Sequence
+from typing import TYPE_CHECKING, Any
 
-# matplotlib is imported by the functions that plot, and nowhere else. See the module
-# docstring: importing the palette must cost nothing.
+if TYPE_CHECKING:  # the only place matplotlib is named outside a function body
+    from matplotlib.colors import LinearSegmentedColormap
 
 # --- palette (generated) ---
 # Generated from the palette source. Do not edit by hand: edit the source and sync.
@@ -166,8 +168,14 @@ def series_colours(
     return colours
 
 
-def reference_line(ax: Any, *, y: float | None = None, x: float | None = None,
-                   diagonal: bool = False, label: str | None = None) -> None:
+def reference_line(
+    ax: Any,
+    *,
+    y: float | None = None,
+    x: float | None = None,
+    diagonal: bool = False,
+    label: str | None = None,
+) -> None:
     """Draw a reference — zero, chance, perfect calibration — dashed and in the reserved colour."""
 
     kwargs = {"color": PALETTE["reference"], "linestyle": "--", "linewidth": 1.2, "label": label}
@@ -181,7 +189,7 @@ def reference_line(ax: Any, *, y: float | None = None, x: float | None = None,
         raise ValueError("reference_line needs y=, x= or diagonal=True")
 
 
-def sequential_cmap() -> "LinearSegmentedColormap":
+def sequential_cmap() -> LinearSegmentedColormap:
     """Ordered quantities. Pass this to any third-party plot that takes a colormap."""
 
     from matplotlib.colors import LinearSegmentedColormap
@@ -189,7 +197,7 @@ def sequential_cmap() -> "LinearSegmentedColormap":
     return LinearSegmentedColormap.from_list("seq", list(SEQUENTIAL))
 
 
-def diverging_cmap() -> "LinearSegmentedColormap":
+def diverging_cmap() -> LinearSegmentedColormap:
     """Signed quantities around a neutral point."""
 
     from matplotlib.colors import LinearSegmentedColormap
@@ -203,11 +211,7 @@ def diverging_cmap() -> "LinearSegmentedColormap":
 
 
 def _axes_carrying_data(fig: Any) -> list[Any]:
-    return [
-        ax
-        for ax in fig.axes
-        if ax.has_data() and ax.get_label() != "<colorbar>"
-    ]
+    return [ax for ax in fig.axes if ax.has_data() and ax.get_label() != "<colorbar>"]
 
 
 def _unlabelled(fig: Any) -> list[str]:
@@ -273,16 +277,12 @@ def _record(path: Path, entry: dict[str, Any]) -> None:
     manifest.parent.mkdir(parents=True, exist_ok=True)
     payload: dict[str, Any] = {"schema": "image-manifest/1", "images": {}}
     if manifest.exists():
-        try:
+        with contextlib.suppress(json.JSONDecodeError):
             payload = json.loads(manifest.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            pass
     payload.setdefault("images", {})
     key = path.name
-    try:
+    with contextlib.suppress(ValueError):
         key = str(path.relative_to(manifest.parent)).replace("\\", "/")
-    except ValueError:
-        pass
     payload["images"][key] = entry
     with manifest.open("w", encoding="utf-8", newline="") as handle:
         json.dump(payload, handle, ensure_ascii=False, indent=2, sort_keys=True)
@@ -313,9 +313,7 @@ def save_figure(
     if _shows_dispersion(fig) and not (dispersion or "").strip():
         refusals.append("error bars or a band are drawn without being named")
     if refusals:
-        raise ValueError(
-            f"{target.name} was not written — " + "; ".join(refusals)
-        )
+        raise ValueError(f"{target.name} was not written — " + "; ".join(refusals))
 
     stamp = _format_n(n)
     _stamp(fig, [stamp, dispersion or "", note or ""])

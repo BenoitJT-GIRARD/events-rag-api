@@ -50,7 +50,15 @@ from events_rag.rag.service import build_chat_model, format_context
 
 
 def safe_mean(values: list) -> float | None:
-    valid = [v for v in values if v is not None and not (isinstance(v, float) and math.isnan(v))]
+    """The mean of the metrics that computed, or None when none of them did.
+
+    NaN and infinity are both discarded. The encoder below already turns either into `null`
+    on the way out, and a mean that kept one of them would publish a number no metric
+    produced — an infinity swallows the average, a NaN makes it disappear.
+    """
+    valid = [
+        v for v in values if v is not None and not (isinstance(v, float) and not math.isfinite(v))
+    ]
     if not valid:
         return None
     return round(sum(valid) / len(valid), 3)

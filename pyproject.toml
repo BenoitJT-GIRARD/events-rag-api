@@ -66,8 +66,15 @@ quote-style = "double"
 indent-style = "space"
 
 [tool.pytest.ini_options]
-addopts = "-ra -q --strict-markers --strict-config --import-mode=importlib"
+addopts = """-ra -q --strict-markers --strict-config --import-mode=importlib   --cov --cov-branch --cov-report=term-missing --cov-report=xml"""
 testpaths = ["tests"]
+markers = [
+    "integration: two real components wired together, or one against a real dependency",
+    "system: the product run the way the README says to run it, in its own process",
+    "claim: fails when a published number, figure or table stops matching the code",
+    "simulation: replays a complete scenario on frozen data, with no real service",
+    "slow: takes long enough that a reader deserves to be told before running it",
+]
 # Warnings are errors. The suite passes with no exemption: nothing this code or
 # its dependencies emit needs silencing, and now a new deprecation will say so.
 filterwarnings = ["error"]
@@ -77,8 +84,26 @@ exclude_dirs = ["tests", ".venv", ".git", "data"]
 skips = ["B101"]
 
 [tool.coverage.run]
-source = ["src/events_rag"]
+branch = true
+source = ["src/events_rag", "scripts"]
+data_file = "var/.coverage"
+# The figure style is a copied-in module, tested at its source. Counting it here would
+# measure someone else's tests.
+omit = ["*/figure_style.py"]
 
 [tool.coverage.report]
+# The floor is the rate measured the day the three tiers were completed, rounded down. A
+# floor below the current rate lets the next commit lose coverage in silence.
+#
+# 66, not 80: `scripts/` is thin entry points exercised by the system tier in a separate
+# process, which coverage does not see, and the generation-side modules call a paid model
+# that the suite refuses to call. What is measurable is measured.
+fail_under = 66
 show_missing = true
 skip_covered = true
+
+[tool.coverage.xml]
+output = "reports/coverage/coverage.xml"
+
+[tool.coverage.html]
+directory = "var/coverage-html"

@@ -86,15 +86,17 @@ def render_ablation_svg(results: list[dict], withdrawn: set[str] | None = None) 
         f"<style>{STYLE}</style>",
         f'<rect width="{WIDTH}" height="{height}" fill="{PALETTE["paper"]}"/>',
         '<text x="16" y="26" class="title">Retrieval ablation — recall@1 and MRR@10</text>',
-        f'<text x="16" y="45" class="value">Proportion of questions whose source event is '
-        f"retrieved. Higher is better.</text>",
+        '<text x="16" y="45" class="value">Proportion of questions whose source event is '
+        "retrieved. Higher is better.</text>",
         f'<text x="16" y="62" class="value">n = {sample} questions with a known target event; '
         f"whiskers are ±1 standard error.</text>",
     ]
 
     for tick in TICKS:
         x = LEFT + tick * BAR_WIDTH
-        parts.append(f'<line class="axis" x1="{x:.1f}" y1="{TOP - 8}" x2="{x:.1f}" y2="{baseline}"/>')
+        parts.append(
+            f'<line class="axis" x1="{x:.1f}" y1="{TOP - 8}" x2="{x:.1f}" y2="{baseline}"/>'
+        )
         parts.append(
             f'<text class="tick" x="{x:.1f}" y="{baseline + 14}" text-anchor="middle">'
             f"{tick:.2f}</text>"
@@ -107,7 +109,7 @@ def render_ablation_svg(results: list[dict], withdrawn: set[str] | None = None) 
         if result["name"] in withdrawn:
             parts.append(
                 f'<text x="{LEFT + 8}" y="{y + 16}" class="muted">withdrawn — see '
-                f"reports/errata.json</text>"
+                "reports/errata.json</text>"
             )
             continue
         if not result["metrics"]:
