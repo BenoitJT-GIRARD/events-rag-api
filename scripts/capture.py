@@ -39,8 +39,9 @@ import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
-from datetime import date
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Self
 
 from events_rag.utils.paths import IMAGES_DIR, ROOT_DIR
 
@@ -73,7 +74,8 @@ class Capture:
     #: engine, ignored by Chrome.
     ready_selector: str | None = None
     #: What to do before the picture, in order. Each step is ``(action, target, value)``:
-    #: ``("click", role, accessible name)``, ``("fill", css selector, text)``,
+    #: ``("click", role, accessible name)``, ``("open", css selector, "")``,
+    #: ``("fill", css selector, text)``,
     #: ``("scroll", css selector, "")``. A capture of an answer needs the three: click the
     #: control, type a real question, bring the response into the frame.
     steps: tuple[tuple[str, str, str], ...] = ()
@@ -223,7 +225,7 @@ class Serving:
         self.health = health
         self.process: subprocess.Popen | None = None
 
-    def __enter__(self) -> Serving:
+    def __enter__(self) -> Self:
         if self.health is None:
             return self
         if not self.command:
@@ -330,6 +332,12 @@ def by_playwright(capture: Capture) -> None:
                 # under the same accessible name, and the first in document order is the one
                 # a reader sees and clicks.
                 page.get_by_role(target, name=value).first.click()
+            elif action == "open":
+                # A control named by a CSS selector rather than by an accessible name. A
+                # Swagger operation reached through a deep link is not always expanded by the
+                # time the page settles, and its « Try it out » button is not in the DOM
+                # until it is: clicking the operation's own header is what puts it there.
+                page.locator(target).first.click()
             elif action == "fill":
                 page.locator(target).first.fill(value)
             elif action == "scroll":
@@ -369,7 +377,7 @@ def record(capture: Capture) -> dict:
         )
     entry = {
         "sha256": hashlib.sha256(capture.path.read_bytes()).hexdigest(),
-        "written": date.today().isoformat(),
+        "written": datetime.now(tz=UTC).date().isoformat(),
         "source": SOURCE,
         "command": f"uv run python {SOURCE} --only {capture.name}",
         "target": capture.target,
