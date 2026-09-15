@@ -1,7 +1,7 @@
 {
   "command": "uv run python scripts/smoke.py",
   "ran_at": "2026-09-15",
-  "git_revision": "1ca7e5d6265358c7411b73a30692303dda86930f",
+  "git_revision": "a2cecaae6bccaaa4cab43971e7098ade3965dd23",
   "tool_versions": {
     "python": "3.12.12",
     "faiss-cpu": "1.13.2",
