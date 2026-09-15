@@ -1,0 +1,30 @@
+{
+  "corpus": "data/raw/events.json",
+  "events": 1000,
+  "distinct_towns": 414,
+  "events_without_a_town": 1,
+  "busiest_towns": [
+    {
+      "town": "Toulouse",
+      "events": 161
+    },
+    {
+      "town": "Alès",
+      "events": 63
+    },
+    {
+      "town": "Nîmes",
+      "events": 22
+    },
+    {
+      "town": "Perpignan",
+      "events": 19
+    },
+    {
+      "town": "Montpellier",
+      "events": 18
+    }
+  ],
+  "mean_text_characters": 913,
+  "written_by": "scripts/profile_corpus.py"
+}

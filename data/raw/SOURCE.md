@@ -33,6 +33,7 @@ results mean anything.
 Each record carries `text` and a `metadata` object with `uid`, `title`, `city`,
 `location_name`, `location_address`, `date`, `conditions`, `keywords`, `canonicalurl`.
 
-The snapshot spans **415 towns across Occitanie**, led by Toulouse (161 events), Alès
-(63), Nîmes (22), Perpignan (19) and Montpellier (18). It is a regional corpus, not a
-single-city one.
+<!-- source: reports/corpus_profile.json -->
+The snapshot spans **414 towns across Occitanie**, led by Toulouse (161 events), Alès (63),
+Nîmes (22), Perpignan (19) and Montpellier (18); one record carries no town at all. It is a
+regional corpus, and `scripts/profile_corpus.py` recounts every figure in this paragraph.

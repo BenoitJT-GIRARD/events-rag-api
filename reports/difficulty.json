@@ -1,0 +1,109 @@
+{
+  "question_set": "data/questions/reference_qa.json",
+  "cases_measured": 20,
+  "mean_lexical_overlap": 0.5,
+  "definition": "Fraction of a question's content words (four characters or more, accents folded) that appear verbatim in the event it was written from.",
+  "per_case": [
+    {
+      "id": "q01",
+      "source_uid": "93681933",
+      "lexical_overlap": 0.417
+    },
+    {
+      "id": "q02",
+      "source_uid": "35709051",
+      "lexical_overlap": 0.455
+    },
+    {
+      "id": "q03",
+      "source_uid": "45035708",
+      "lexical_overlap": 0.667
+    },
+    {
+      "id": "q04",
+      "source_uid": "58124548",
+      "lexical_overlap": 0.125
+    },
+    {
+      "id": "q05",
+      "source_uid": "27969134",
+      "lexical_overlap": 0.636
+    },
+    {
+      "id": "q06",
+      "source_uid": "53732703",
+      "lexical_overlap": 0.444
+    },
+    {
+      "id": "q07",
+      "source_uid": "73180378",
+      "lexical_overlap": 0.625
+    },
+    {
+      "id": "q08",
+      "source_uid": "4721721",
+      "lexical_overlap": 0.333
+    },
+    {
+      "id": "q09",
+      "source_uid": "39492384",
+      "lexical_overlap": 0.455
+    },
+    {
+      "id": "q10",
+      "source_uid": "13054823",
+      "lexical_overlap": 0.875
+    },
+    {
+      "id": "q11",
+      "source_uid": "19913867",
+      "lexical_overlap": 0.625
+    },
+    {
+      "id": "q12",
+      "source_uid": "61059351",
+      "lexical_overlap": 0.333
+    },
+    {
+      "id": "q13",
+      "source_uid": "6075662",
+      "lexical_overlap": 0.444
+    },
+    {
+      "id": "q14",
+      "source_uid": "59770162",
+      "lexical_overlap": 0.333
+    },
+    {
+      "id": "q15",
+      "source_uid": "30586698",
+      "lexical_overlap": 0.5
+    },
+    {
+      "id": "q16",
+      "source_uid": "90902118",
+      "lexical_overlap": 0.667
+    },
+    {
+      "id": "q17",
+      "source_uid": "2369450",
+      "lexical_overlap": 0.417
+    },
+    {
+      "id": "q18",
+      "source_uid": "36074687",
+      "lexical_overlap": 0.5
+    },
+    {
+      "id": "q19",
+      "source_uid": "82150299",
+      "lexical_overlap": 0.667
+    },
+    {
+      "id": "q20",
+      "source_uid": "51786983",
+      "lexical_overlap": 0.4
+    }
+  ],
+  "written_by": "scripts/measure_difficulty.py"
+}

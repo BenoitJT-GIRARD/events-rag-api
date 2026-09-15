@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import random
 
+from events_rag.evaluation.difficulty import measure_question_set
 from events_rag.evaluation.generate_dataset import (
     MAX_EVENTS_PER_CATEGORY,
     select_events_for_category,
@@ -52,3 +53,35 @@ def test_a_category_with_fewer_matches_than_the_cap_keeps_them_all() -> None:
     chosen = select_events_for_category(CORPUS, ["marché"], random.Random(0))
 
     assert len(chosen) == 1
+
+
+def test_only_the_questions_with_a_source_event_are_measured() -> None:
+    """A negative case asks about something the corpus does not hold: nothing to overlap."""
+    cases = [
+        {"id": "q1", "question": "Un concert à Albi", "source_uid": "evt-1"},
+        {"id": "q2", "question": "Un festival inexistant", "case_type": "negative"},
+    ]
+    events = {"evt-1": "Concert à Albi, salle municipale"}
+
+    measured = measure_question_set(cases, events)
+
+    assert measured["cases_measured"] == 1
+    assert [row["id"] for row in measured["per_case"]] == ["q1"]
+
+
+def test_the_mean_overlap_is_the_number_the_documents_cite() -> None:
+    cases = [
+        {"id": "q1", "question": "concert albi", "source_uid": "evt-1"},
+        {"id": "q2", "question": "exposition nimes", "source_uid": "evt-2"},
+    ]
+    events = {"evt-1": "concert albi salle", "evt-2": "marche toulouse"}
+
+    measured = measure_question_set(cases, events)
+
+    assert measured["per_case"][0]["lexical_overlap"] == 1.0
+    assert measured["per_case"][1]["lexical_overlap"] == 0.0
+    assert measured["mean_lexical_overlap"] == 0.5
+
+
+def test_a_set_with_no_measurable_case_has_no_mean() -> None:
+    assert measure_question_set([], {})["mean_lexical_overlap"] is None

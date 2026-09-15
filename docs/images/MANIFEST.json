@@ -1,0 +1,25 @@
+{
+  "schema": "image-manifest/1",
+  "images": {
+    "swagger.png": {
+      "sha256": "e0520771102f70359f61e84efad71769a54f7f1da98f5b5813dfc267c27ac22d",
+      "written": "2026-09-15",
+      "source": "scripts/capture.py",
+      "command": "uv run python scripts/capture.py --only swagger",
+      "target": "http://127.0.0.1:8000/docs",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "device_scale_factor": 2,
+      "app_state": "the service started with no API key and no index on disk, which is the state in which the documentation page is complete and nothing has been answered yet",
+      "data_source": "none: the page is generated from the Pydantic models",
+      "demonstrates_behaviour": "the four routes are grouped by tag, and the six schemas the page lists are the Pydantic models that refuse a malformed question before any paid call",
+      "git_revision": "9d7465cb5de28d5073ce88035e2220ca494d9cde",
+      "depends_on": [
+        "src/events_rag/api/main.py",
+        "src/events_rag/api/schemas.py"
+      ]
+    }
+  }
+}

@@ -21,12 +21,12 @@ pytestmark = [pytest.mark.system, pytest.mark.claim]
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def run(script: str, cwd: Path, **env: str) -> subprocess.CompletedProcess:
+def run(script: str, cwd: Path, *arguments: str, **env: str) -> subprocess.CompletedProcess:
     import os
 
     environment = {**os.environ, "PYTHONPATH": str(cwd / "src"), **env}
     return subprocess.run(
-        [sys.executable, script],
+        [sys.executable, script, *arguments],
         cwd=cwd,
         env=environment,
         capture_output=True,
@@ -66,3 +66,46 @@ def test_building_the_index_refuses_without_a_key(tmp_path: Path) -> None:
 
     assert done.returncode != 0
     assert "EVENTS_RAG_MISTRAL_API_KEY" in done.stderr
+
+
+def test_the_published_capture_matches_its_manifest() -> None:
+    """A screenshot drifts silently: the page changes, the image stays, and only the
+    fingerprint in the manifest says so. `--check` takes nothing and reports."""
+    done = run("scripts/capture.py", ROOT, "--check")
+
+    assert done.returncode == 0, done.stdout + done.stderr
+
+
+def test_the_corpus_profile_is_what_the_script_counts(tmp_path: Path) -> None:
+    """`data/raw/SOURCE.md` once claimed 415 towns for a corpus of 414. Now it cites a file."""
+    import json
+
+    workspace = tmp_path / "repo"
+    for directory in ("src", "scripts", "data"):
+        shutil.copytree(ROOT / directory, workspace / directory)
+    shutil.copy(ROOT / "pyproject.toml", workspace / "pyproject.toml")
+
+    done = run("scripts/profile_corpus.py", workspace)
+
+    assert done.returncode == 0, done.stderr
+    profile = workspace / "reports" / "corpus_profile.json"
+    recounted = json.loads(profile.read_text(encoding="utf-8"))
+    published = json.loads((ROOT / "reports" / "corpus_profile.json").read_text(encoding="utf-8"))
+    assert recounted == published
+
+
+def test_the_difficulty_of_the_question_set_is_what_the_script_measures(tmp_path: Path) -> None:
+    import json
+
+    workspace = tmp_path / "repo"
+    for directory in ("src", "scripts", "data"):
+        shutil.copytree(ROOT / directory, workspace / directory)
+    shutil.copy(ROOT / "pyproject.toml", workspace / "pyproject.toml")
+
+    done = run("scripts/measure_difficulty.py", workspace)
+
+    assert done.returncode == 0, done.stderr
+    measured = workspace / "reports" / "difficulty.json"
+    remeasured = json.loads(measured.read_text(encoding="utf-8"))
+    published = json.loads((ROOT / "reports" / "difficulty.json").read_text(encoding="utf-8"))
+    assert remeasured == published

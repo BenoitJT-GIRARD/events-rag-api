@@ -30,3 +30,32 @@ def lexical_overlap(question: str, document: str) -> float:
     if not asked:
         return 0.0
     return len(asked & content_tokens(document)) / len(asked)
+
+
+def measure_question_set(cases: list[dict], events: dict[str, str]) -> dict:
+    """The overlap of every question that names the event it was written from.
+
+    A negative case has no source event by construction — it asks about something the corpus
+    does not hold — so it contributes nothing to the mean rather than a free zero.
+    """
+    measured = [
+        {
+            "id": case["id"],
+            "source_uid": case["source_uid"],
+            "lexical_overlap": round(
+                lexical_overlap(case["question"], events[case["source_uid"]]), 3
+            ),
+        }
+        for case in cases
+        if case.get("source_uid") and case.get("source_uid") in events
+    ]
+    overlaps = [row["lexical_overlap"] for row in measured]
+    return {
+        "cases_measured": len(measured),
+        "mean_lexical_overlap": round(sum(overlaps) / len(overlaps), 2) if overlaps else None,
+        "definition": (
+            "Fraction of a question's content words (four characters or more, accents "
+            "folded) that appear verbatim in the event it was written from."
+        ),
+        "per_case": measured,
+    }

@@ -35,19 +35,34 @@ async def lifespan(app: FastAPI):
     logger.info("app.shutdown")
 
 
+# The tags and their descriptions are what the generated page groups routes by: without
+# them a reader meets four endpoints in declaration order and has to infer which one is the
+# product and which one is plumbing.
+TAGS = [
+    {"name": "ask", "description": "Answer a question from the corpus, with its sources."},
+    {"name": "operations", "description": "What this deployment serves, and how to rebuild it."},
+]
+
 app = FastAPI(
     title="Events RAG API",
     version="0.1.0",
+    summary="Retrieval-augmented answers over a frozen corpus of public events.",
     lifespan=lifespan,
+    openapi_tags=TAGS,
 )
 
 
-@app.get("/health")
+@app.get("/health", tags=["operations"], summary="Liveness, without touching the index")
 async def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
-@app.get("/metadata", response_model=MetadataResponse)
+@app.get(
+    "/metadata",
+    response_model=MetadataResponse,
+    tags=["operations"],
+    summary="The corpus and retrieval settings this deployment is serving",
+)
 async def metadata() -> MetadataResponse:
     settings = get_settings()
 
@@ -61,7 +76,12 @@ async def metadata() -> MetadataResponse:
     )
 
 
-@app.post("/ask", response_model=AskResponse)
+@app.post(
+    "/ask",
+    response_model=AskResponse,
+    tags=["ask"],
+    summary="Ask a question, get an answer and the events it was built from",
+)
 async def ask(payload: AskRequest) -> AskResponse:
     try:
         result = answer_question(
@@ -80,7 +100,12 @@ async def ask(payload: AskRequest) -> AskResponse:
         ) from exc
 
 
-@app.post("/rebuild", response_model=RebuildResponse)
+@app.post(
+    "/rebuild",
+    response_model=RebuildResponse,
+    tags=["operations"],
+    summary="Re-embed the committed corpus (token required, one paid call per chunk)",
+)
 async def rebuild(payload: RebuildRequest) -> RebuildResponse:
     settings = get_settings()
 
