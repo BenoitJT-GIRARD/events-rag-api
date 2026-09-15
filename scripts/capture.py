@@ -229,7 +229,7 @@ class Serving:
         if not self.command:
             wait_until_healthy(self.health, timeout=5)
             return self
-        # Something already answering on that port would be photographed instead of the
+        # Something already answering on that port gets photographed in place of the
         # product: a server left over from an earlier run serves an older build, and its
         # picture is indistinguishable from a fresh one.
         if _answers(self.health):
@@ -267,7 +267,7 @@ class Serving:
 
 
 def _chrome_binary() -> str:
-    """The browser on this machine, named by the environment rather than guessed.
+    """The browser on this machine, named by the environment and never guessed.
 
     A path hard-coded here would be one machine's installation shipped inside a published
     repository; ``CHROME_PATH`` keeps that constraint where it belongs.
