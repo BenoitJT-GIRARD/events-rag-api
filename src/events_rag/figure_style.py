@@ -104,7 +104,10 @@ def apply_style() -> None:
             "axes.labelcolor": PALETTE["ink"],
             "axes.titlecolor": PALETTE["ink"],
             "axes.titlesize": 12,
-            "axes.titleweight": "semibold",
+            # "bold", not "semibold": the fallback of the stack is DejaVu Sans, which has no
+            # semibold face, and matplotlib logs a substitution line into every figure build
+            # and every notebook output that draws one.
+            "axes.titleweight": "bold",
             "axes.titlelocation": "left",
             "axes.titlepad": 10,
             "axes.labelsize": 11,
