@@ -13,8 +13,8 @@
 measured again on 2026-09-15 and came back identical, row for row; the generation numbers
 date from the run of 2026-09-02, because the model account behind them has no chat quota
 left, and every page that uses one says so. The thousand events and the twenty questions are
-committed, so a key of your own re-measures the lot. The workflows still fire on every push
-and every pull request; archiving the repository reduces them to a manual trigger.
+committed, so a key of your own re-measures the lot. The workflows fired green on the commit
+published here, and they are manual now: nothing starts them by itself.
 
 ## The problem
 
@@ -86,7 +86,7 @@ such label, and **RAGAS** grades that half instead: two of its five metrics retu
 setup, and both are published as not measured.
 
 Around the code: **pytest** in three tiers with coverage measured in the project
-configuration, **Ruff** and **Bandit** on every push, **uv** for a locked environment, and
+configuration, **Ruff** and **Bandit** on each run, **uv** for a locked environment, and
 **Docker** for the one command that starts the API with its index already embedded.
 
 ## The result
