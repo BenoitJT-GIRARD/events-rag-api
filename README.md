@@ -9,7 +9,7 @@
   <img src="docs/badges/coverage.svg" alt="coverage 71%">
 </p>
 
-**Project status** — finished, and frozen with its corpus. The retrieval table below was
+**Project status** — finished, and frozen with its corpus. The retrieval table on this page was
 measured again on 2026-09-15 and came back identical, row for row; the generation numbers
 date from the run of 2026-09-02, because the model account behind them has no chat quota
 left, and every page that uses one says so. The thousand events and the twenty questions are
@@ -80,6 +80,10 @@ a few thousand vectors; a managed store would add a service to run, a schema to 
 a bill to pay, in exchange for headroom this corpus will never need. The index is a build
 artefact: `scripts/build_index.py` writes it under `var/`, and the image rebuilds it in about
 a minute.
+
+Retrieval is graded against hard labels, so no model judges it. The generated answer has no
+such label, and **RAGAS** grades that half instead: two of its five metrics return null on this
+setup, and both are published as not measured.
 
 Around the code: **pytest** in three tiers with coverage measured in the project
 configuration, **Ruff** and **Bandit** on every push, **uv** for a locked environment, and
