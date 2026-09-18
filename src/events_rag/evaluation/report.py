@@ -11,6 +11,17 @@ from events_rag.evaluation.evaluate import load_reference_dataset
 HEADER = "| Configuration | Chunking | recall@1 | recall@5 | MRR@10 | Median latency | Notes |"
 SEPARATOR = "|---|---|---|---|---|---|---|"
 
+#: The caption belongs to the script rather than to the file: written into the file, it would
+#: disappear the next time `run_ablation.py` rewrote the table underneath it.
+CAPTION = (
+    "> **How to read it.** One row per retrieval configuration, every one of them answering the\n"
+    "> same twenty questions. The recall columns ask whether the right event came back inside\n"
+    "> the first k results, so they can only rise as k grows. MRR@10 (mean reciprocal rank over\n"
+    "> ten results) averages one divided by the rank the right event reached, which separates\n"
+    "> two configurations that both find it at different depths. The Notes column says what each\n"
+    "> configuration changed.\n"
+)
+
 
 def render_table(results: list[dict]) -> str:
     best = max(
@@ -59,6 +70,6 @@ def run_ablation() -> dict:
         "Edit the run, not this file. -->\n\n"
     )
     (reports_dir / "ablation_table.md").write_text(
-        header + render_table(results) + "\n", encoding="utf-8", newline=""
+        header + render_table(results) + "\n\n" + CAPTION, encoding="utf-8", newline=""
     )
     return payload
