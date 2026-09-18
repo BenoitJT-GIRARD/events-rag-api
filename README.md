@@ -98,6 +98,13 @@ configurations, same questions, same corpus:
 <!-- source: reports/ablation_results.json -->
 ![Retrieval ablation: recall@1 and MRR@10 per configuration, with the standard error each proportion carries at n = 20](reports/figures/ablation.svg)
 
+> **How to read it.** Each configuration gets two bars: recall@1, the share of the twenty
+> questions whose very first result is the right event, and MRR@10 (mean reciprocal rank over
+> ten results), which averages one divided by the rank the right event landed on. Longer is
+> better for both. The whisker is one standard error of a proportion at this sample size, and it
+> is wide. Two bars whose whiskers overlap are not separated by this experiment, so a paired
+> test settles the ranking and the eye does not.
+
 <!-- source: reports/ablation_results.json -->
 | Configuration | Chunking | recall@1 | recall@5 | MRR@10 | Median latency |
 |---|---|---|---|---|---|
@@ -109,6 +116,13 @@ configurations, same questions, same corpus:
 | `hybrid-rrf` | baseline | 0.80 | 0.95 | 0.857 | 210.2 ms |
 | `hybrid-rrf+rerank` | baseline | 0.65 | 0.85 | 0.750 | 262.2 ms |
 n = 20 questions for every row, run of 2026-09-15.
+
+> **How to read it.** One row per configuration, all answering the same twenty questions over
+> the same corpus. recall@1 is the share whose first result is the right event. recall@5 is the
+> share where it appears anywhere in the five results the generation step receives, so an event
+> missing here cannot reach the answer at all. MRR@10 says how high it sits, where the two recall columns
+> only ask whether it is there at all. Median latency covers retrieval alone, and compares rows of this run
+> on one machine.
 
 Every number above is read from `reports/ablation_results.json`, written by
 `scripts/run_ablation.py`, and `tests/unit/test_published_numbers.py` fails if the table and

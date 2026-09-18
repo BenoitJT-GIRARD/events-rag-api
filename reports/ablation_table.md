@@ -9,3 +9,10 @@
 | `dense+city-filter` | baseline | 0.95 | **1.0** | 0.975 | 172.4 ms | Narrow to the town named in the question. Read the gain with care: the questions are hand-written and name their town, because someone looking for an outing says where — but that choice favours this configuration. |
 | `hybrid-rrf` | baseline | 0.8 | 0.95 | 0.857 | 210.2 ms | Reciprocal rank fusion of dense and lexical search. |
 | `hybrid-rrf+rerank` | baseline | 0.65 | 0.85 | 0.75 | 262.2 ms | Cross-encoder reranking on top of hybrid search. Optional dependency, 41 MB. |
+
+> **How to read it.** One row per retrieval configuration, every one of them answering the
+> same twenty questions. The recall columns ask whether the right event came back inside
+> the first k results, so they can only rise as k grows. MRR@10 (mean reciprocal rank over
+> ten results) averages one divided by the rank the right event reached, which separates
+> two configurations that both find it at different depths. The Notes column says what each
+> configuration changed.
