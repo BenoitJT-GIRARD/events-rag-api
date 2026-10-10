@@ -14,7 +14,7 @@
       "sha256": "e817022244e100b75867a80cd6b719d7c8c5d60e7ecbb0e3aaf7017daae8464b",
       "source": "scripts/plot_ablation.py",
       "style_version": 1,
-      "written": "2026-09-15"
+      "written": "2026-10-10"
     }
   },
   "schema": "image-manifest/1"

@@ -1,7 +1,7 @@
 {
   "command": "uv run python scripts/smoke.py",
-  "ran_at": "2026-09-15",
-  "git_revision": "a2cecaae6bccaaa4cab43971e7098ade3965dd23",
+  "ran_at": "2026-10-10",
+  "git_revision": "bd94c5dc140327e9717876860bd3416ffebf7887",
   "tool_versions": {
     "python": "3.12.12",
     "faiss-cpu": "1.13.2",
@@ -11,7 +11,7 @@
     "uv": "uv 0.11.6 (65950801c 2026-04-09 x86_64-pc-windows-msvc)",
     "docker": "Docker version 29.2.0, build 0b9d198"
   },
-  "duration_seconds": 2.7,
+  "duration_seconds": 3.5,
   "key_output": [
     "reports/corpus_profile.json",
     "reports/difficulty.json",
