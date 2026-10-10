@@ -148,7 +148,7 @@ def main() -> int:
         "tool_versions": tool_versions(),
         "duration_seconds": duration,
         "key_output": list(KEY_OUTPUT),
-        # Null, and said so: the workflows of this repository are frozen to a manual trigger,
+        # Null, and said so: the workflow of this repository is frozen to a manual trigger,
         # so there is no run to point at. A missing key would read as an oversight.
         "workflow_run_url": None,
     }

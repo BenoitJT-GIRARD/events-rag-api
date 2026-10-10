@@ -13,8 +13,8 @@
 measured again on 2026-09-15 and came back identical, row for row; the generation numbers
 date from the run of 2026-09-02, because the model account behind them has no chat quota
 left, and every page that uses one says so. The thousand events and the twenty questions are
-committed, so a key of your own re-measures the lot. The workflows fired green on the commit
-published here, and they are manual now: nothing starts them by itself.
+committed, so a key of your own re-measures the lot. The workflow fired green on the commit
+published here, and it is manual now: nothing starts it by itself.
 
 ## The problem
 
@@ -263,8 +263,8 @@ Two scripts deliberately sit outside that path, because both replace a frozen in
 
 - `build_dataset.py` re-ingests from the live upstream. Upstream is a rolling window, so
   running it builds a *different* corpus and silently invalidates every figure above. It is
-  how you would bootstrap a corpus for another deployment, and the evaluation workflow has no
-  ingestion step for the same reason.
+  how you would bootstrap a corpus for another deployment, and no evaluation script calls it,
+  for the same reason.
 - `generate_eval_dataset.py` regenerates the question set from scratch, with the same caveat.
 
 Tests: `uv run pytest` — 180 tests in three tiers, no network. Coverage is measured on every
