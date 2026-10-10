@@ -111,10 +111,19 @@ corpus. `var/faiss/<name>/manifest.json` records the chunking parameters, the em
 and the number of source documents it was built from; compare it with
 `reports/corpus_profile.json`.
 
-## Decommissioning
+## Credentials
 
-This deployment is archived. The model account that produced the published answers still
-embeds and no longer completes, so the service runs locally, with a key of the reader's
-own, or not at all. Nothing here depends on a hosted component: the
-corpus, the question set, the results and the figure are all in the repository, and the only
-external dependency is a model provider that a reader supplies themselves.
+The service needs one key from outside, and makes up the other itself.
+
+| Variable | Issued by | Where to create it | Where it is read |
+|---|---|---|---|
+| `EVENTS_RAG_MISTRAL_API_KEY` | Mistral AI | [console.mistral.ai/api-keys](https://console.mistral.ai/api-keys), *Create new key* | `.env`, which the scripts and the container both read |
+| `EVENTS_RAG_REBUILD_TOKEN` | whoever runs the service | any long random string: `python -c "import secrets; print(secrets.token_urlsafe(32))"` | `.env`; while it is empty, `/rebuild` refuses every call |
+
+Nothing else is hosted: the corpus, the question set, the results and the figure are all in
+the repository. From a fresh clone, the four commands of [Starting it](#starting-it) bring the
+service back, and the index build is the step that spends the key
+([What a run costs](#what-a-run-costs)).
+
+Delete the key from the same page once the demonstration is over: a key nobody uses but that
+still works is a liability, and a new one takes a minute to create.
