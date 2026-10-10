@@ -115,7 +115,7 @@ configurations, same questions, same corpus:
 | `dense+city-filter` | baseline | 0.95 | 1.00 | 0.975 | 172.4 ms |
 | `hybrid-rrf` | baseline | 0.80 | 0.95 | 0.857 | 210.2 ms |
 | `hybrid-rrf+rerank` | baseline | 0.65 | 0.85 | 0.750 | 262.2 ms |
-n = 20 questions for every row, run of 2026-09-15.
+> n = 20 questions for every row, run of 2026-09-15.
 
 > **How to read it.** One row per configuration, all answering the same twenty questions over
 > the same corpus. recall@1 is the share whose first result is the right event. recall@5 is the
@@ -157,7 +157,7 @@ against the shipped configuration, over n = 20 questions:
 | `hybrid-rrf` | 0 | 2 | 0.5 |
 | `dense-one-chunk-per-event` | 1 | 2 | 1.0 |
 | `dense+city-filter` | 1 | 0 | 1.0 |
-n = 20 questions, the same twenty on both sides of every comparison.
+> n = 20 questions, the same twenty on both sides of every comparison.
 
 One comparison out of twelve is decided at the 5 % level, and it is the floor: lexical search
 alone loses eight questions to dense retrieval and wins none. Everything else, the city
