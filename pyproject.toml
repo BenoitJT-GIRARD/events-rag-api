@@ -35,6 +35,10 @@ dev = [
 test = [
   "pytest>=8.3.0",
   "pytest-cov>=5.0.0",
+  # Two advisories have no fixed release yet, and both stay inside this group: the SSRF in
+  # ragas lives in its multimodal faithfulness metric, which no evaluation here calls, and
+  # the pickle cache of diskcache, pulled in through instructor, is only read back from the
+  # user's own cache directory.
   "ragas>=0.4.3,<0.5",
 ]
 lint = [
