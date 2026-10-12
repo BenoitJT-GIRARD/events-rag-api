@@ -100,8 +100,9 @@ document it should retrieve. It exists because "this benchmark is too easy" need
 number before it could be acted on.
 
 `evaluation/ablation.py` runs each configuration and reports a failed configuration in the
-results table with its error message rather than dropping it. That rule came from watching
-two RAGAS metrics return null silently for months.
+results table with its error message rather than dropping it. That rule came from watching two
+RAGAS metrics show null silently for months, one of them only because the summary read the wrong
+column.
 
 ## API
 

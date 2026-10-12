@@ -81,8 +81,8 @@ artefact: `scripts/build_index.py` writes it under `var/`, and the image rebuild
 a minute.
 
 Retrieval is graded against hard labels, so no model judges it. The generated answer has no
-such label, and **RAGAS** grades that half instead: two of its five metrics return null on this
-setup, and both are published as not measured.
+such label, and **RAGAS** grades that half instead: one of its five metrics returns null on this
+setup, and it is published as not measured.
 
 Around the code: **pytest** in three tiers with coverage measured in the project
 configuration, **Ruff** and **Bandit** on each run, **uv** for a locked environment, and
@@ -158,10 +158,11 @@ against the shipped configuration, over n = 20 questions:
 | `dense+city-filter` | 1 | 0 | 1.0 |
 > n = 20 questions, the same twenty on both sides of every comparison.
 
-One comparison out of twelve is decided at the 5 % level, and it is the floor: lexical search
-alone loses eight questions to dense retrieval and wins none. Everything else, the city
-filter included, sits where twenty questions cannot separate it. The interval of a single
-proportion, about ±13 points here, says the same thing more conservatively.
+One comparison out of twelve, the six above and the same six at recall@5, is decided at the 5 %
+level, and it is the floor: lexical search alone loses eight questions to dense retrieval and
+wins none. Everything else, the city filter included, sits where twenty questions cannot
+separate it. The interval of a single proportion, about ±13 points here, says the same thing
+more conservatively.
 
 Dense retrieval puts the source event in the first five results for
 all twenty questions; lexical search alone does it for fifteen. Above that floor, none of the
@@ -172,10 +173,10 @@ literature puts as marginal on short factual queries.
 ## Why these numbers can be believed
 
 The benchmark behind them was rebuilt after the first one turned out to measure the wrong
-thing. The first run gave `recall@1` = 1.00 on the same twenty questions: every one of them
-retrieved its source event at rank one. A perfect score means the benchmark is broken:
-it leaves no headroom, so the ablation it exists for cannot rank anything. That
-figure comes from the run of 2026-09-02 and is one of the two numbers on this page that
+thing. The first run gave `recall@1` = 1.00 on twenty questions written from the same events:
+every one of them retrieved its source event at rank one. A perfect score means the benchmark is
+broken: it leaves no headroom, so the ablation it exists for cannot rank anything. That figure
+comes from the run of 2026-09-02 and, like every figure this page quotes for the generated set,
 cannot be recomputed here, for the reason the next paragraphs give.
 
 The tell was in the floor row: **BM25 alone, a bag of words with no embeddings at all,
@@ -191,7 +192,7 @@ measuring exact string matching.
 how many of a question's content words appear verbatim in the event it should retrieve. On the generated set, run on
 2026-09-02, that mean overlap was 0.61.
 
-The twenty positive questions were then rewritten by hand from the same seeded event sample,
+The twenty positive questions were then rewritten one by one from the same seeded event sample,
 same events, so nothing was cherry-picked, phrased the way someone looking for an outing
 would phrase it, without reusing titles. `scripts/measure_difficulty.py` re-measures the set
 that ships here:
@@ -199,18 +200,19 @@ that ships here:
 <!-- source: reports/difficulty.json -->
 | Question set | n | Lexical overlap |
 |---|---|---|
-| hand-written, committed | 20 | 0.5 |
+| rewritten, committed | 20 | 0.5 |
 
 The residue is mostly town names, which a user legitimately says out loud.
 
 Every score dropped with the overlap. On the generated set the floor row
 `bm25-only` reached 0.70 at `recall@1` and `dense-baseline` reached 1.00; on the committed
-set they read 0.50 and 0.90. Those two earlier figures come from the run of 2026-09-02 and
-are the one pair of numbers here that cannot be re-measured: the generated question set was
-replaced rather than kept, so nothing in this repository reproduces them. BM25 fell hardest,
-exactly as the diagnosis predicted, because removing quoted titles hits pure lexical matching
-first. The baseline dropped off the ceiling, so the benchmark can now separate
-configurations, which is the only reason the table above is worth reading. The full protocol is in [`docs/protocol.md`](docs/protocol.md).
+set they read 0.50 and 0.90. Those two earlier figures come from the run of 2026-09-02 and, like
+the 0.90 `recall@5` and the 0.61 overlap quoted above, cannot be re-measured: the generated question set was replaced
+rather than kept, so nothing in this repository reproduces them. BM25 fell hardest, exactly as
+the diagnosis predicted, because removing quoted titles hits pure lexical matching first. The
+baseline dropped off the ceiling, so the benchmark can now separate configurations, which is the
+only reason the table above is worth reading. The full protocol is in
+[`docs/protocol.md`](docs/protocol.md).
 
 ### The scorer had defects too
 
@@ -311,7 +313,7 @@ which was widened from Montpellier to the whole region afterwards. Its numbers a
 property of what ships. Re-measuring needs chat quota on a model account, which this one no
 longer has.
 
-**And that evaluation was circular by construction.** The hand-written questions fixed the
+**And that evaluation was circular by construction.** The rewritten questions fixed the
 *retrieval* benchmark; the reference answers RAGAS grades against are still derived from the
 events themselves, so faithfulness and relevancy come out optimistic whoever runs them.
 Fixing that means writing reference answers blind, which is a different exercise.
@@ -330,9 +332,8 @@ version cap, `ragas>=0.4.3,<0.5`, so that an unrelated dependency sync cannot pu
 where that surface has moved. Depending on a private API is a real liability; the cap makes
 it a scheduled one.
 
-**The evaluation questions are still written by a language model**, by me and not by
-Mistral, which removes the same-family bias between question and embedding without making
-the set human.
+**The evaluation questions are still written by a language model**, though not by Mistral, which
+removes the same-family bias between question and embedding without making the set human.
 
 **The corpus is frozen deliberately.** Upstream is a rolling window, so re-ingesting gives a
 different corpus and no number here would reproduce. See

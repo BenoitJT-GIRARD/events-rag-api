@@ -1,9 +1,9 @@
 # How this repository is evaluated
 
 The repository runs two benchmarks that work differently. Retrieval is scored against a hard label
-and costs nothing to re-run. Generation is scored by a model judging a model, costs money, and
-is the weaker half. This page says how each one is built, what it costs, and where its
-numbers land.
+and costs only embedding calls to re-run. Generation is scored by a model judging a model, costs
+money, and is the weaker half. This page says how each one is built, what it costs, and where
+its numbers land.
 
 ## The question set
 
@@ -31,14 +31,14 @@ no question was picked for being easy, and the set now scores 0.5, recorded in
 residue is town names, which someone asking about an outing genuinely says.
 
 That earlier 0.61, and the scores the generated set produced, cannot be re-measured here: the
-generated set was replaced rather than kept. It is the one pair of numbers in this repository
-that no command reproduces, and the README says so where it uses them.
+generated set was replaced rather than kept. No command in this repository reproduces them, and
+the README says so where it uses them.
 
 ## Retrieval: the ablation
 
 ```bash
 EVENTS_RAG_MISTRAL_API_KEY=... uv run python scripts/build_index.py    # ~1 min, paid
-EVENTS_RAG_MISTRAL_API_KEY=... uv run python scripts/run_ablation.py   # ~2 min, paid
+EVENTS_RAG_MISTRAL_API_KEY=... uv run python scripts/run_ablation.py   # ~3 min, paid
 uv run python scripts/plot_ablation.py                                 # free, offline
 ```
 
@@ -99,7 +99,7 @@ reranking configuration, whose passages were assembled wrongly before scoring.
 
 Two files carry the state of the grading chain on the day its defects were found.
 Neither the questions nor the corpus of that day survive: the question set was replaced by
-the hand-written one, and the corpus covered Montpellier alone before the region-wide
+the rewritten one, and the corpus covered Montpellier alone before the region-wide
 extraction took over. Two of the 139 events their answers cite are still in the corpus.
 
 - `reports/evaluation_2026-09-02.json`: the thirty answers, the summary the defective
