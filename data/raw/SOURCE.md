@@ -2,8 +2,8 @@
 
 - **Name:** Public events - OpenAgenda (`evenements-publics-openagenda`)
 - **Publisher:** OpenAgenda
-- **Distributed by:** OpenDataSoft — https://public.opendatasoft.com/explore/dataset/evenements-publics-openagenda/
-- **Licence:** Licence Ouverte / Open Licence v1.0 — https://www.etalab.gouv.fr/wp-content/uploads/2014/05/Licence_Ouverte.pdf
+- **Distributed by:** OpenDataSoft, https://public.opendatasoft.com/explore/dataset/evenements-publics-openagenda/
+- **Licence:** Licence Ouverte / Open Licence v1.0, https://www.etalab.gouv.fr/wp-content/uploads/2014/05/Licence_Ouverte.pdf
 - **Extracted on:** 2026-09-02
 - **Records in this snapshot:** 1000 (1.48 MB)
 
@@ -24,9 +24,9 @@ limit            = 1000 records, fetched 100 at a time
 ## Why this snapshot is committed
 
 Upstream is a rolling date window over a live dataset. Re-ingesting produces a different
-corpus, so no measurement in this repository would be reproducible — neither by a reader
-nor by its author six months later. Freezing the corpus is what makes the ablation
-results mean anything.
+corpus, so no measurement in this repository would be reproducible, by a reader or by its
+author six months later. The ablation results mean something only because the corpus is
+frozen.
 
 ## Shape
 

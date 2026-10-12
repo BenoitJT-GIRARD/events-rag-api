@@ -6,23 +6,23 @@ the detail. Everything here is a choice that could reasonably have gone the othe
 ## Ingestion
 
 `ingestion/openagenda_client.py` pages the OpenDataSoft Explore v2.1 API a hundred records
-at a time, filtered server-side by region and by a date window. Filtering server-side
-upstream, and not locally, keeps the payload small and the window declarative: the query that
+at a time, filtered server-side by region and by a date window. Filtering on the
+server rather than locally keeps the payload small and the window declarative: the query that
 produced the committed corpus is written out in [`../data/raw/SOURCE.md`](../data/raw/SOURCE.md),
-which is what makes the snapshot auditable.
+so the snapshot can be audited.
 
 `ingestion/preprocess.py` flattens each record into two things: a `text` block that
 concatenates title, short and long descriptions, conditions, town, venue and dates; and a
 `metadata` object carrying `uid`, `title`, `city`, `location_name`, `location_address`,
 `date`, `conditions`, `keywords`, `canonicalurl`.
 
-Two consequences of that split are worth naming, because both surfaced later:
+Two consequences of that split surfaced later:
 
 - The `uid` travelling in metadata is what makes deterministic retrieval metrics possible
   at all. Without a stable identifier on every chunk there is no relevance label.
-- Metadata is **not** embedded: the vector is built from the text alone, and the title and
-  the venue sit beside it. `dense-metadata-header` measures what folding them in would buy,
-  and the answer on this corpus is nothing the sample can support.
+- Metadata is not embedded: the vector is built from the text alone, and the title and
+  the venue sit beside it. `dense-metadata-header` measures what folding them in would buy;
+  on this corpus, the sample supports no gain from it.
 
 ## Chunking
 
@@ -46,9 +46,9 @@ thousand vectors do not justify a managed service.
 The cache is sized for eight entries, not one, because the ablation holds several
 indexes open at once; at one entry it evicted on every alternation and reloaded from disk.
 
-`evaluation/indexes.py` builds one index per **chunking variant**, keyed by a fingerprint
-of the chunking parameters, under `var/faiss/<fingerprint>/`. This is what keeps the
-ablation cheap: only chunking changes the vectors. Filtering, rank fusion and reranking
+`evaluation/indexes.py` builds one index per chunking variant, keyed by a fingerprint
+of the chunking parameters, under `var/faiss/<fingerprint>/`. This keeps the ablation cheap,
+because only chunking changes the vectors. Filtering, rank fusion and reranking
 are query-time operations on a shared index, so a new configuration costs no embedding
 calls at all.
 
@@ -83,7 +83,7 @@ beats one ranked second twice, since `1/61 + 1/63 > 2/62`.
 
 `CityFilter` matches town names against those present in the corpus, longest first so
 `Castelnaudary` wins over `Castelnau`, and passes results through untouched when it
-recognises no town. It never removes what it cannot justify removing.
+recognises no town.
 
 `Rerank` takes its scorer as an argument and constructs no model itself, so the unit
 tests need no download and swapping the backend touches one call site.
@@ -99,8 +99,8 @@ cases have no target event and are scored on refusal instead.
 document it should retrieve. It exists because "this benchmark is too easy" needed to be a
 number before it could be acted on.
 
-`evaluation/ablation.py` runs each configuration and **reports failures in the results
-table with their error message**, and never dropped. That rule came from watching
+`evaluation/ablation.py` runs each configuration and reports a failed configuration in the
+results table with its error message rather than dropping it. That rule came from watching
 two RAGAS metrics return null silently for months.
 
 ## API
@@ -110,9 +110,9 @@ two RAGAS metrics return null silently for months.
 them on this corpus, and the module says so where it refuses.
 
 The prompt in `rag/prompts.py` instructs the model to answer only from the supplied
-context and to say when it cannot. That instruction earns its place: five of the thirty
-evaluation cases ask about events outside the corpus, and they exist to catch the day it
-starts inventing them.
+context and to say when it cannot. Five of the thirty evaluation cases test that
+instruction: they ask about events outside the corpus, to catch the day the model starts
+inventing them.
 
 ## What is deliberately absent
 

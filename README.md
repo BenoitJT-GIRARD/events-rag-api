@@ -23,14 +23,13 @@ by category. What people actually ask is *"is there something for a three-year-o
 Alès during the holidays, and is it free?"*, a question that crosses four facets and names
 none of them.
 
-Retrieval-augmented generation is the obvious answer, and the obvious answer comes with a
-trap. A RAG system is easy to build and hard to *measure*: the usual benchmark asks a
-language model whether it likes the answer, which is expensive, non-deterministic, and
-agrees with almost anything. Without a benchmark that can be wrong, no design choice in the
-pipeline can be defended.
+Retrieval-augmented generation is the obvious answer, but a RAG system is easy to build and
+hard to *measure*. The usual benchmark asks a language model whether it likes the answer,
+which is expensive, non-deterministic, and agrees with almost anything. Without a benchmark
+that can be wrong, no design choice in the pipeline can be defended.
 
-So this repository is built around two questions. **Can it answer the crossed question, and
-what evidence would distinguish one retrieval configuration from another?**
+This repository asks two questions: can it answer the crossed question, and what evidence
+would distinguish one retrieval configuration from another?
 
 The corpus is
 [OpenAgenda's public events](https://public.opendatasoft.com/explore/dataset/evenements-publics-openagenda/),
@@ -76,8 +75,8 @@ characters, with `rank_bm25` available beside the dense index for the lexical ha
 ablation.
 
 The choice worth defending is **FAISS on disk over a vector database**. A thousand events is
-a few thousand vectors; a managed store would add a service to run, a schema to migrate and
-a bill to pay, in exchange for headroom this corpus will never need. The index is a build
+a few thousand vectors. A managed store would add a service to run and pay for, plus a schema
+to migrate, in exchange for headroom this corpus will never need. The index is a build
 artefact: `scripts/build_index.py` writes it under `var/`, and the image rebuilds it in about
 a minute.
 
@@ -91,9 +90,9 @@ configuration, **Ruff** and **Bandit** on each run, **uv** for a locked environm
 
 ## The result
 
-Retrieval is scored on twenty questions that each record the `uid` of the event they were
-written from, a hard relevance label, with `recall@k` and `MRR`, no judge involved. Seven
-configurations, same questions, same corpus:
+Retrieval is scored with `recall@k` and `MRR` on twenty questions, each recording the `uid`
+of the event it was written from. That identifier is a hard relevance label, so no judge is
+involved. The seven configurations below share the questions and the corpus:
 
 <!-- source: reports/ablation_results.json -->
 ![Retrieval ablation: recall@1 and MRR@10 per configuration, with the standard error each proportion carries at n = 20](reports/figures/ablation.svg)
@@ -102,8 +101,8 @@ configurations, same questions, same corpus:
 > questions whose very first result is the right event, and MRR@10 (mean reciprocal rank over
 > ten results), which averages one divided by the rank the right event landed on. Longer is
 > better for both. The whisker is one standard error of a proportion at this sample size, and it
-> is wide. Two bars whose whiskers overlap are not separated by this experiment, so a paired
-> test settles the ranking and the eye does not.
+> is wide. When two whiskers overlap, this experiment does not separate the bars, and only a
+> paired test can rank them.
 
 <!-- source: reports/ablation_results.json -->
 | Configuration | Chunking | recall@1 | recall@5 | MRR@10 | Median latency |
@@ -127,23 +126,23 @@ configurations, same questions, same corpus:
 Every number above is read from `reports/ablation_results.json`, written by
 `scripts/run_ablation.py`, and `tests/unit/test_published_numbers.py` fails if the table and
 the file disagree. What each metric means, and what it is worth to someone using the service,
-is in [`metrics.yaml`](metrics.yaml). The latency column is one machine's, measured in the
-same run as the rest; it compares rows and travels to no other machine.
+is in [`metrics.yaml`](metrics.yaml). The latency column comes from one machine, measured
+in the same run as the rest, so it compares rows and says nothing about any other machine.
 
-**The reranking row was withdrawn for two weeks, and here is what it hid.** The run that
-first produced it scored the wrong text. The passage given to the cross-encoder was built as
+**The reranking row was withdrawn for two weeks.** The run that first produced it scored
+the wrong text. The passage given to the cross-encoder was built as
 one entry per event uid over 2 046 chunks, so for every event the splitter had cut, about
 half the corpus, only the last chunk survived: usually the block carrying dates and prices.
 The published 0.55 measured that mistake. `passages_by_uid` now reassembles the chunks of an
 event before scoring, and a unit test checks that a two-chunk event reaches the scorer with
 its title in the text. Measured again on the reassembled passages, the row reads 0.65 at
-recall@1. The conclusion holds and the number that carried it was wrong by ten points, which
-is the whole reason the row spent two weeks blank instead of quietly corrected.
+recall@1. The conclusion holds, but the number that carried it was wrong by ten points, so the
+row was left blank for two weeks rather than silently corrected.
 [`reports/errata.json`](reports/errata.json) keeps the withdrawal and its resolution.
 
 <!-- source: reports/paired_comparison.json -->
-**What separates these configurations.** The seven answer the same twenty questions, so the
-comparison is paired: what distinguishes two of them is the questions one gets right and the
+The seven configurations answer the same twenty questions, so the comparison between them is
+paired: what distinguishes two of them is the questions one gets right and the
 other gets wrong, and averaging each side into a proportion throws exactly that away.
 `scripts/compare_paired.py` reads the per-question ranks and runs McNemar's exact test
 against the shipped configuration, over n = 20 questions:
@@ -164,7 +163,7 @@ alone loses eight questions to dense retrieval and wins none. Everything else, t
 filter included, sits where twenty questions cannot separate it. The interval of a single
 proportion, about ±13 points here, says the same thing more conservatively.
 
-**What it does show.** Dense retrieval puts the source event in the first five results for
+Dense retrieval puts the source event in the first five results for
 all twenty questions; lexical search alone does it for fifteen. Above that floor, none of the
 five remaining configurations separates itself by a margin twenty questions can support.
 Query rewriting was not tried: it costs one model call per question, for a gain the
@@ -172,12 +171,10 @@ literature puts as marginal on short factual queries.
 
 ## Why these numbers can be believed
 
-Because the benchmark they come from was rebuilt after the first one turned out to measure
-the wrong thing.
-
-The first run gave `recall@1` = 1.00 on the same twenty questions: every one of them
-retrieved its source event at rank one. That is not a good result, it is a broken benchmark.
-A perfect score means no headroom, so the ablation it exists for cannot rank anything. That
+The benchmark behind them was rebuilt after the first one turned out to measure the wrong
+thing. The first run gave `recall@1` = 1.00 on the same twenty questions: every one of them
+retrieved its source event at rank one. A perfect score means the benchmark is broken:
+it leaves no headroom, so the ablation it exists for cannot rank anything. That
 figure comes from the run of 2026-09-02 and is one of the two numbers on this page that
 cannot be recomputed here, for the reason the next paragraphs give.
 
@@ -190,9 +187,8 @@ text*, and it quoted the titles verbatim: *"Quel est le titre du concert de Noë
 par Goma Espérance ?"*. `Goma Espérance` is a unique string in the corpus. The benchmark was
 measuring exact string matching.
 
-That deserved a number.
-[`difficulty.py`](src/events_rag/evaluation/difficulty.py) measures how many of a question's
-content words appear verbatim in the event it should retrieve. On the generated set, run on
+[`difficulty.py`](src/events_rag/evaluation/difficulty.py) puts a number on it by measuring
+how many of a question's content words appear verbatim in the event it should retrieve. On the generated set, run on
 2026-09-02, that mean overlap was 0.61.
 
 The twenty positive questions were then rewritten by hand from the same seeded event sample,
@@ -207,15 +203,14 @@ that ships here:
 
 The residue is mostly town names, which a user legitimately says out loud.
 
-Every score dropped with the overlap, which is the point. On the generated set the floor row
+Every score dropped with the overlap. On the generated set the floor row
 `bm25-only` reached 0.70 at `recall@1` and `dense-baseline` reached 1.00; on the committed
 set they read 0.50 and 0.90. Those two earlier figures come from the run of 2026-09-02 and
 are the one pair of numbers here that cannot be re-measured: the generated question set was
 replaced rather than kept, so nothing in this repository reproduces them. BM25 fell hardest,
 exactly as the diagnosis predicted, because removing quoted titles hits pure lexical matching
 first. The baseline dropped off the ceiling, so the benchmark can now separate
-configurations, which is the only reason the table above is worth reading. The full protocol
-is in [`docs/protocol.md`](docs/protocol.md).
+configurations, which is the only reason the table above is worth reading. The full protocol is in [`docs/protocol.md`](docs/protocol.md).
 
 ### The scorer had defects too
 
@@ -267,7 +262,7 @@ Two scripts deliberately sit outside that path, because both replace a frozen in
   for the same reason.
 - `generate_eval_dataset.py` regenerates the question set from scratch, with the same caveat.
 
-Tests: `uv run pytest` — 180 tests in three tiers, no network. Coverage is measured on every
+Tests: `uv run pytest` runs 180 tests in three tiers, with no network. Coverage is measured on every
 run, with a floor. Day-to-day operations are in
 [`docs/operations.md`](docs/operations.md).
 
@@ -305,8 +300,8 @@ replays them.
 
 <!-- source: reports/ablation_results.json -->
 **n = 20 is too small to rank close configurations.** Every conclusion above about small
-differences is guarded for that reason. Two hundred questions would settle it; that is hours
-of writing, and no change of method.
+differences is guarded for that reason. Two hundred questions would settle it with the
+same method; writing them would take hours.
 
 **The generation side has no current measurement.** The only RAGAS run this repository
 carries is the one of 2026-09-02, and it graded a question set and a corpus that have both
@@ -324,7 +319,7 @@ Fixing that means writing reference answers blind, which is a different exercise
 **One of the five RAGAS metrics does not work.** `answer_relevancy` came back null on every
 answer of the archived run, and it is reported as not measured: a null rendered as zero would
 read as a measured score of nothing. The summary claimed two until the archive was made
-recomputable — it read `context_relevancy` from a column named after the metric, while RAGAS
+recomputable. It had read `context_relevancy` from a column named after the metric, while RAGAS
 writes that one into `nv_context_relevance`. Each mean now carries the number of rows it was
 taken over, which is how `context_precision` turned out to be a mean over 26 of the 30.
 
@@ -337,7 +332,7 @@ it a scheduled one.
 
 **The evaluation questions are still written by a language model**, by me and not by
 Mistral, which removes the same-family bias between question and embedding without making
-the set human. Saying otherwise would be dressing it up.
+the set human.
 
 **The corpus is frozen deliberately.** Upstream is a rolling window, so re-ingesting gives a
 different corpus and no number here would reproduce. See

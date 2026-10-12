@@ -1,6 +1,6 @@
 # How this repository is evaluated
 
-Two benchmarks, and they are not the same exercise. Retrieval is scored against a hard label
+The repository runs two benchmarks that work differently. Retrieval is scored against a hard label
 and costs nothing to re-run. Generation is scored by a model judging a model, costs money, and
 is the weaker half. This page says how each one is built, what it costs, and where its
 numbers land.
@@ -8,9 +8,8 @@ numbers land.
 ## The question set
 
 `data/questions/reference_qa.json` holds 30 cases: 20 positive, and 10 that are negative or
-ambiguous. A positive case records the `uid` of the event it was written from, which is what
-makes retrieval scorable without a judge — the retrieved list either contains that event or
-it does not.
+ambiguous. A positive case records the `uid` of its source event, so retrieval can be
+scored without a judge: the retrieved list either contains that event or it does not.
 
 The events behind the positive cases were sampled under a fixed seed
 (`EVENTS_RAG_EVAL_SEED`), category by category, by
@@ -43,17 +42,17 @@ EVENTS_RAG_MISTRAL_API_KEY=... uv run python scripts/run_ablation.py   # ~2 min,
 uv run python scripts/plot_ablation.py                                 # free, offline
 ```
 
-Seven configurations, the same twenty questions, the same corpus. Each configuration is
+Seven configurations run on the same twenty questions and the same corpus. Each configuration is
 scored with `recall@k` and `MRR@10`, defined in [`metrics.yaml`](../metrics.yaml). The run
 writes `reports/ablation_results.json` and `reports/ablation_table.md`; the plot script
 redraws `reports/figures/ablation.svg` from the first of those, and records the image in
 `reports/figures/MANIFEST.json`.
 
-**Cost.** Embedding the corpus is 2 046 calls. The ablation builds three indexes, one per
+Embedding the corpus takes 2 046 calls. The ablation builds three indexes, one per
 chunking variant, and reuses them across configurations, so the bill is dominated by the
 first build.
 
-**What the numbers can carry.** n = 20. The standard error of a proportion at that size is
+The sample is n = 20. The standard error of a proportion at that size is
 about 6.7 points at p = 0.9, so two configurations within roughly 13 points are not
 distinguishable. The README states this next to the table, and no conclusion is drawn across
 a gap the sample cannot support.
@@ -72,7 +71,7 @@ computed by a model. Neither file is committed, because neither has been produce
 account ran out of chat quota.
 
 **One of the five metrics returns null on this setup.** `answer_relevancy` is reported as
-not measured, and `NaNSafeEncoder` is what keeps it a `null` through serialisation instead of
+not measured, and `NaNSafeEncoder` keeps it a `null` through serialisation instead of
 the token `NaN`, which no JSON reader accepts. The mapping from a published metric to the
 column RAGAS writes it into lives in one place, `RAGAS_COLUMN`; it was written twice before,
 and the two spellings of context relevancy disagreed.
@@ -92,8 +91,8 @@ re-run against them.
 ## Withdrawn results
 
 `reports/errata.json` carries every row that stopped being a measurement, with its reason,
-its fix and the command that measures it again; `events_rag.evaluation.errata` is what reads
-it, so the figure and the README agree on which rows count. One entry stands, resolved: the
+its fix and the command that measures it again; `events_rag.evaluation.errata` reads it,
+so the figure and the README agree on which rows count. One entry stands, resolved: the
 reranking configuration, whose passages were assembled wrongly before scoring.
 
 ## The archived run of 2026-09-02
@@ -103,11 +102,11 @@ Neither the questions nor the corpus of that day survive: the question set was r
 the hand-written one, and the corpus covered Montpellier alone before the region-wide
 extraction took over. Two of the 139 events their answers cite are still in the corpus.
 
-- `reports/evaluation_2026-09-02.json` — the thirty answers, the summary the defective
+- `reports/evaluation_2026-09-02.json`: the thirty answers, the summary the defective
   scorer published, and the summary the current code computes from the same text.
   `scripts/rescore_archive.py` regenerates the second, deterministically and without a model
   call, which is how the correction of the refusal detector is verified today.
-- `reports/ragas_2026-09-02.json` — the model grading of the same thirty answers, kept for
+- `reports/ragas_2026-09-02.json`: the model grading of the same thirty answers, kept for
   `avg_context_precision` = 0.575, the number that made the retrieval side worth a full
   ablation. Its means are recomputed from its own rows, each with the count it was taken
   over.

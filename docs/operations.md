@@ -26,8 +26,8 @@ served at `/docs` and `/openapi.json` while the service runs. What follows is wh
 cannot say: what each route costs, and how it fails.
 
 **`GET /health`** answers `{"status": "ok"}` as soon as the process is up, without touching
-the index or the model. That is what makes it usable as a container probe, and it is the
-route the image's `HEALTHCHECK` calls.
+the index or the model. That makes it usable as a container probe, and the image's
+`HEALTHCHECK` calls it.
 
 **`GET /metadata`** returns what this deployment serves: the region and field the corpus was
 filtered on, its language, the date window, and the number of documents retrieval asks for.
@@ -79,7 +79,7 @@ The route is guarded by `EVENTS_RAG_REBUILD_TOKEN`. An empty token on the server
 call, which is the right default for a service nobody is watching. Rebuilding costs one
 embedding call per chunk, so the guard is a cost control as much as a security one.
 
-Rebuilding does **not** re-ingest. The corpus the service serves is the one committed beside
+Rebuilding does not re-ingest. The corpus the service serves is the one committed beside
 it, and replacing that corpus is a separate, documented act (`scripts/build_dataset.py`).
 
 ## What a run costs
