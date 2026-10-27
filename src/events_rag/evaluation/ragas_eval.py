@@ -1,9 +1,10 @@
 """The generation-side metrics, which are the weaker half and are reported as such.
 
-Two of the five RAGAS metrics return null on this setup; they are reported as not measured,
-because a null rendered as zero reads as a measured score of nothing and hides the gap.
-`NaNSafeEncoder` exists so that a missing metric survives serialisation as `null` instead of
-as the string `NaN`, which no JSON reader accepts.
+In the archived run, `answer_relevancy` has no value for any of the thirty answers; it is
+reported as not measured, because a null rendered as zero reads as a measured score of
+nothing and hides the gap. `NaNSafeEncoder` exists so that a missing metric
+survives serialisation as `null`. Python's `json` would otherwise write a bare `NaN`, which it
+reads back itself but which is not valid JSON, so a strict parser refuses the file.
 
 The reference answers come from the events, which is the ceiling on what this file can
 establish; the README lists it among the limits.
@@ -18,9 +19,11 @@ from ragas import EvaluationDataset, SingleTurnSample, evaluate
 from ragas.embeddings import LangchainEmbeddingsWrapper
 from ragas.llms import LangchainLLMWrapper
 
-# Private imports, on purpose: ragas 0.4.3 publishes no path to its concrete metrics. The
-# classes are re-exported at package level, which is the nearest thing to a supported entry
-# point, and the README lists this among the things the repository does not prove.
+# Private imports, on purpose. ragas 0.4.3 still serves these classes under their public
+# names from `ragas.metrics`, but that import raises a deprecation warning, and their
+# replacements in `ragas.metrics.collections` refuse the LangChain wrappers used below. The
+# underscore-prefixed names are the ones under which `ragas.metrics` defines the older
+# classes. The README lists this among the things the repository does not prove.
 #
 # The protection is therefore the version cap in pyproject.toml (`ragas>=0.4.3,<0.5`), not
 # the import style. Without it an unrelated `uv sync` would pull a release where this

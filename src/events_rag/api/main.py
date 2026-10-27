@@ -1,4 +1,8 @@
-"""The four routes, and the lifespan that loads the index before the first question.
+"""The four routes, and the lifespan that configures logging at startup.
+
+The index is loaded on the first question, by `rag.retriever.load_vectorstore`, which keeps
+it in memory. `/rebuild` empties that cache once the new index is on disk, so the next
+question reads the new one.
 
 `/rebuild` is the one that needs a token: rebuilding the index re-embeds the whole corpus
 through a paid API, so it is not something an anonymous caller should be able to trigger.
@@ -18,6 +22,7 @@ from events_rag.api.schemas import (
 from events_rag.config import get_settings
 from events_rag.logger import configure_logging, get_logger
 from events_rag.rag.indexer import build_and_save_index
+from events_rag.rag.retriever import load_vectorstore
 from events_rag.rag.service import answer_question
 
 
@@ -104,7 +109,7 @@ async def ask(payload: AskRequest) -> AskResponse:
     "/rebuild",
     response_model=RebuildResponse,
     tags=["operations"],
-    summary="Re-embed the committed corpus (token required, one paid call per chunk)",
+    summary="Re-embed the committed corpus (token required, paid embedding calls)",
 )
 async def rebuild(payload: RebuildRequest) -> RebuildResponse:
     settings = get_settings()
@@ -120,6 +125,9 @@ async def rebuild(payload: RebuildRequest) -> RebuildResponse:
 
     try:
         result = build_and_save_index()
+        # The store loaded before the rebuild is still in the cache; without this, the
+        # service would keep answering from it until the process restarts.
+        load_vectorstore.cache_clear()
         return RebuildResponse(**result)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

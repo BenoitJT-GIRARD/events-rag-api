@@ -5,7 +5,7 @@
 - **Distributed by:** OpenDataSoft, https://public.opendatasoft.com/explore/dataset/evenements-publics-openagenda/
 - **Licence:** Licence Ouverte / Open Licence v1.0, https://www.etalab.gouv.fr/wp-content/uploads/2014/05/Licence_Ouverte.pdf
 - **Extracted on:** 2026-09-02
-- **Records in this snapshot:** 1000 (1.48 MB)
+- **Records in this snapshot:** 1000 (1.53 MB)
 
 The Open Licence allows redistribution, including for commercial purposes, and requires
 attribution to the source and its last update date.

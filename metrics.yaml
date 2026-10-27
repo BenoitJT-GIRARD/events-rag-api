@@ -26,14 +26,15 @@ metrics:
 
   recall@5:
     definition: >-
-      The share of questions whose source event appears anywhere in the first five results.
+      The share of questions whose source event is among the first five distinct events
+      retrieved.
     unit: "proportion, 0 to 1"
     direction: higher_is_better
     anchor: "1.00 — reports/ablation_results.json#results[dense-baseline].metrics.recall@5"
     business_reading: >-
-      Whether the answer is reachable at all. Five results is what the generation step is
-      given, so an event missing from this window cannot appear in the answer, however good
-      the model is.
+      Whether the answer is reachable at all. By default the generation step is given the
+      five best chunks, which come from five events at most, so an event missing from this
+      window cannot appear in the answer, however good the model is.
     source: "scripts/run_ablation.py, over the twenty positive cases of data/questions/reference_qa.json"
     uncertainty: >-
       Same binomial error. At 1.00 the interval is one-sided and the honest statement is
@@ -56,14 +57,15 @@ metrics:
 
   median_latency:
     definition: >-
-      Median wall-clock time of the retrieval step alone, model call excluded, over the
-      twenty questions.
+      Median wall-clock time of the retrieval step over the twenty questions. In the dense
+      rows it includes the embedding call for the question; the generation call is outside
+      it.
     unit: "milliseconds"
     direction: lower_is_better
     anchor: "192.7 — reports/ablation_results.json#results[dense-baseline].median_latency_ms"
     business_reading: >-
-      The part of the wait this repository controls. The answer a user waits for is about
-      2.5 s end to end; almost all of the rest is the generation call.
+      The part of the wait this repository controls. The rest of the wait for an answer is
+      the generation call, whose duration no file of this repository records.
     source: "scripts/run_ablation.py, measured on the machine that ran the ablation"
     uncertainty: >-
       Median of twenty measurements on one machine, with no repetition: comparable between
@@ -78,8 +80,8 @@ metrics:
     anchor: "0.5 — reports/difficulty.json#mean_lexical_overlap"
     business_reading: >-
       How much the benchmark can be solved by string matching instead of understanding. It
-      is the number that exposed the first question set, where it stood at 0.61 and BM25
-      alone scored 0.90.
+      is the number that exposed the generated set scored by the first ablation, where it
+      stood at 0.61 and BM25 alone scored 0.90.
     source: "scripts/measure_difficulty.py, over the twenty positive cases"
     uncertainty: >-
       Mean over twenty questions, no interval quoted: it is a property of the question set,

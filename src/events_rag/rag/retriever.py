@@ -45,8 +45,9 @@ def build_embeddings() -> MistralAIEmbeddings:
     )
 
 
-# The ablation loads several indexes in one process; at maxsize=1 the cache would evict
-# on every alternation and reload FAISS from disk each time.
+# One entry per directory and index name. The service calls this without arguments, so it
+# holds one store; the ablation loads its indexes through `evaluation.indexes.index_for`,
+# outside this cache.
 @lru_cache(maxsize=8)
 def load_vectorstore(index_dir: str | None = None, index_name: str | None = None) -> FAISS:
     settings = get_settings()

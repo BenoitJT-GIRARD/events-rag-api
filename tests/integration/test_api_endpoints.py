@@ -1,14 +1,20 @@
 """The routes answer, and reject a malformed question rather than passing it through.
 
 Integration tier: the real FastAPI application object, wired to the real settings, answering
-through a real client. Nothing is mocked but the model, which is behind a paid API.
+through a real client. Only what calls the paid API is mocked: the model, and in the last test
+the index too, because searching it embeds the question.
 """
+
+from types import SimpleNamespace
 
 import pytest
 from fastapi.testclient import TestClient
+from langchain_core.documents import Document
 
 from events_rag.api import main
 from events_rag.api.main import app
+from events_rag.config import get_settings
+from events_rag.rag import retriever, service
 
 pytestmark = pytest.mark.integration
 
@@ -109,3 +115,38 @@ def test_an_answer_carries_the_events_it_was_built_from(monkeypatch) -> None:
     payload = response.json()
     assert payload["sources"][0]["uid"] == "4721721"
     assert payload["answer"].startswith("Un atelier")
+
+
+# --- How deep a question retrieves -----------------------------------------
+
+
+class _Store:
+    """The FAISS index, replaced: searching it embeds the question through the paid API."""
+
+    def __init__(self) -> None:
+        self.depths: list[int] = []
+
+    def similarity_search(self, question: str, k: int) -> list[Document]:
+        self.depths.append(k)
+        return [Document(page_content=question, metadata={"uid": str(i)}) for i in range(k)]
+
+
+class _Chat:
+    """The chat model, replaced: generating the answer is the other paid call."""
+
+    def invoke(self, _messages) -> SimpleNamespace:
+        return SimpleNamespace(content="Une réponse.")
+
+
+def test_a_question_without_a_depth_retrieves_the_configured_number(monkeypatch) -> None:
+    """`EVENTS_RAG_RETRIEVAL_K` decides the depth of every call that names none."""
+    store = _Store()
+    monkeypatch.setattr(retriever, "load_vectorstore", lambda *a, **k: store)
+    monkeypatch.setattr(service, "build_chat_model", lambda: _Chat())
+    monkeypatch.setattr(get_settings(), "retrieval_k", 3)
+
+    with TestClient(app) as client:
+        response = client.post("/ask", json={"question": "Un concert a Albi ?"})
+
+    assert response.status_code == 200
+    assert store.depths == [3]

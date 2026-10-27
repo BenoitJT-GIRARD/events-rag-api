@@ -1,4 +1,8 @@
-"""Score retrieval on the hand-written question set. Deterministic: no judge, no LLM call."""
+"""Ask the thirty questions of data/questions/ through the service, and score the answers.
+
+Every question is one embedding request plus one chat request to Mistral, both paid. The scoring
+rules call no judge model. Writes `evaluation_results.json` under the reports directory.
+"""
 
 import json
 

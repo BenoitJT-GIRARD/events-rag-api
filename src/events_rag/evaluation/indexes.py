@@ -42,10 +42,12 @@ def variant_fingerprint(variant: ChunkingVariant) -> str:
 
 
 def _with_header(document: Document) -> Document:
-    """Prefix a document with its own metadata so proper nouns become searchable.
+    """Prefix a document with its title, venue, city and date, taken from its metadata.
 
-    Title, venue, city and date are stored in metadata and never reach the embedding, so
-    a query naming a venue has nothing to match. This puts them in the text.
+    The text of an event already holds these four as labelled lines, but the title opens it
+    and the venue, town and start date come after the long description. Once a long event is
+    split, they sit in different chunks. The prefix repeats all four at the top of the event,
+    so they reach the embedding of its first chunk together.
     """
     parts = [str(document.metadata.get(field, "")).strip() for field in HEADER_FIELDS]
     header = " | ".join(part for part in parts if part)

@@ -113,8 +113,8 @@ def passages_by_uid(chunks: Sequence[Document]) -> dict[str, str]:
 def _flashrank_scorer() -> Callable[[str, list[str]], list[float]]:
     """Score candidate uids against the query with a small cross-encoder.
 
-    Imported lazily: the reranker lives in an optional dependency group, and the other
-    configurations must run without it installed.
+    Imported lazily: the reranker lives in the optional `rerank` extra
+    (`uv sync --extra rerank`), and the other configurations must run without it installed.
     """
     from flashrank import Ranker, RerankRequest
 
@@ -157,7 +157,7 @@ CONFIGS: list[AblationConfig] = [
         "dense-metadata-header",
         WITH_HEADER,
         lambda: DenseSearch(index_for(WITH_HEADER)),
-        note="Embed title, venue, city and date with the text so proper nouns match.",
+        note="Repeat title, venue, city and date at the top of each event before splitting.",
     ),
     AblationConfig(
         "dense+city-filter",
@@ -165,8 +165,9 @@ CONFIGS: list[AblationConfig] = [
         lambda: CityFilter(DenseSearch(index_for(BASELINE)), _city_by_uid()),
         note=(
             "Narrow to the town named in the question. Read the gain with care: the "
-            "questions are hand-written and name their town, because someone looking "
-            "for an outing says where — but that choice favours this configuration."
+            "questions were rewritten by a language model and name their town, because "
+            "someone looking for an outing says where — but that choice favours this "
+            "configuration."
         ),
     ),
     AblationConfig(

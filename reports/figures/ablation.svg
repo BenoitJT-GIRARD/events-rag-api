@@ -12,7 +12,7 @@
 </style>
 <rect width="686" height="438" fill="#FFFFFF"/>
 <text x="16" y="26" class="title">Retrieval ablation — recall@1 and MRR@10</text>
-<text x="16" y="45" class="value">Proportion of questions whose source event is retrieved. Higher is better.</text>
+<text x="16" y="45" class="value">recall@1: share of questions whose source event comes first. MRR@10: mean of 1/rank. Higher is better.</text>
 <text x="16" y="62" class="value">n = 20 questions with a known target event; whiskers are ±1 standard error.</text>
 <line class="axis" x1="210.0" y1="70" x2="210.0" y2="408"/>
 <text class="tick" x="210.0" y="422" text-anchor="middle">0.00</text>

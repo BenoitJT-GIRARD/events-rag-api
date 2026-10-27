@@ -1,10 +1,10 @@
 """The scripts a reader is told to run, run — in their own process, with nothing mocked.
 
-Two of them need no API key, and those are the two exercised here: the one that redraws the
-published figure from the published results, and the one that refuses to start without a key.
-Everything else in `scripts/` embeds the corpus or calls the model, so it cannot run in a
-suite that is offline by construction; `docs/protocol.md` says what it costs and
-how to run it.
+Five of them run here, none with an API key: the one that redraws the published figure from
+the published results, the index build, which must refuse to start without a key, the check of
+the screenshots against their manifest, the corpus profile and the difficulty measure. The
+scripts that embed the corpus or call the model cannot run in a suite that is offline by
+construction; `docs/protocol.md` says what they cost and how to run them.
 """
 
 from __future__ import annotations

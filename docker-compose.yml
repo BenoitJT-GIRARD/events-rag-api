@@ -6,3 +6,7 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    # The index is built on the host by scripts/build_index.py, which spends embedding
+    # calls, and read here; /rebuild writes its new index to the same directory.
+    volumes:
+      - ./var:/app/var

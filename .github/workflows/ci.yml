@@ -1,6 +1,6 @@
 name: CI
 
-# Frozen 2026-09-18: the Actions tab holds the green run of this very commit.
+# Started by hand only: the workflow has no push or pull-request trigger.
 on:
   workflow_dispatch:
 

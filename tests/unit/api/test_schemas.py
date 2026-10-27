@@ -13,10 +13,11 @@ from pydantic import ValidationError
 from events_rag.api.schemas import AskRequest, AskResponse, RebuildRequest, SourceItem
 
 
-def test_a_question_and_its_default_depth() -> None:
+def test_a_question_without_a_depth_leaves_it_to_the_settings() -> None:
+    """None reaches the retriever, which then reads `EVENTS_RAG_RETRIEVAL_K`."""
     request = AskRequest(question="Quel concert a lieu à Albi ?")
 
-    assert request.top_k == 5
+    assert request.top_k is None
 
 
 @pytest.mark.parametrize("question", ["", "a", "ab"])

@@ -12,7 +12,8 @@ def dedupe_uids(uids: list[str]) -> list[str]:
     """Keep the first occurrence of each uid, preserving rank order.
 
     One event is split into several chunks, so a single event can occupy several
-    positions of a result list. Ranking without deduplication inflates recall.
+    positions of a result list. Without deduplication those repeats push other events out
+    of the first k positions, and recall@k counts fewer distinct events than it says.
     """
     seen: set[str] = set()
     ordered: list[str] = []

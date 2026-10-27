@@ -4,17 +4,17 @@
       "axes": [
         {
           "title": "Retrieval ablation — recall@1 and MRR@10",
-          "x": "Proportion of questions (0 to 1)",
+          "x": "recall@1 (proportion of questions) and MRR@10 (mean reciprocal rank), 0 to 1",
           "y": "Retrieval configuration"
         }
       ],
       "dispersion": "±1 standard error of a proportion at this sample size",
       "dpi": null,
       "n": "n = 20",
-      "sha256": "e817022244e100b75867a80cd6b719d7c8c5d60e7ecbb0e3aaf7017daae8464b",
+      "sha256": "902273a8b0ac3da933757c874ac877eb0ad7a1d6880256d7d7c5b3059781292b",
       "source": "scripts/plot_ablation.py",
       "style_version": 1,
-      "written": "2026-10-10"
+      "written": "2026-10-27"
     }
   },
   "schema": "image-manifest/1"

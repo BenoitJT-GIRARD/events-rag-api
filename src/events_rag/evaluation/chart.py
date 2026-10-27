@@ -87,8 +87,8 @@ def render_ablation_svg(results: list[dict], withdrawn: set[str] | None = None) 
         f"<style>{STYLE}</style>",
         f'<rect width="{WIDTH}" height="{height}" fill="{PALETTE["paper"]}"/>',
         '<text x="16" y="26" class="title">Retrieval ablation — recall@1 and MRR@10</text>',
-        '<text x="16" y="45" class="value">Proportion of questions whose source event is '
-        "retrieved. Higher is better.</text>",
+        '<text x="16" y="45" class="value">recall@1: share of questions whose source event '
+        "comes first. MRR@10: mean of 1/rank. Higher is better.</text>",
         f'<text x="16" y="62" class="value">n = {sample} questions with a known target event; '
         f"whiskers are ±1 standard error.</text>",
     ]

@@ -1,6 +1,7 @@
 """Run the seven retrieval configurations over the question set and write the table.
 
-This is what reproduces the README's ablation exactly, from the committed corpus.
+This measures the README's ablation again, on the committed corpus and question set. The
+median latencies change from one run to the next.
 """
 
 from events_rag.evaluation.report import run_ablation

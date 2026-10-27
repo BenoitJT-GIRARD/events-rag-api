@@ -1,12 +1,14 @@
-"""Recompute the summaries of the archived run of 2026-09-02 from its own answers.
+"""Recompute the summaries of the archived run from its own answers.
 
-Two files hold that run, and neither can be produced again: the questions it was asked from
-were replaced by the hand-written set the same day, and the account that paid for the answers
-has no chat quota left. What is still checkable is the arithmetic on top of them, and that is
-what this script checks.
+Two files hold that run, `reports/evaluation_2026-09-02.json` and
+`reports/ragas_2026-09-02.json`, and neither can be produced again: the questions it was
+asked from have been replaced since, first by a regenerated set and then by the set in
+data/questions/, and the account that paid for the answers has no chat quota left. What is
+still checkable is the arithmetic on top of them, and that is what this script checks.
 
-The heuristic archive is the interesting half. Its refusal detector looked for the literal
-noun « événement » while the model answers in the noun of the question, so all five
+The heuristic archive is the interesting half. Its refusal detector matched a set of
+phrases, « aucun événement » among them, while the model answers in the noun of the
+question, so all five
 out-of-corpus questions were recorded as wrong answers when the system had refused each one
 correctly. Scoring the archived answers again with the code
 that replaced the detector is how that correction is verified.

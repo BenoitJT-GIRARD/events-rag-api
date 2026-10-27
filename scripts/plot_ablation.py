@@ -27,7 +27,7 @@ def main() -> int:
         reports / "figures" / "ablation.svg",
         n=sample,
         axes={
-            "x": "Proportion of questions (0 to 1)",
+            "x": "recall@1 (proportion of questions) and MRR@10 (mean reciprocal rank), 0 to 1",
             "y": "Retrieval configuration",
             "title": "Retrieval ablation — recall@1 and MRR@10",
         },

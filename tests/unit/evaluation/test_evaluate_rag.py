@@ -1,8 +1,9 @@
 """Keyword coverage, city matching, refusal detection, and how the summary averages.
 
-The refusal patterns get the most attention here, and each of the five phrasings the model
-actually produced has its own case: the matcher that replaced the list of nouns is the piece
-that was rewritten, so it is the piece with the most tests.
+The refusal patterns get the most attention here. Five refusal phrasings have a case each,
+three of them shortened from answers the model gave in the archived run: the matcher that
+replaced the list of phrases is the piece that was rewritten, so it is the piece with the most
+tests.
 """
 
 import pytest
@@ -86,8 +87,9 @@ def test_summarize_averages_positive_cases_only() -> None:
     ],
 )
 def test_is_refusal_matches_the_noun_used_by_the_model(answer: str) -> None:
-    # The model reuses the noun from the question, so matching on "événement" alone
-    # missed every real refusal and scored the five negative cases as failures.
+    # The model reuses the noun from the question, so the old list of phrases, such as
+    # "aucun événement", missed every real refusal and scored the five negative cases as
+    # failures.
     assert is_refusal(answer) is True
 
 

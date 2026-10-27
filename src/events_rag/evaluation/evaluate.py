@@ -1,9 +1,10 @@
-"""Deterministic retrieval scoring: no judge, no second model, no API call to grade.
+"""Scoring of the generated answers with fixed rules, and no judge model.
 
-Each question records the `uid` of the event it was written from, so recall and MRR are
-computed against a hard label. The refusal patterns are the other half: a question about an
-event that does not exist is answered correctly by refusing, and a match on those patterns
-is what counts as a refusal.
+`run_evaluation` asks every question of the set through the service, which costs one
+embedding call and one generation call per question. Each answer is then scored by keyword
+coverage, by the town of its sources and, on a question about an event that does not exist,
+by the refusal patterns below: such a question is answered correctly by refusing. Recall and
+MRR, the retrieval metrics, are computed in `retrieval.py`.
 """
 
 import json
@@ -83,8 +84,8 @@ def score_answer(
     """The coverage and the label of one answer. No model call, no corpus, no index.
 
     Scoring is separated from asking so that a correction to the scorer can be replayed on
-    answers already given: `scripts/rescore_archive.py` calls this on the 30 answers of the
-    run of 2026-09-02, which no key can produce again.
+    answers already given: `scripts/rescore_archive.py` calls this on the 30 answers kept in
+    `reports/evaluation_2026-09-02.json`, which no key can produce again.
     """
     coverage = keyword_coverage(answer, expected_keywords, case_type)
 
